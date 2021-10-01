@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">JVthèque</string>
+    <string name="search">Search</string>
+    <string name="type_your_game_here">Type your game here</string>
 </resources>
