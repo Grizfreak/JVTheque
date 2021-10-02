@@ -56,17 +56,25 @@ public class Game {
         StringBuilder genres_string= new StringBuilder();
         StringBuilder platforms_string= new StringBuilder();
         StringBuilder stores_string= new StringBuilder();
-        for (Tags tag : tags){
-            tags_string.append(tag.toString());
+        if(tags != null) {
+            for (Tags tag : tags) {
+                tags_string.append(tag.toString());
+            }
         }
-        for (Genres genre : genres){
-            genres_string.append(genre.toString());
+        if(genres != null) {
+            for (Genres genre : genres) {
+                genres_string.append(genre.toString());
+            }
         }
-        for (Platforms plat : platforms){
-            platforms_string.append(plat.toString());
+        if(platforms != null) {
+            for (Platforms plat : platforms) {
+                platforms_string.append(plat.toString());
+            }
         }
-        for (Stores str : stores){
-            stores_string.append(str.toString());
+        if(stores != null){
+            for (Stores str : stores){
+                stores_string.append(str.toString());
+            }
         }
         return "Slug : "+slug+"\n"+
                 "Name : "+name+"\n"+
