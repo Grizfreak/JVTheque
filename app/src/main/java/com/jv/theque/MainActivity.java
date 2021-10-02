@@ -18,16 +18,18 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.google.gson.*;
 
 
 public class MainActivity extends AppCompatActivity {
-    public final String apiKey= "6f8484cb4d6146fea90f7bd967dd96aa";
+    public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
     RecyclerView rV;
     Button validatebtn;
     EditText searchedtext;
     List<Game> datalist;
     GameAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +40,14 @@ public class MainActivity extends AppCompatActivity {
         searchedtext = findViewById(R.id.search);
 
         validatebtn.setOnClickListener(v -> {
-            new SyncOperation().execute("");
-            updateRecycler(datalist);
+                    new SyncOperation().execute("");
+                    updateRecycler(datalist);
                 }
         );
 
 
-
     }
+
     @SuppressLint("StaticFieldLeak")
     private class SyncOperation extends AsyncTask<String, Void, String> {
 
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 List<Game> list = new ArrayList<>();
                 if (jsonArray != null) {
                     int len = jsonArray.size();
-                    for (int i=0;i<len;i++){
+                    for (int i = 0; i < len; i++) {
                         //System.out.println(jsonArray.get(i));
                         /*list.add(gson.fromJson(jsonArray.get(i), Game.class));*/
                         list.add(gson.fromJson(jsonArray.get(i), Game.class));
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 datalist = list;
 
                 // FIN
-                for(Game x : list){
+                for (Game x : list) {
                     System.out.println(x.toString());
                 }
 
