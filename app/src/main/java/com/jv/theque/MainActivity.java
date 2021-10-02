@@ -1,6 +1,7 @@
 package com.jv.theque;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
@@ -25,16 +26,25 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView rV;
     Button validatebtn;
     EditText searchedtext;
+    List<Game> datalist;
+    GameAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        datalist = new ArrayList<Game>();
         rV = findViewById(R.id.RecyclerView);
         validatebtn = findViewById(R.id.validate);
         searchedtext = findViewById(R.id.search);
 
-        validatebtn.setOnClickListener(v -> new SyncOperation().execute(""));
-        
+        validatebtn.setOnClickListener(v -> {
+            new SyncOperation().execute("");
+            updateRecycler(datalist);
+                }
+        );
+
+
+
     }
     @SuppressLint("StaticFieldLeak")
     private class SyncOperation extends AsyncTask<String, Void, String> {
@@ -65,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
                         list.add(gson.fromJson(jsonArray.get(i), Game.class));
                     }
                 }
+                //Initialisation des valeurs de la liste de données
+                datalist = list;
+
+                // FIN
                 for(Game x : list){
                     System.out.println(x.toString());
                 }
@@ -75,5 +89,11 @@ public class MainActivity extends AppCompatActivity {
             }
             return "yes";
         }
+    }
+
+    private void updateRecycler(List<Game> datalist) {
+        adapter = new GameAdapter(datalist);
+        rV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        rV.setAdapter(adapter);
     }
 }
