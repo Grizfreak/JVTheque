@@ -57,9 +57,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         GameViewHolder(View itemView) {
             super(itemView);
 
-            gamePicture = (ImageView) itemView.findViewById(R.id.image);
-            gameName = (TextView) itemView.findViewById(R.id.name);
-            gamePlat = (TextView) itemView.findViewById(R.id.platform);
+            gamePicture = (ImageView) itemView.findViewById(R.id.image2);
+            gameName = (TextView) itemView.findViewById(R.id.name2);
+            gamePlat = (TextView) itemView.findViewById(R.id.platform2);
 
         }
 
@@ -94,6 +94,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             }
 
             protected void onPostExecute(Bitmap result) {
+                if(result == null){
+                    return;
+                }
                 bmImage.setImageBitmap(result);
             }
         }

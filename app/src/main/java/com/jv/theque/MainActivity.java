@@ -1,12 +1,14 @@
 package com.jv.theque;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             //Url de la requête
             String uri = "https://api.rawg.io/api/games?key=" + apiKey + "&search=" + searchedtext.getText().toString().replaceAll(" ", "+");
-            System.out.println(uri);
+            Log.i("uri",uri);
             try {
                 //On tente une connexion sur la requête
                 URLConnection request = new URL(uri).openConnection();
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // FIN
                 for (Game x : list) {
-                    System.out.println(x.toString());
+                    Log.i("Game", x.toString());
                 }
 
 
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateRecycler(List<Game> datalist) {
         adapter = new GameAdapter(datalist);
-        rV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        rV.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         rV.setAdapter(adapter);
     }
 }
