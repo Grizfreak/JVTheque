@@ -13,13 +13,15 @@
         <ImageView
             android:id="@+id/image2"
             android:layout_width="150dp"
-            android:layout_height="110dp"
+            android:layout_height="150dp"
             android:contentDescription="TODO"
 
             app:layout_column="0"
             app:layout_row="0"
             app:srcCompat="?attr/selectableItemBackground"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@drawable/loading"
+
+            />
 
         <TextView
             android:id="@+id/platform2"
