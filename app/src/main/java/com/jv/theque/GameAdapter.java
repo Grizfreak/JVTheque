@@ -10,7 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder> {
@@ -54,10 +59,16 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         void display(Game game) {
             if(game.backgroundImageLink != null){
 
+                if(new File(App.getAppContext().getCacheDir(),game.slug+".png").exists()){
+                    File gamePicFile = new File(App.getAppContext().getCacheDir(), game.slug+".png");
+                    Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
+                    gamePicture.setImageBitmap(bitmap);
+                }else{
 
-            new DownloadImageTask(gamePicture)
-                    .execute(game.backgroundImageLink);
-            }
+                    new DownloadImageTask(gamePicture, game.slug)
+                            .execute(game.backgroundImageLink);
+                }
+                }
 
             gameName.setText(game.name);
             if (game.platforms != null) {
@@ -67,9 +78,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
 
         private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             ImageView bmImage;
+            String gameSlug;
 
-            public DownloadImageTask(ImageView bmImage){
-                this.bmImage = bmImage;
+            public DownloadImageTask(ImageView bmImage, String gameSlug){
+                this.bmImage = bmImage; this.gameSlug = gameSlug;
             }
 
          public  Bitmap doInBackground(String... urls) {
@@ -78,6 +90,16 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
                 try {
                     InputStream in = new java.net.URL(urldisplay).openStream();
                     mIcon11 = BitmapFactory.decodeStream(in);
+                    File file = new File(App.getAppContext().getCacheDir(), gameSlug+".png");
+                    file.createNewFile();
+                    FileOutputStream filO = new FileOutputStream(file);
+                    OutputStream os = new BufferedOutputStream(filO);
+                    mIcon11.compress(Bitmap.CompressFormat.PNG, 100, os);
+                    os.close();
+                    filO.close();
+
+                    Log.println(Log.DEBUG, "ChargementImage", "Image pour le slug "+gameSlug+" chargée dans le fichier "+file.getPath());
+
                     bmImage.setImageBitmap(mIcon11);
 
                 } catch (Exception e) {
