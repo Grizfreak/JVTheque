@@ -19,10 +19,10 @@ import java.io.OutputStream;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder> {
-    List<Game> gameList;
+    List<RAWG_Game> RAWGGameList;
 
-    GameAdapter(List<Game> gameList) {
-        this.gameList = gameList;
+    GameAdapter(List<RAWG_Game> RAWGGameList) {
+        this.RAWGGameList = RAWGGameList;
     }
 
     @Override
@@ -34,12 +34,12 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
 
     @Override
     public void onBindViewHolder(GameViewHolder holder, int position) {
-        holder.display(gameList.get(position));
+        holder.display(RAWGGameList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return gameList.size();
+        return RAWGGameList.size();
     }
 
     class GameViewHolder extends RecyclerView.ViewHolder {
@@ -56,23 +56,23 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
 
         }
 
-        void display(Game game) {
-            if(game.backgroundImageLink != null){
+        void display(RAWG_Game RAWGGame) {
+            if(RAWGGame.backgroundImageLink != null){
 
-                if(new File(App.getAppContext().getCacheDir(),game.slug+".png").exists()){
-                    File gamePicFile = new File(App.getAppContext().getCacheDir(), game.slug+".png");
+                if(new File(App.getAppContext().getCacheDir(), RAWGGame.slug+".png").exists()){
+                    File gamePicFile = new File(App.getAppContext().getCacheDir(), RAWGGame.slug+".png");
                     Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
                     gamePicture.setImageBitmap(bitmap);
                 }else{
 
-                    new DownloadImageTask(gamePicture, game.slug)
-                            .execute(game.backgroundImageLink);
+                    new DownloadImageTask(gamePicture, RAWGGame.slug)
+                            .execute(RAWGGame.backgroundImageLink);
                 }
                 }
 
-            gameName.setText(game.name);
-            if (game.platforms != null) {
-                gamePlat.setText(game.platforms[0].platform.name);
+            gameName.setText(RAWGGame.name);
+            if (RAWGGame.platforms != null) {
+                gamePlat.setText(RAWGGame.platforms[0].platform.name);
             }
         }
 

@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class Game {
+public class RAWG_Game {
 
     @SerializedName("slug")
     @Expose
