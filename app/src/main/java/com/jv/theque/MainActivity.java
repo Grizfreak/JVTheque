@@ -2,16 +2,12 @@ package com.jv.theque;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -31,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView rV;
     Button validatebtn;
     EditText searchedtext;
-    List<Game> datalist;
+    List<RAWG_Game> datalist;
     GameAdapter adapter;
 
 
@@ -39,12 +35,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        datalist = new ArrayList<Game>();
+        //Instanciation d'une liste contenant les jeux d'une recherche
+        datalist = new ArrayList<RAWG_Game>();
+        // Attribution des objets xml à leurs équivalents dans la classe Java
         rV = findViewById(R.id.RecyclerView);
         validatebtn = findViewById(R.id.validate);
         searchedtext = findViewById(R.id.search);
-
+        //Création d'un évènement sur le bouton "Rechercher"
         validatebtn.setOnClickListener(v -> {
+            //Création d'une opération asynchrone pour permettre l'usage des connexions internet
                     new SyncOperation().execute("");
                     updateRecycler(datalist);
                 }
@@ -73,20 +72,20 @@ public class MainActivity extends AppCompatActivity {
                 JsonObject rootObj = root.getAsJsonObject(); //May be an array, may be an object.
                 JsonArray jsonArray = rootObj.get("results").getAsJsonArray();
                 Gson gson = new GsonBuilder().serializeNulls().create();
-                List<Game> list = new ArrayList<>();
+                List<RAWG_Game> list = new ArrayList<>();
                 if (jsonArray != null) {
                     int len = jsonArray.size();
                     for (int i = 0; i < len; i++) {
                         //System.out.println(jsonArray.get(i));
                         /*list.add(gson.fromJson(jsonArray.get(i), Game.class));*/
-                        list.add(gson.fromJson(jsonArray.get(i), Game.class));
+                        list.add(gson.fromJson(jsonArray.get(i), RAWG_Game.class));
                     }
                 }
                 //Initialisation des valeurs de la liste de données
                 datalist = list;
 
                 // FIN
-                for (Game x : list) {
+                for (RAWG_Game x : list) {
                     Log.i("Game", x.toString());
                 }
 
@@ -98,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void updateRecycler(List<Game> datalist) {
+    private void updateRecycler(List<RAWG_Game> datalist) {
         adapter = new GameAdapter(datalist);
         rV.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         rV.setAdapter(adapter);
