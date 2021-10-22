@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.BufferedOutputStream;
@@ -57,18 +58,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         }
 
         void display(Game game) {
-            if(game.backgroundImageLink != null){
+            if (game.backgroundImageLink != null) {
 
-                if(new File(App.getAppContext().getCacheDir(),game.slug+".png").exists()){
-                    File gamePicFile = new File(App.getAppContext().getCacheDir(), game.slug+".png");
+                if (new File(App.getAppContext().getCacheDir(), game.slug + ".png").exists()) {
+                    File gamePicFile = new File(App.getAppContext().getCacheDir(), game.slug + ".png");
                     Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
                     gamePicture.setImageBitmap(bitmap);
-                }else{
+                } else {
 
                     new DownloadImageTask(gamePicture, game.slug)
-                            .execute(game.backgroundImageLink);
+                            .execute(game.backgroundImageLink.replace("https://media.rawg.io/media/games/", "https://api.rawg.io/media/resize/420/-/games/"));
+//                    Log.i("INFO", game.backgroundImageLink);
                 }
-                }
+            }
 
             gameName.setText(game.name);
             if (game.platforms != null) {
@@ -80,17 +82,18 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             ImageView bmImage;
             String gameSlug;
 
-            public DownloadImageTask(ImageView bmImage, String gameSlug){
-                this.bmImage = bmImage; this.gameSlug = gameSlug;
+            public DownloadImageTask(ImageView bmImage, String gameSlug) {
+                this.bmImage = bmImage;
+                this.gameSlug = gameSlug;
             }
 
-         public  Bitmap doInBackground(String... urls) {
+            public Bitmap doInBackground(String... urls) {
                 String urldisplay = urls[0];
                 Bitmap mIcon11 = null;
                 try {
                     InputStream in = new java.net.URL(urldisplay).openStream();
                     mIcon11 = BitmapFactory.decodeStream(in);
-                    File file = new File(App.getAppContext().getCacheDir(), gameSlug+".png");
+                    File file = new File(App.getAppContext().getCacheDir(), gameSlug + ".png");
                     file.createNewFile();
                     FileOutputStream filO = new FileOutputStream(file);
                     OutputStream os = new BufferedOutputStream(filO);
@@ -98,21 +101,21 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
                     os.close();
                     filO.close();
 
-                    Log.println(Log.DEBUG, "ChargementImage", "Image pour le slug "+gameSlug+" chargée dans le fichier "+file.getPath());
+                    Log.println(Log.DEBUG, "ChargementImage", "Image pour le slug " + gameSlug + " chargée dans le fichier " + file.getPath());
 
                     bmImage.setImageBitmap(mIcon11);
 
                 } catch (Exception e) {
-                    Log.e("Error", " " +e);
+                    Log.e("Error", " " + e);
                     //e.printStackTrace();
                 }
 
-             return mIcon11;
+                return mIcon11;
             }
 
             protected void onPostExecute(Bitmap result) {
                 bmImage.setImageBitmap(result);
-                Log.println(Log.INFO,"Image", "one image posted");
+                Log.println(Log.INFO, "Image", "one image posted");
             }
 
         }
