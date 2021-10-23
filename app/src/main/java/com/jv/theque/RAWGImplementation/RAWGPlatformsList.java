@@ -1,22 +1,21 @@
-package com.jv.theque;
+package com.jv.theque.RAWGImplementation;
 
 import androidx.annotation.NonNull;
 
-import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Stores {
+public class RAWGPlatformsList {
 
-    @SerializedName("store")
+    @SerializedName("platform")
     @Expose
-    public Store store ;
+    public RAWGPlatform RAWGPlatform;
 
 
 
     @NonNull
     @Override
     public String toString() {
-        return store.toString();
+        return RAWGPlatform.toString();
     }
 }
