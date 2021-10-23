@@ -1,11 +1,11 @@
-package com.jv.theque;
+package com.jv.theque.RAWGImplementation;
 
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Platform {
+public class RAWGStore {
 
     @SerializedName("id")
     @Expose

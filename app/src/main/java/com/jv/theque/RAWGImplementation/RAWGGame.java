@@ -1,13 +1,14 @@
-package com.jv.theque;
+package com.jv.theque.RAWGImplementation;
 
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.jv.theque.Game;
 
 import java.util.Date;
 
-public class RAWG_Game {
+public class RAWGGame {
 
     @SerializedName("slug")
     @Expose
@@ -35,19 +36,19 @@ public class RAWG_Game {
 
     @SerializedName("tags")
     @Expose
-    public Tags[] tags;
+    public RAWGTags[] tags;
 
     @SerializedName("genres")
     @Expose
-    public Genres[] genres;
+    public RAWGGenres[] genres;
 
     @SerializedName("platforms")
     @Expose
-    public Platforms[] platforms;
+    public RAWGPlatformsList[] platforms;
 
     @SerializedName("stores")
     @Expose
-    public Stores[] stores;
+    public RAWGStoresList[] stores;
 
     @NonNull
     @Override
@@ -57,22 +58,22 @@ public class RAWG_Game {
         StringBuilder platforms_string= new StringBuilder();
         StringBuilder stores_string= new StringBuilder();
         if(tags != null) {
-            for (Tags tag : tags) {
+            for (RAWGTags tag : tags) {
                 tags_string.append(tag.toString());
             }
         }
         if(genres != null) {
-            for (Genres genre : genres) {
+            for (RAWGGenres genre : genres) {
                 genres_string.append(genre.toString());
             }
         }
         if(platforms != null) {
-            for (Platforms plat : platforms) {
+            for (RAWGPlatformsList plat : platforms) {
                 platforms_string.append(plat.toString());
             }
         }
         if(stores != null){
-            for (Stores str : stores){
+            for (RAWGStoresList str : stores){
                 stores_string.append(str.toString());
             }
         }
@@ -88,3 +89,4 @@ public class RAWG_Game {
                 "Stores : "+stores_string+"\n";
     }
 }
+

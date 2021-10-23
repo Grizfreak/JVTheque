@@ -8,7 +8,7 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:layout_width="match_parent"
-        android:layout_height="262dp">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/image2"
@@ -26,18 +26,19 @@
         <TextView
             android:id="@+id/platform2"
             android:layout_width="150dp"
-            android:textAlignment="center"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:text="Platform"
+            android:textAlignment="center"
             app:layout_column="0"
             app:layout_row="2" />
 
         <TextView
             android:id="@+id/name2"
             android:layout_width="150dp"
-            android:textAlignment="center"
             android:layout_height="wrap_content"
             android:text="Game name"
+            android:textAlignment="center"
             app:layout_column="0"
             app:layout_row="1" />
     </androidx.gridlayout.widget.GridLayout>
