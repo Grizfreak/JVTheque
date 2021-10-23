@@ -27,7 +27,7 @@ public class Game {
         this.name = game.name;
         this.release_date = game.releaseDate;
         this.tags = new HashMap<String, List<Tag>>();
-        tags = this.setupTags(game);
+        //tags = this.setupTags(game);
         this.backgroundImageLink = game.backgroundImageLink;
 
     }
