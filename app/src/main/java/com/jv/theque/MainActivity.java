@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView rV;
     Button validatebtn;
     EditText searchedtext;
-    List<RAWGGame> datalist;
+    List<Game> datalist;
     GameAdapter adapter;
 
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Instanciation d'une liste contenant les jeux d'une recherche
-        datalist = new ArrayList<RAWGGame>();
+        datalist = new ArrayList<Game>();
         // Attribution des objets xml à leurs équivalents dans la classe Java
         rV = findViewById(R.id.RecyclerView);
         validatebtn = findViewById(R.id.validate);
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 //On récupère les données de la page en JSON
                 InputStreamReader inputStreamReader = new InputStreamReader((InputStream) request.getContent());
                 // Convert to a JSON object to print data
+                datalist = new ArrayList<Game>();
                 JsonParser jp = new JsonParser(); //from gson
                 JsonElement root = jp.parse(inputStreamReader); //Convert the input stream to a json element
                 JsonObject rootObj = root.getAsJsonObject(); //May be an array, may be an object.
@@ -78,16 +79,16 @@ public class MainActivity extends AppCompatActivity {
                     int len = jsonArray.size();
                     for (int i = 0; i < len; i++) {
                         //System.out.println(jsonArray.get(i));
-                        /*list.add(gson.fromJson(jsonArray.get(i), Game.class));*/
                         list.add(gson.fromJson(jsonArray.get(i), RAWGGame.class));
                     }
                 }
-                //Initialisation des valeurs de la liste de données
-                datalist = list;
+
 
                 // FIN
                 for (RAWGGame x : list) {
                     Log.i("Game", x.toString());
+                    //Initialisation des valeurs de la liste de données
+                    datalist.add(new Game(x));
                 }
 
 
@@ -98,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void updateRecycler(List<RAWGGame> datalist) {
-        //adapter = new GameAdapter(datalist);
+    private void updateRecycler(List<Game> datalist) {
+        adapter = new GameAdapter(datalist);
         rV.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         rV.setAdapter(adapter);
     }
