@@ -2,4 +2,10 @@
     <string name="app_name">JVthèque</string>
     <string name="search">Search</string>
     <string name="type_your_game_here">Type your RAWGGame here</string>
+
+    <!-- BOTTOM NAVIGATION VIEW -->
+    <string name="bottom_navigation_menu_home">Home</string>
+    <string name="bottom_navigation_menu_search">Search</string>
+    <string name="bottom_navigation_menu_favorites">Favorites</string>
+    <string name="bottom_navigation_menu_settings">Settings</string>
 </resources>
