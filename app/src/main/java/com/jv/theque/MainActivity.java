@@ -5,9 +5,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -18,6 +21,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import com.google.gson.*;
 import com.jv.theque.RAWGImplementation.RAWGGame;
@@ -35,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Cache la barre d'état (en haut)
+        if (getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
+
         setContentView(R.layout.activity_main);
         //Instanciation d'une liste contenant les jeux d'une recherche
         datalist = new ArrayList<Game>();
@@ -45,8 +55,20 @@ public class MainActivity extends AppCompatActivity {
         //Création d'un évènement sur le bouton "Rechercher"
         validatebtn.setOnClickListener(v -> {
             //Création d'une opération asynchrone pour permettre l'usage des connexions internet
-                    new SyncOperation().execute("");
-                    updateRecycler(datalist);
+
+
+            // Le get() permet ici d'attendre que l'opération soit terminée pour passer à la suite
+            // TODO : Faire ça plus proprement parce que actuellement ça freeze toute la page
+            try {
+                new SyncOperation().execute("").get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            hideSoftKeyboard(rV);
+            updateRecycler(datalist);
                 }
         );
 
@@ -54,10 +76,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class SyncOperation extends AsyncTask<String, Void, String> {
+    private class SyncOperation extends AsyncTask<String, Void, Boolean> {
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected Boolean doInBackground(String... strings) {
             //Url de la requête
             String uri = "https://api.rawg.io/api/games?key=" + apiKey + "&search=" + searchedtext.getText().toString().replaceAll(" ", "+");
             Log.i("uri",uri);
@@ -95,13 +117,26 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return "yes";
+            Log.i("TIME"," ------ ASYNC FINIE ------ ");
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            Log.i("TIME"," ------ ASYNC VRAIMENT FINIE ------ ");
         }
     }
 
     private void updateRecycler(List<Game> datalist) {
+        Log.i("TIME"," ------ UPDATE FINIE ------ ");
         adapter = new GameAdapter(datalist);
         rV.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         rV.setAdapter(adapter);
+    }
+
+    public void hideSoftKeyboard(View view){
+        InputMethodManager imm =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
