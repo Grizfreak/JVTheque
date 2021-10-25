@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Cache la barre d'état (en haut)
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
@@ -76,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @SuppressLint("StaticFieldLeak")
     private class SyncOperation extends AsyncTask<String, Void, Boolean> {
 
         @Override
