@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JVthèque"
         android:name=".App"
+        android:screenOrientation="portrait"
     >
 
         <activity

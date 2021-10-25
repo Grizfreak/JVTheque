@@ -23,13 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.*;
 import com.jv.theque.RAWGImplementation.RAWGGame;
 
 
 public class MainActivity extends AppCompatActivity {
     public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
-    RecyclerView rV;
+    RecyclerView recyclerView;
     Button validatebtn;
     EditText searchedtext;
     List<Game> datalist;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         //Instanciation d'une liste contenant les jeux d'une recherche
         datalist = new ArrayList<Game>();
         // Attribution des objets xml à leurs équivalents dans la classe Java
-        rV = findViewById(R.id.RecyclerView);
+        recyclerView = findViewById(R.id.RecyclerView);
         validatebtn = findViewById(R.id.validate);
         searchedtext = findViewById(R.id.search);
         //Création d'un évènement sur le bouton "Rechercher"
@@ -67,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            hideSoftKeyboard(rV);
+            hideSoftKeyboard(recyclerView);
             updateRecycler(datalist);
                 }
         );
-
+        configureBottomView();
 
     }
 
@@ -113,30 +114,51 @@ public class MainActivity extends AppCompatActivity {
                     datalist.add(new Game(x));
                 }
 
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Log.i("TIME"," ------ ASYNC FINIE ------ ");
             return true;
         }
 
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            Log.i("TIME"," ------ ASYNC VRAIMENT FINIE ------ ");
-        }
     }
 
+    // Permet de mettre à jour la recyclerView avec les données des jeux récupérées via l'API
     private void updateRecycler(List<Game> datalist) {
-        Log.i("TIME"," ------ UPDATE FINIE ------ ");
         adapter = new GameAdapter(datalist);
-        rV.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
-        rV.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        recyclerView.setAdapter(adapter);
     }
 
+    // Permet de "Ranger" le clavier virtuel et de le cacher lorsequ'il est visible à l'écran
     public void hideSoftKeyboard(View view){
         InputMethodManager imm =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    // Ajoute un listener sur la barre de navigation (en bas)
+    private void configureBottomView(){
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> updateMainFragment(item.getItemId()));
+    }
+
+
+    // TODO : Remplacer les Log par des vraies actions lors d'un changement de page
+    private Boolean updateMainFragment(Integer integer){
+        switch (integer) {
+            case R.id.action_home:
+                Log.i("menuaction","HOME");
+                break;
+            case R.id.action_search:
+                Log.i("menuaction","SEARCH");
+                break;
+            case R.id.action_favorites:
+                Log.i("menuaction","FAVORITES");
+                break;
+            case R.id.action_settings:
+                Log.i("menuaction","SETTINGS");
+                break;
+        }
+        return true;
+    }
+
 }
