@@ -8,4 +8,7 @@
     <string name="bottom_navigation_menu_search">Recherche</string>
     <string name="bottom_navigation_menu_favorites">Favoris</string>
     <string name="bottom_navigation_menu_settings">Paramètres</string>
+    <string name="game_name">Game name</string>
+    <string name="todo">TODO</string>
+    <string name="platform">Platform</string>
 </resources>
