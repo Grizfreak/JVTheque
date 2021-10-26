@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // TODO : Remplacer les Log par des vraies actions lors d'un changement de page
+    // TODO : Remplacer les Log par des vraies actions lors d'un changement de page (utiliser les fragment)
     private Boolean updateMainFragment(Integer integer){
         switch (integer) {
             case R.id.action_home:
@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.action_settings:
                 Log.i("menuaction","SETTINGS");
+                setContentView(R.layout.fragment);
                 break;
         }
         return true;
