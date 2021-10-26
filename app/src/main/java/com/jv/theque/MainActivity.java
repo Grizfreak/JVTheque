@@ -1,6 +1,7 @@
 package com.jv.theque;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -123,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
     // Permet de mettre à jour la recyclerView avec les données des jeux récupérées via l'API
     private void updateRecycler(List<Game> datalist) {
         adapter = new GameAdapter(datalist);
-        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
     private void configureBottomView(){
         BottomNavigationView bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> updateMainFragment(item.getItemId()));
+
     }
 
 
