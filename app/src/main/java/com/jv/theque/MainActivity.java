@@ -136,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Permet de mettre à jour la recyclerView avec les données des jeux récupérées via l'API
     private void updateRecycler(List<Game> datalist) {
-        // TODO : Centrer le nom et la plate-forme du jeu avec l'image dans le xml
         adapter = new GameAdapter(datalist);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
         recyclerView.setLayoutManager(layoutManager);
