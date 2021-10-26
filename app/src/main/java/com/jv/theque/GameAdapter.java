@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder> {
@@ -73,9 +74,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             }
 
             gameName.setText(game.getName());
-            if (game.getTags() != null) {
+            if (game.getTags().get("platform") != null) {
                 //TODO with map
-                //gamePlat.setText(game.getTags().platform.name);
+                List<Tag> tempo = game.getTags().get("platform");
+                Log.e("liste",String.valueOf(tempo.isEmpty()));
+                if(!tempo.isEmpty()){
+                    gamePlat.setText(tempo.get(0).getName());
+                }
             }
         }
 

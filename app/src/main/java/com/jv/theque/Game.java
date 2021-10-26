@@ -27,14 +27,13 @@ public class Game {
         this.name = game.name;
         this.release_date = game.releaseDate;
         this.tags = new HashMap<String, List<Tag>>();
-        //tags = this.setupTags(game);
+        tags = this.setupTags(game);
         this.backgroundImageLink = game.backgroundImageLink;
 
     }
 
     private Map<String, List<Tag>> setupTags(RAWGGame game) {
         Map tagMap = new HashMap<String, List<Tag>>();
-        ArrayList<Tag> tags = new ArrayList<Tag>();
 
         //TODO Tags / Genres / Platform / Stores
         tagMap.put("tag",new ArrayList<Tag>());
@@ -43,20 +42,33 @@ public class Game {
         tagMap.put("store",new ArrayList<Tag>());
 
         //Récupération des tags du jeu
-        for (RAWGTags tag : game.tags) {
-            Tag tag1 = new Tag();
+        if(game.tags != null){
+            for (RAWGTags tag : game.tags) {
+                Tag tag1 = new Tag(tag.name,this);
+                ((ArrayList) tagMap.get("tag")).add(tag1);
+            }
         }
+
         //Récupération des genres
-
-        for (RAWGGenres tag : game.genres) {
-
+        if(game.genres != null){
+            for (RAWGGenres tag : game.genres) {
+                Tag tag1 = new Tag(tag.name,this);
+                ((ArrayList) tagMap.get("genre")).add(tag1);
+            }
         }
         //Récupération des plateformes
-        for (RAWGPlatformsList tag : game.platforms) {
-
+        if(game.platforms != null){
+            for (RAWGPlatformsList tag : game.platforms) {
+                Tag tag1 = new Tag(tag.RAWGPlatform.name,this);
+                ((ArrayList) tagMap.get("platform")).add(tag1);
+            }
         }
         //Récupération des magasins
-        for (RAWGStoresList tag : game.stores) {
+        if(game.stores != null){
+            for (RAWGStoresList tag : game.stores) {
+                Tag tag1 = new Tag(tag.RAWGStore.name,this);
+                ((ArrayList) tagMap.get("store")).add(tag1);
+            }
 
         }
         return tagMap;
