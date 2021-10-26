@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="30dp"
+    android:paddingRight="30dp"
     android:orientation="vertical">
 
     <ImageView
@@ -14,7 +16,14 @@
 
         app:srcCompat="?attr/selectableItemBackground"
 
-        tools:srcCompat="@drawable/loading" />
+        tools:srcCompat="?android:attr/alertDialogIcon" />
+
+    <TextView
+        android:id="@+id/name2"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/game_name"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/platform2"
@@ -22,13 +31,6 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="@string/platform"
-        android:textAlignment="center" />
-
-    <TextView
-        android:id="@+id/name2"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="@string/game_name"
         android:textAlignment="center" />
 
 </LinearLayout>
