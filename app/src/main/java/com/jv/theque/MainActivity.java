@@ -10,10 +10,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,11 +51,12 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         //Instanciation d'une liste contenant les jeux d'une recherche
-        datalist = new ArrayList<Game>();
+        datalist = new ArrayList<>();
         // Attribution des objets xml à leurs équivalents dans la classe Java
         recyclerView = findViewById(R.id.RecyclerView);
         validatebtn = findViewById(R.id.validate);
         searchedtext = findViewById(R.id.search);
+        //Activation clavier
         //Création d'un évènement sur le bouton "Rechercher"
         validatebtn.setOnClickListener(v -> {
             //Création d'une opération asynchrone pour permettre l'usage des connexions internet
@@ -62,9 +66,7 @@ public class MainActivity extends AppCompatActivity {
             // TODO : Faire ça plus proprement parce que actuellement ça freeze toute la page
             try {
                 new SyncOperation().execute("").get();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
 
@@ -72,6 +74,17 @@ public class MainActivity extends AppCompatActivity {
             updateRecycler(datalist);
                 }
         );
+        searchedtext.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                Log.i("nique","pressed"+i);
+                if(i == EditorInfo.IME_ACTION_DONE){
+                    validatebtn.callOnClick();
+                }
+                return false;
+            }
+        });
         configureBottomView();
 
     }
@@ -90,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 //On récupère les données de la page en JSON
                 InputStreamReader inputStreamReader = new InputStreamReader((InputStream) request.getContent());
                 // Convert to a JSON object to print data
-                datalist = new ArrayList<Game>();
+                datalist = new ArrayList<>();
                 JsonParser jp = new JsonParser(); //from gson
                 JsonElement root = jp.parse(inputStreamReader); //Convert the input stream to a json element
                 JsonObject rootObj = root.getAsJsonObject(); //May be an array, may be an object.
