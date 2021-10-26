@@ -57,6 +57,8 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:background="@drawable/gradient_color"
+        app:itemTextColor="@color/menu_bar_colors"
+        app:itemIconTint="@color/menu_bar_colors"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
