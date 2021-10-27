@@ -1,13 +1,10 @@
 package com.jv.theque;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -18,18 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.*;
-import com.jv.theque.RAWGImplementation.RAWGGame;
+import com.jv.theque.RAWGImplementation.RAWGSearchOperation;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -65,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
             // Le get() permet ici d'attendre que l'opération soit terminée pour passer à la suite
             // TODO : Faire ça plus proprement parce que actuellement ça freeze toute la page
             try {
-                new SyncOperation().execute("").get();
+                datalist = new RAWGSearchOperation(apiKey,searchedtext.getText().toString().replaceAll(" ", "+"),datalist).execute("").get();
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
 
             hideSoftKeyboard(recyclerView);
             updateRecycler(datalist);
-                }
+        }
         );
         searchedtext.setOnEditorActionListener(new TextView.OnEditorActionListener(){
 
@@ -89,50 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private class SyncOperation extends AsyncTask<String, Void, Boolean> {
 
-        @Override
-        protected Boolean doInBackground(String... strings) {
-            //Url de la requête
-            String uri = "https://api.rawg.io/api/games?key=" + apiKey + "&search=" + searchedtext.getText().toString().replaceAll(" ", "+");
-            Log.i("uri",uri);
-            try {
-                //On tente une connexion sur la requête
-                URLConnection request = new URL(uri).openConnection();
-                request.connect();
-                //On récupère les données de la page en JSON
-                InputStreamReader inputStreamReader = new InputStreamReader((InputStream) request.getContent());
-                // Convert to a JSON object to print data
-                datalist = new ArrayList<>();
-                JsonParser jp = new JsonParser(); //from gson
-                JsonElement root = jp.parse(inputStreamReader); //Convert the input stream to a json element
-                JsonObject rootObj = root.getAsJsonObject(); //May be an array, may be an object.
-                JsonArray jsonArray = rootObj.get("results").getAsJsonArray();
-                Gson gson = new GsonBuilder().serializeNulls().create();
-                List<RAWGGame> list = new ArrayList<>();
-                if (jsonArray != null) {
-                    int len = jsonArray.size();
-                    for (int i = 0; i < len; i++) {
-                        //System.out.println(jsonArray.get(i));
-                        list.add(gson.fromJson(jsonArray.get(i), RAWGGame.class));
-                    }
-                }
-
-
-                // FIN
-                for (RAWGGame x : list) {
-                    Log.i("Game", x.toString());
-                    //Initialisation des valeurs de la liste de données
-                    datalist.add(new Game(x));
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return true;
-        }
-
-    }
 
     // Permet de mettre à jour la recyclerView avec les données des jeux récupérées via l'API
     private void updateRecycler(List<Game> datalist) {
@@ -142,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    // Permet de "Ranger" le clavier virtuel et de le cacher lorsequ'il est visible à l'écran
+    // Permet de "Ranger" le clavier virtuel et de le cacher lorsqu'il est visible à l'écran
     public void hideSoftKeyboard(View view){
         InputMethodManager imm =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);

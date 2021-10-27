@@ -25,4 +25,18 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/activity_main_bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@drawable/menu_bar_shape"
+        app:itemTextColor="@color/menu_bar_colors"
+        app:itemIconTint="@color/menu_bar_colors"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
