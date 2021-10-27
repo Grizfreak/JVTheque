@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/PTS3/app/src/main/res/layout/activity_main.xml" value="0.14336372847011145" />
+        <entry key="..\:/Android/PTS3/app/src/main/res/layout/fragment.xml" value="0.2798913043478261" />
+        <entry key="..\:/Android/PTS3/app/src/main/res/layout/game_layout.xml" value="0.14336372847011145" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/gradient_color.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/menu_bar_shape.xml" value="0.2140625" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
