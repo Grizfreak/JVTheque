@@ -44,19 +44,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />
 
-                <Switch
+                <TextView
                     android:id="@+id/nighModeSwitch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="48dp"
-                    android:text="Mode sombre"
+                    android:text="Thème de l'application"
                     android:textSize="20sp" />
 
-                <Button
-                    android:id="@+id/systemColorBtn"
+                <RadioGroup
+                    android:id="@+id/radioGroupTheme"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Couleur du système" />
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonLight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Clair" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonDark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sombre" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonSystem"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Système" />
+                </RadioGroup>
 
             </LinearLayout>
         </ScrollView>

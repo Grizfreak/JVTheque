@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -31,9 +33,8 @@ public class SettingsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private UiModeManager uiModeManager;
-    private Switch nighModeSwitch;
-    private Button systemColorBtn;
+    // Variables
+    private RadioGroup radioGroupTheme;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -71,42 +72,37 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        uiModeManager = (UiModeManager) getContext().getSystemService(Context.UI_MODE_SERVICE);
 
-        nighModeSwitch = view.findViewById(R.id.nighModeSwitch);
-        systemColorBtn = view.findViewById(R.id.systemColorBtn);
+        radioGroupTheme = view.findViewById(R.id.radioGroupTheme);
 
-        // Change le thème de l'application en fonction de la position du switch du mode sombre
-        nighModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                Log.i("NIGHT", "NIGHT MODE ON");
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            } else {
-                Log.i("NIGHT", "NIGHT MODE OFF");
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        // TODO : Définir par défault le choix du thème
+        //  Au premier lancement : Thème 'système' par défaut
+        //  Aux lancements suivants : On définit le thème au démarrage de l'appli suivant le choix enregistré de l'utilisateur (persistance)
+
+        // Ajout d'un listener sur le RadioGroup correspondant au choix du thème de l'app
+        radioGroupTheme.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                // Définit le thème de l'application suivant le RadioButton sélectionné
+                switch (checkedId){
+                    case R.id.radioButtonLight:
+                        Log.i("THEME", "NIGHT MODE OFF");
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        break;
+                    case R.id.radioButtonDark:
+                        Log.i("THEME", "NIGHT MODE ON");
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        break;
+                    case R.id.radioButtonSystem:
+                        Log.i("THEME", "NIGHT MODE SYSTEM");
+                        Toast.makeText(getContext(), "Thème défini en fonction du système", Toast.LENGTH_SHORT).show();
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                        break;
+                }
             }
         });
 
-        // Change le thème de l'application en fonction du thème du système, lors d'un appui long sur le switch du mode sombre
-        nighModeSwitch.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Log.i("NIGHT", "NIGHT MODE SYSTEM");
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                Toast.makeText(getContext(), "Mode défini en fonction du système", Toast.LENGTH_LONG).show();
-                return false;
-            }
-        });
-
-        // Fait tout pareil que juste au-dessus mais en bleu. Non en fait c'est pareil mais en appuyant sur le bouton 'COULEUR DU SYSTEME', je vais sans doute l'enlever à voir
-        systemColorBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("NIGHT", "NIGHT MODE SYSTEM");
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                Toast.makeText(getContext(), "Mode défini en fonction du système", Toast.LENGTH_LONG).show();
-            }
-        });
 
         // Inflate the layout for this fragment
         return view;
