@@ -11,4 +11,6 @@
     <string name="game_name">Game name</string>
     <string name="todo">TODO</string>
     <string name="platform">Platform</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

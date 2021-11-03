@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.MainThread;
+import androidx.annotation.UiThread;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.BufferedOutputStream;
@@ -109,7 +111,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
 
                     Log.println(Log.DEBUG, "ChargementImage", "Image pour le slug " + gameSlug + " chargée dans le fichier " + file.getPath());
 
-                    bmImage.setImageBitmap(mIcon11);
+                    // TODO : Je sais pas si c'est important mais la ligne juste en dessous provoque une erreur ("Only the original thread that created a view hierarchy can touch its views")
+                    //  parce l'instruction s'exécute dans un thread différent du thread UI, donc ca pose problème lors du changement de page avec les fragments
+                    //bmImage.setImageBitmap(mIcon11);
 
                 } catch (Exception e) {
                     Log.e("Error", " " + e);
@@ -123,6 +127,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
                 bmImage.setImageBitmap(result);
                 Log.println(Log.INFO, "Image", "one image posted");
             }
+
 
         }
 
