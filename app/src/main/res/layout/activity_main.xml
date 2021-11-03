@@ -6,55 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/search"
-        android:layout_width="212dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="@string/type_your_game_here"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/validate"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="TextContrastCheck" />
-
-    <Button
-        android:id="@+id/validate"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/design_default_color_secondary"
-        android:text="@string/search"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/search"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/activity_main_bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/validate">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RecyclerView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/activity_main_bottom_navigation"
@@ -70,5 +21,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bar" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="55dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_main_bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
