@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         // Cache la barre d'état (en haut)
         if (getSupportActionBar() != null) {
@@ -41,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation);
+        // Initialise le NavHostFragment, qui va gérer la navigation dans les View avec les Fragment
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
 
         if (navHostFragment != null) {
             NavController navController = navHostFragment.getNavController();
-            // Setup NavigationUI
+            // Initialise la NavigationUI avec la BottomNavigationView
             NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
         }
 
     }

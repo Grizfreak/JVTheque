@@ -14,13 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JVthèque"
         android:name=".App"
-        android:screenOrientation="portrait"
-    >
+        android:screenOrientation="portrait">
 
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
