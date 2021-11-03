@@ -1,6 +1,9 @@
 package com.jv.theque;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -18,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +33,7 @@ import com.jv.theque.RAWGImplementation.RAWGSearchOperation;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        this.context = this;
         setContentView(R.layout.activity_main);
-
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation);
         // Initialise le NavHostFragment, qui va gérer la navigation dans les View avec les Fragment
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
@@ -51,5 +56,10 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupWithNavController(bottomNavigationView, navController);
         }
 
+    }
+
+
+    public static Context getContext(){
+        return context;
     }
 }

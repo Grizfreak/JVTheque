@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.UiThread;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.BufferedOutputStream;
@@ -22,9 +24,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder> {
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder>  {
     List<Game> gameList;
-
     GameAdapter(List<Game> gameList) {
         this.gameList = gameList;
     }
@@ -46,7 +47,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         return gameList.size();
     }
 
-    class GameViewHolder extends RecyclerView.ViewHolder {
+
+    class GameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView gameName;
         private TextView gamePlat;
         private ImageView gamePicture;
@@ -57,8 +59,14 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             gamePicture = (ImageView) itemView.findViewById(R.id.image2);
             gameName = (TextView) itemView.findViewById(R.id.name2);
             gamePlat = (TextView) itemView.findViewById(R.id.platform2);
+            itemView.setOnClickListener(this);
 
         }
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(MainActivity.getContext(),String.valueOf(itemView.getId()), Toast.LENGTH_SHORT);
+        }
+
 
         void display(Game game) {
             if (game.getBackgroundImageLink() != null) {

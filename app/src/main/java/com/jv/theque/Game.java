@@ -1,5 +1,8 @@
 package com.jv.theque;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.jv.theque.RAWGImplementation.RAWGGame;
 import com.jv.theque.RAWGImplementation.RAWGGenres;
 import com.jv.theque.RAWGImplementation.RAWGPlatform;
@@ -7,13 +10,17 @@ import com.jv.theque.RAWGImplementation.RAWGPlatformsList;
 import com.jv.theque.RAWGImplementation.RAWGStoresList;
 import com.jv.theque.RAWGImplementation.RAWGTags;
 
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Game {
+public class Game implements Serializable {
     private String slug;
     private int id;
     private String name;

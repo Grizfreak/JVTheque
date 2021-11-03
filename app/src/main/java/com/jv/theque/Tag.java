@@ -1,9 +1,10 @@
 package com.jv.theque;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tag {
+public class Tag implements Serializable {
     private String name;
     private List<Game> games = new ArrayList<>();
 

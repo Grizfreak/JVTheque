@@ -1,6 +1,7 @@
 package com.jv.theque;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jv.theque.RAWGImplementation.RAWGSearchOperation;
@@ -51,6 +53,8 @@ public class SearchFragment extends Fragment {
     EditText searchedtext;
     List<Game> datalist;
     GameAdapter adapter;
+    private Fragment mFragment;
+    Bundle mBundle;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -92,6 +96,24 @@ public class SearchFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(recyclerView, R.layout.fragment_search)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Log.e("TAG", "Position : "+position);
+                        Toast.makeText(MainActivity.getContext(),datalist.get(position).getName(), Toast.LENGTH_SHORT).show();
+                        //TODO create view
+                        Game game = datalist.get(position);
+                        Intent intent = new Intent(MainActivity.getContext(), MainActivity.class);
+                        intent.putExtra("Game",game);
+                        MainActivity.getContext().startActivity(intent);
+
+                    }
+                });
+    }
+
+
     // Permet de "Ranger" le clavier virtuel et de le cacher lorsqu'il est visible à l'écran
     public void hideSoftKeyboard(View view){
         InputMethodManager imm =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -105,13 +127,16 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
 
+
         //Instanciation d'une liste contenant les jeux d'une recherche
         datalist = new ArrayList<>();
 
         // Attribution des objets xml à leurs équivalents dans la classe Java
+
         recyclerView = view.findViewById(R.id.RecyclerView);
         validatebtn = view.findViewById(R.id.validate);
         searchedtext = view.findViewById(R.id.search);
+        this.configureOnClickRecyclerView();
 
         //Création d'un évènement sur le bouton "Rechercher"
         validatebtn.setOnClickListener(v -> {
@@ -145,5 +170,6 @@ public class SearchFragment extends Fragment {
 
         return view;
     }
+
 
 }

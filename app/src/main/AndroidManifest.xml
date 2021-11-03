@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
 
     <application
+
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:icon="@mipmap/ic_jvtheque"
@@ -13,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JVthèque"
-        android:name=".App"
+        android:name="com.jv.theque.App"
         android:screenOrientation="portrait">
 
         <activity
