@@ -1,5 +1,6 @@
 package com.jv.theque;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -103,11 +104,12 @@ public class SearchFragment extends Fragment {
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Log.e("TAG", "Position : "+position);
                         Toast.makeText(MainActivity.getContext(),datalist.get(position).getName(), Toast.LENGTH_SHORT).show();
-                        //TODO create view
+                        //TODO faire la vue mais en version belle maintenant que ça fonctionne
                         Game game = datalist.get(position);
-                        Intent intent = new Intent(MainActivity.getContext(), MainActivity.class);
+                        Intent intent = new Intent(MainActivity.getContext(), DisplayGameActivity.class);
                         intent.putExtra("Game",game);
                         MainActivity.getContext().startActivity(intent);
+
 
                     }
                 });
