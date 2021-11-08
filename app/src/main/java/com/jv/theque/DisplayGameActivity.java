@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.List;
 
 public class DisplayGameActivity extends AppCompatActivity {
 
@@ -21,7 +22,7 @@ public class DisplayGameActivity extends AppCompatActivity {
     private ImageView gameImage;
     private Game gameDisplayed;
     private Intent intent;
-
+    private Button addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +36,21 @@ public class DisplayGameActivity extends AppCompatActivity {
             }
         });
         intent = getIntent();
+        addButton = findViewById(R.id.addButton);
         title = findViewById(R.id.GameTitle);
         gameImage = findViewById(R.id.GameImage);
         Bundle extras = getIntent().getExtras();
-        /*
-        if (extras != null) {
-           gameDisplayed = (Game)getIntent().getSerializableExtra("Game"); //Obtaining data
-        }
-         */
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
         title.setText(gameDisplayed.getName());
         displayImage(gameDisplayed,gameImage);
+        //TODO modifier pour gérer la suppression d'un jeu
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.UserGameList.add(gameDisplayed);
+                onBackPressed();
+            }
+        });
     }
     void displayImage(Game game, ImageView gamePicture) {
         if (game.getBackgroundImageLink() != null) {
