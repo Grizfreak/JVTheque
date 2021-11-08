@@ -44,7 +44,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
 
     @Override
     public int getItemCount() {
-        return gameList.size();
+        if(gameList != null){
+            return gameList.size();
+        }
+        else return 0;
     }
 
 

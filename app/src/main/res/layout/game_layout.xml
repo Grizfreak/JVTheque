@@ -4,33 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:orientation="vertical">
+    android:paddingRight="15dp">
 
     <ImageView
         android:id="@+id/image2"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="110dp"
-        android:scaleType="centerCrop"
+        android:layout_weight="0.5"
         android:adjustViewBounds="true"
         android:contentDescription="@string/todo"
 
-        app:srcCompat="?attr/selectableItemBackground"
+        android:scaleType="centerCrop"
 
+        app:srcCompat="?attr/selectableItemBackground"
         tools:srcCompat="?android:attr/alertDialogIcon" />
 
     <TextView
         android:id="@+id/name2"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.25"
         android:text="@string/game_name"
         android:textAlignment="center" />
 
     <TextView
         android:id="@+id/platform2"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.5"
         android:padding="10dp"
         android:text="@string/platform"
         android:textAlignment="center" />
