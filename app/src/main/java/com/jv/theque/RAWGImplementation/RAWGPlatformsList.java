@@ -5,7 +5,9 @@ import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RAWGPlatformsList {
+import java.io.Serializable;
+
+public class RAWGPlatformsList implements Serializable {
 
     @SerializedName("platform")
     @Expose

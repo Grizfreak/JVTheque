@@ -47,10 +47,11 @@ public class DisplayGameActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.UserGameList.add(gameDisplayed);
+                MainActivity.UserGameList.addGame(gameDisplayed);
                 onBackPressed();
             }
         });
+
     }
     void displayImage(Game game, ImageView gamePicture) {
         if (game.getBackgroundImageLink() != null) {

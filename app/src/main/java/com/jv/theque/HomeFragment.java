@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         //TODO affichage dans le menu
-        for(Game g : MainActivity.UserGameList) {
+        for(Game g : MainActivity.UserGameList.getUserGameList()) {
             Log.e("game",g.getName());
         }
     }

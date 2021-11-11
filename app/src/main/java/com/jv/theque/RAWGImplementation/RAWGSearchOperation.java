@@ -59,7 +59,7 @@ public class RAWGSearchOperation extends AsyncTask<String, Void, List<Game>> {
 
             // FIN
             for (RAWGGame x : list) {
-                Log.i("Game", x.toString());
+//                Log.i("Game", x.toString());
                 //Initialisation des valeurs de la liste de données
                 datalist.add(new Game(x));
             }

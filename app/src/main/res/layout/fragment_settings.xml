@@ -75,6 +75,18 @@
                         android:text="Système" />
                 </RadioGroup>
 
+                <Button
+                    android:id="@+id/exportList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Exporter Liste" />
+
+                <Button
+                    android:id="@+id/clearList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Clear Liste" />
+
             </LinearLayout>
         </ScrollView>
 

@@ -5,7 +5,9 @@ import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RAWGStoresList {
+import java.io.Serializable;
+
+public class RAWGStoresList implements Serializable {
 
     @SerializedName("store")
     @Expose

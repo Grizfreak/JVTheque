@@ -20,4 +20,10 @@ public class Tag implements Serializable {
     public List<Game> getGames() {
         return games;
     }
+
+    @Override
+    public String toString(){
+
+        return this.name;
+    }
 }

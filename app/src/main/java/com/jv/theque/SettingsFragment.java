@@ -4,18 +4,28 @@ import android.app.UiModeManager;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jv.theque.RAWGImplementation.RAWGSearchOperation;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +45,9 @@ public class SettingsFragment extends Fragment {
 
     // Variables
     private RadioGroup radioGroupTheme;
+
+    private Button exportButton;
+    private Button clearButton;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -65,6 +78,8 @@ public class SettingsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -80,12 +95,10 @@ public class SettingsFragment extends Fragment {
         //  Aux lancements suivants : On définit le thème au démarrage de l'appli suivant le choix enregistré de l'utilisateur (persistance)
 
         // Ajout d'un listener sur le RadioGroup correspondant au choix du thème de l'app
-        radioGroupTheme.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
+        radioGroupTheme.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // Définit le thème de l'application suivant le RadioButton sélectionné
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.radioButtonLight:
                         Log.i("THEME", "NIGHT MODE OFF");
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -100,6 +113,21 @@ public class SettingsFragment extends Fragment {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                         break;
                 }
+            }
+        });
+        exportButton = view.findViewById(R.id.exportList);
+        clearButton = view.findViewById(R.id.clearList);
+
+
+        exportButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                MainActivity.UserGameList.saveToFile();
+            }
+        });
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                MainActivity.UserGameList.clear();
             }
         });
 
