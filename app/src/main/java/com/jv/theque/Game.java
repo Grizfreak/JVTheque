@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Game implements Serializable {
     private String slug;
@@ -150,13 +151,18 @@ public class Game implements Serializable {
 
         return gameObject.toString();
 
-//        return "Game{" +
-//                "slug='" + slug + '\'' +
-//                ", id=" + id +
-//                ", name='" + name + '\'' +
-//                ", release_date=" + release_date +
-//                ", tags=" + tags +
-//                ", backgroundImageLink='" + backgroundImageLink + '\'' +
-//                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return id == game.id && slug.equals(game.slug) && name.equals(game.name) && backgroundImageLink.equals(game.backgroundImageLink);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(slug, id, name, release_date, tags, backgroundImageLink);
     }
 }

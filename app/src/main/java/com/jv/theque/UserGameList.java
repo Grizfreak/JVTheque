@@ -42,8 +42,14 @@ public class UserGameList implements Serializable {
     }
 
     public void addGame(Game newGame) {
+        boolean cancelInsertion = false;
+        for (Game tmpGame : list) {
+            if (newGame.equals(tmpGame)) {
+                cancelInsertion = true;
+            }
+        }
 
-        if (!contains(newGame)) {
+        if (!cancelInsertion) {
             list.add(newGame);
         }
     }
