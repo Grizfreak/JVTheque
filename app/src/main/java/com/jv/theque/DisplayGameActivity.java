@@ -10,19 +10,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class DisplayGameActivity extends AppCompatActivity {
 
     private ImageButton returnButton;
-    private TextView title;
+    private TextView title, releaseDate;
     private ImageView gameImage;
     private Game gameDisplayed;
     private Intent intent;
     private Button addButton, removeButton;
+    private LinearLayout platformLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +40,18 @@ public class DisplayGameActivity extends AppCompatActivity {
             }
         });
         intent = getIntent();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         addButton = findViewById(R.id.addButton);
         title = findViewById(R.id.GameTitle);
         gameImage = findViewById(R.id.GameImage);
         removeButton = findViewById(R.id.removeButton);
+        releaseDate = findViewById(R.id.releaseDate);
+        platformLayout = findViewById(R.id.PlatformLayout);
         Bundle extras = getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
         title.setText(gameDisplayed.getName());
+        releaseDate.setText(releaseDate.getText() + " " +formatter.format(gameDisplayed.getRelease_date()));
+        setPlatformButtons(gameDisplayed.getPlatforms().size());
         displayImage(gameDisplayed,gameImage);
         //TODO modifier pour gérer la suppression d'un jeu
         if(MainActivity.UserGameList.contains(gameDisplayed)){
@@ -67,6 +76,29 @@ public class DisplayGameActivity extends AppCompatActivity {
         });
 
     }
+
+    private void setPlatformButtons(int size) {
+        Button[] btnWord = new Button[size];
+            for (int i = 0; i < btnWord.length; i++) {
+                btnWord[i] = new Button(this);
+                btnWord[i].setHeight(20);
+                btnWord[i].setWidth(20);
+                btnWord[i].setTextSize(10);
+                btnWord[i].setTag(i);
+                btnWord[i].setText(gameDisplayed.getPlatforms().get(i).toString());
+                btnWord[i].setOnClickListener(btnClicked);
+                platformLayout.addView(btnWord[i]);
+            }
+        }
+
+        View.OnClickListener btnClicked = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Object tag = v.getTag();
+                Toast.makeText(getApplicationContext(), "clicked button", Toast.LENGTH_SHORT).show();
+            }
+        };
+
     void displayImage(Game game, ImageView gamePicture) {
         if (game.getBackgroundImageLink() != null) {
 

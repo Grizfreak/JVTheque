@@ -87,9 +87,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             }
 
             gameName.setText(game.getName());
-            if (game.getTags().get("platform") != null) {
+            if (game.getPlatforms() != null) {
                 //TODO with map
-                List<Tag> tempo = game.getTags().get("platform");
+                List<Tag> tempo = game.getPlatforms();
 //                Log.e("liste",String.valueOf(tempo.isEmpty()));
                 if(!tempo.isEmpty()){
                     gamePlat.setText(tempo.get(0).getName());

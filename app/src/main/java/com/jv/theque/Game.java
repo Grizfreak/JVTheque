@@ -54,21 +54,22 @@ public class Game implements Serializable {
         tagMap.put("platform", new ArrayList<Tag>());
         tagMap.put("store", new ArrayList<Tag>());
 
-        //Récupération des tags du jeu
+        /*//Récupération des tags du jeu
         if (game.tags != null) {
             for (RAWGTags tag : game.tags) {
                 Tag tag1 = new Tag(tag.name, this);
                 ((ArrayList) tagMap.get("tag")).add(tag1);
             }
-        }
+        }*/
 
-        //Récupération des genres
+        /*//Récupération des genres
         if (game.genres != null) {
             for (RAWGGenres tag : game.genres) {
                 Tag tag1 = new Tag(tag.name, this);
                 ((ArrayList) tagMap.get("genre")).add(tag1);
             }
-        }
+        }*/
+
         //Récupération des plateformes
         if (game.platforms != null) {
             for (RAWGPlatformsList tag : game.platforms) {
@@ -103,8 +104,13 @@ public class Game implements Serializable {
         return release_date;
     }
 
-    public Map<String, List<Tag>> getTags() {
-        return tags;
+    //TODO Return tag of each Category
+    public ArrayList<Tag> getPlatforms(){
+        return (ArrayList<Tag>) tags.get("platform");
+    }
+
+    public ArrayList<Tag> getStores(){
+        return (ArrayList<Tag>) tags.get("store");
     }
 
     public String getBackgroundImageLink() {
