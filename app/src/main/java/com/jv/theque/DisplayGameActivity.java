@@ -22,7 +22,7 @@ public class DisplayGameActivity extends AppCompatActivity {
     private ImageView gameImage;
     private Game gameDisplayed;
     private Intent intent;
-    private Button addButton;
+    private Button addButton, removeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +39,29 @@ public class DisplayGameActivity extends AppCompatActivity {
         addButton = findViewById(R.id.addButton);
         title = findViewById(R.id.GameTitle);
         gameImage = findViewById(R.id.GameImage);
+        removeButton = findViewById(R.id.removeButton);
         Bundle extras = getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
         title.setText(gameDisplayed.getName());
         displayImage(gameDisplayed,gameImage);
         //TODO modifier pour gérer la suppression d'un jeu
+        if(MainActivity.UserGameList.contains(gameDisplayed)){
+            addButton.setVisibility(View.GONE);
+        }else{
+            removeButton.setVisibility(View.GONE);
+        }
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MainActivity.UserGameList.addGame(gameDisplayed);
+                onBackPressed();
+            }
+        });
+        removeButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                MainActivity.UserGameList.removeGame(gameDisplayed);
                 onBackPressed();
             }
         });

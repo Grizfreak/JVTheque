@@ -52,6 +52,7 @@ public class UserGameList implements Serializable {
         if (!cancelInsertion) {
             list.add(newGame);
         }
+        saveToFile();
     }
 
     public boolean contains(Game game) {
@@ -62,6 +63,7 @@ public class UserGameList implements Serializable {
         if (list.contains(gameToDelete)) {
             list.remove(gameToDelete);
         }
+        saveToFile();
     }
 
     public void clear() {

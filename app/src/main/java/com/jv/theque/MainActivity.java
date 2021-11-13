@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
         this.context = this;
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation);
