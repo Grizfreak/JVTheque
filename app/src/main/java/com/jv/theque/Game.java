@@ -33,6 +33,7 @@ public class Game implements Serializable {
     private Date release_date;
     private Map<String, List<Tag>> tags;
     private String backgroundImageLink;
+    private String description;
 
     public Game(RAWGGame game) {
         this.slug = game.slug;
@@ -42,6 +43,7 @@ public class Game implements Serializable {
         this.tags = new HashMap<String, List<Tag>>();
         tags = this.setupTags(game);
         this.backgroundImageLink = game.backgroundImageLink;
+        this.description = null;
 
     }
 
@@ -115,6 +117,14 @@ public class Game implements Serializable {
 
     public String getBackgroundImageLink() {
         return backgroundImageLink;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
     @Override

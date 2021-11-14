@@ -25,7 +25,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jv.theque.RAWGImplementation.RAWGSearchOperation;
 
 import java.util.ArrayList;
