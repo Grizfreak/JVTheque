@@ -108,8 +108,6 @@ public class SearchFragment extends Fragment {
                         Intent intent = new Intent(MainActivity.getContext(), DisplayGameActivity.class);
                         intent.putExtra("Game",game);
                         MainActivity.getContext().startActivity(intent);
-
-
                     }
                 });
     }
@@ -120,6 +118,8 @@ public class SearchFragment extends Fragment {
         InputMethodManager imm =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -171,6 +171,7 @@ public class SearchFragment extends Fragment {
 
         return view;
     }
+
 
 
 }

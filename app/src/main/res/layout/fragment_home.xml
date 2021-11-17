@@ -3,13 +3,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="HOME"
-        android:textSize="24sp" />
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/Homesearch"
+            android:layout_width="212dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/HomelinearLayout"
+            app:layout_constraintEnd_toStartOf="@+id/HomeButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/HomeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/design_default_color_secondary"
+            android:text="@string/search"
+            android:textColor="#5E35B1"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/Homesearch"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/HomelinearLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/HomeButton">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/HomeRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

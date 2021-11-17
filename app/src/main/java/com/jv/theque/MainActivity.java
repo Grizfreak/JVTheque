@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     //TODO Persistance de cette magnifique liste
     public static UserGameList UserGameList = new UserGameList();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
