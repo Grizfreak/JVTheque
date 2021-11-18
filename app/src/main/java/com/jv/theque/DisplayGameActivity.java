@@ -67,12 +67,15 @@ public class DisplayGameActivity extends AppCompatActivity {
             try {
                 String newGameDescription = new RAWGGetGameDescriptionOperation(apiKey, gameDisplayed).execute("").get();
                 Log.i("GameDescription", newGameDescription);
+                newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n");
                 gameDisplayed.setDescription(newGameDescription);
                 description.setText(description.getText() + "\n"+ gameDisplayed.getDescription());
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }else{
+            description.setText(description.getText() + "\n"+ gameDisplayed.getDescription());
         }
 
 
