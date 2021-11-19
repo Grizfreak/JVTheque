@@ -141,8 +141,12 @@ public class SearchFragment extends Fragment {
 
         //Création d'un évènement sur le bouton "Rechercher"
         validatebtn.setOnClickListener(v -> {
-                    //Création d'une opération asynchrone pour permettre l'usage des connexions internet
 
+                    if (!internetIsConnected()){
+                        Toast.makeText(getContext(), "INTERNET !!!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    //Création d'une opération asynchrone pour permettre l'usage des connexions internet
 
                     // Le get() permet ici d'attendre que l'opération soit terminée pour passer à la suite
                     // TODO : Faire ça plus proprement parce que actuellement ça freeze toute la page
@@ -170,6 +174,15 @@ public class SearchFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public boolean internetIsConnected() {
+        try {
+            String command = "ping -c 1 google.com";
+            return (Runtime.getRuntime().exec(command).waitFor() == 0);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 

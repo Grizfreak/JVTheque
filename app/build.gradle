@@ -46,7 +46,7 @@ dependencies {
 
     // Splash screen
     def lottieVersion = "4.2.0"
-    implementation "com.airbnb.android:lottie:$lottieVersion"
+    implementation "com.airbnb.android:lottie:$lottieVersion"           // Pour charger des animations via un fichier json (pas utilisé pour l'instant)
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
 
 }
