@@ -37,22 +37,15 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
             Log.println(Log.DEBUG, "ChargementImage", "Image pour le slug " + gameSlug + " chargée dans le fichier " + file.getPath());
 
-            // TODO : Je sais pas si c'est important mais la ligne juste en dessous provoque une erreur ("Only the original thread that created a view hierarchy can touch its views")
-            //  parce l'instruction s'exécute dans un thread différent du thread UI, donc ca pose problème lors du changement de page avec les fragments
-            // TODO : Spoiler Simon, Maxime il l'a mis mais je crois que son truc marche même pas donc au pire
-            //bmImage.setImageBitmap(mIcon11);
-
         } catch (Exception e) {
             Log.e("Error", " " + e);
             //e.printStackTrace();
         }
-
         return mIcon11;
     }
 
     protected void onPostExecute(Bitmap result) {
         bmImage.setImageBitmap(result);
-//        Log.println(Log.INFO, "Image", "one image posted");
     }
 
 

@@ -73,16 +73,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
 
         void display(Game game) {
             if (game.getBackgroundImageLink() != null) {
-
                 if (new File(App.getAppContext().getCacheDir(), game.getSlug() + ".png").exists()) {
                     File gamePicFile = new File(App.getAppContext().getCacheDir(), game.getSlug() + ".png");
                     Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
                     gamePicture.setImageBitmap(bitmap);
                 } else {
-
                     new DownloadImageTask(gamePicture, game.getSlug())
                             .execute(game.getBackgroundImageLink().replace("https://media.rawg.io/media/games/", "https://api.rawg.io/media/resize/420/-/games/"));
-//                    Log.i("INFO", game.backgroundImageLink);
                 }
             }
 

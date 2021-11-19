@@ -2,24 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_weight="0.5"
     android:orientation="vertical"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp">
+    android:paddingRight="15dp"
+    android:paddingLeft="15dp">
 
-    <ImageView
+    <pl.droidsonroids.gif.GifImageView
         android:id="@+id/image2"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="110dp"
         android:layout_weight="0.5"
         android:adjustViewBounds="true"
         android:contentDescription="@string/todo"
-
         android:scaleType="centerCrop"
-
-        app:srcCompat="?attr/selectableItemBackground"
-        tools:srcCompat="?android:attr/alertDialogIcon" />
+        android:src="@drawable/logo_anim_final_light" />
 
     <TextView
         android:id="@+id/name2"

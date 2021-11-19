@@ -179,6 +179,7 @@ public class SearchFragment extends Fragment {
     public boolean internetIsConnected() {
         try {
             String command = "ping -c 1 google.com";
+            Log.e("ping"," "+Runtime.getRuntime().exec(command));
             return (Runtime.getRuntime().exec(command).waitFor() == 0);
         } catch (Exception e) {
             return false;
