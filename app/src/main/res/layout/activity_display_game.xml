@@ -91,11 +91,12 @@
                         android:text="Tags :"
                         android:textSize="15dp" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/button3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/custom_button"
                         android:text="Button" />
 
                     <Space
@@ -103,11 +104,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/button4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/custom_button"
                         android:text="Button" />
                 </LinearLayout>
 
@@ -117,11 +119,12 @@
                     android:layout_weight="0.5"
                     android:orientation="horizontal">
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/button5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/custom_button"
                         android:text="Button" />
 
                     <Space
@@ -129,11 +132,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/button6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/custom_button"
                         android:text="Button" />
 
                 </LinearLayout>
@@ -159,16 +163,18 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/removeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/custom_button"
                     android:text="Supprimer" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/addButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/custom_button"
                     android:text="Ajouter" />
             </LinearLayout>
 
