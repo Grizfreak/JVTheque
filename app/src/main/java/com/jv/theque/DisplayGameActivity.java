@@ -1,6 +1,7 @@
 package com.jv.theque;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -104,11 +105,12 @@ public class DisplayGameActivity extends AppCompatActivity {
     }
 
     private void setPlatformButtons(int size) {
-        Button[] btnWord = new Button[size];
+        AppCompatButton[] btnWord = new AppCompatButton[size];
         for (int i = 0; i < btnWord.length; i++) {
-            btnWord[i] = new Button(this);
-            btnWord[i].setHeight(20);
-            btnWord[i].setWidth(20);
+            btnWord[i] = new AppCompatButton(this);
+            btnWord[i].setHeight(10);
+            btnWord[i].setWidth(10);
+            btnWord[i].setBackgroundResource(R.drawable.custom_button);
             btnWord[i].setTextSize(10);
             btnWord[i].setTag(i);
             btnWord[i].setText(gameDisplayed.getPlatforms().get(i).toString());
