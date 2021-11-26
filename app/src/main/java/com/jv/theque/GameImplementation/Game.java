@@ -39,26 +39,9 @@ public class Game implements Serializable {
         Map tagMap = new HashMap<String, List<Tag>>();
 
         //TODO Tags / Genres / Platform / Stores
-        tagMap.put("tag", new ArrayList<Tag>());
-        tagMap.put("genre", new ArrayList<Tag>());
+        tagMap.put("Usertag", new ArrayList<Tag>());
         tagMap.put("platform", new ArrayList<Tag>());
         tagMap.put("store", new ArrayList<Tag>());
-
-        /*//Récupération des tags du jeu
-        if (game.tags != null) {
-            for (RAWGTags tag : game.tags) {
-                Tag tag1 = new Tag(tag.name, this);
-                ((ArrayList) tagMap.get("tag")).add(tag1);
-            }
-        }*/
-
-        /*//Récupération des genres
-        if (game.genres != null) {
-            for (RAWGGenres tag : game.genres) {
-                Tag tag1 = new Tag(tag.name, this);
-                ((ArrayList) tagMap.get("genre")).add(tag1);
-            }
-        }*/
 
         //Récupération des plateformes
         if (game.platforms != null) {

@@ -1,6 +1,7 @@
 package com.jv.theque.GameImplementation;
 
 import com.google.gson.reflect.TypeToken;
+import com.jv.theque.App;
 import com.jv.theque.MainActivity;
 
 import java.io.File;
@@ -64,7 +65,7 @@ public class UserGameList implements Serializable {
     private ArrayList<Game> loadListFromFile() {
 
         try {
-            File myObj = new File(MainActivity.getContext().getApplicationContext().getFilesDir(), storageFileName);
+            File myObj = new File(App.getAppContext().getFilesDir(), storageFileName);
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
@@ -84,7 +85,7 @@ public class UserGameList implements Serializable {
 
         try {
 
-            File myObj = new File(MainActivity.getContext().getApplicationContext().getFilesDir(), storageFileName);
+            File myObj = new File(App.getAppContext().getFilesDir(), storageFileName);
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
