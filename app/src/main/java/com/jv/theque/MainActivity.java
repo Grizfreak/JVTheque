@@ -7,19 +7,16 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Context;
 import android.os.Bundle;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
+import com.jv.theque.GameImplementation.UserGameList;
 
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private static Context context;
     //TODO Persistance de cette magnifique liste
-    public static UserGameList UserGameList = new UserGameList();
+    public static com.jv.theque.GameImplementation.UserGameList UserGameList = new UserGameList();
 
 
 

@@ -1,4 +1,4 @@
-package com.jv.theque;
+package com.jv.theque.GameImplementation;
 
 import java.io.Serializable;
 import java.util.ArrayList;

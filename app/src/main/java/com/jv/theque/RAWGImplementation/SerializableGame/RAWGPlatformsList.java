@@ -1,4 +1,4 @@
-package com.jv.theque.RAWGImplementation;
+package com.jv.theque.RAWGImplementation.SerializableGame;
 
 import androidx.annotation.NonNull;
 
@@ -7,17 +7,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class RAWGStoresList implements Serializable {
+public class RAWGPlatformsList implements Serializable {
 
-    @SerializedName("store")
+    @SerializedName("platform")
     @Expose
-    public com.jv.theque.RAWGImplementation.RAWGStore RAWGStore;
+    public RAWGPlatform RAWGPlatform;
 
 
 
     @NonNull
     @Override
     public String toString() {
-        return RAWGStore.toString();
+        return RAWGPlatform.toString();
     }
 }

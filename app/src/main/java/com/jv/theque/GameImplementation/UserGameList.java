@@ -1,23 +1,14 @@
-package com.jv.theque;
+package com.jv.theque.GameImplementation;
 
-import android.content.Context;
-import android.util.JsonReader;
-import android.util.Log;
-
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jv.theque.MainActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -73,7 +64,7 @@ public class UserGameList implements Serializable {
     private ArrayList<Game> loadListFromFile() {
 
         try {
-            File myObj = new File(App.getAppContext().getFilesDir(), storageFileName);
+            File myObj = new File(MainActivity.getContext().getApplicationContext().getFilesDir(), storageFileName);
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
@@ -93,7 +84,7 @@ public class UserGameList implements Serializable {
 
         try {
 
-            File myObj = new File(App.getAppContext().getFilesDir(), storageFileName);
+            File myObj = new File(MainActivity.getContext().getApplicationContext().getFilesDir(), storageFileName);
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {

@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.jv.theque.SearchFragment"
+        android:name="com.jv.theque.Fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.jv.theque.SettingsFragment"
+        android:name="com.jv.theque.Fragments.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.jv.theque.HomeFragment"
+        android:name="com.jv.theque.Fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.jv.theque.FavoritesFragment"
+        android:name="com.jv.theque.Fragments.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
 </navigation>

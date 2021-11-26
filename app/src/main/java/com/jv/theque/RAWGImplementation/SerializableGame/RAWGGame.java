@@ -1,4 +1,4 @@
-package com.jv.theque.RAWGImplementation;
+package com.jv.theque.RAWGImplementation.SerializableGame;
 
 import android.util.Log;
 
@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.jv.theque.Game;
 
 import java.util.Date;
 

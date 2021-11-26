@@ -1,31 +1,20 @@
-package com.jv.theque;
+package com.jv.theque.Fragments;
 
-import android.app.UiModeManager;
-import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jv.theque.RAWGImplementation.RAWGSearchOperation;
-
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
+import com.jv.theque.MainActivity;
+import com.jv.theque.R;
 
 /**
  * A simple {@link Fragment} subclass.

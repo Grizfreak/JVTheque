@@ -1,9 +1,7 @@
-package com.jv.theque;
+package com.jv.theque.RecyclerViewUsages;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +9,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.MainThread;
-import androidx.annotation.UiThread;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.BufferedOutputStream;
+import com.jv.theque.GameImplementation.Game;
+import com.jv.theque.GameImplementation.Tag;
+import com.jv.theque.MainActivity;
+import com.jv.theque.R;
+import com.jv.theque.RAWGImplementation.DownloadImageTask;
+
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder>  {
     List<Game> gameList;
-    GameAdapter(List<Game> gameList) {
+    public GameAdapter(List<Game> gameList) {
         this.gameList = gameList;
     }
 
@@ -73,8 +69,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
 
         void display(Game game) {
             if (game.getBackgroundImageLink() != null) {
-                if (new File(App.getAppContext().getCacheDir(), game.getSlug() + ".png").exists()) {
-                    File gamePicFile = new File(App.getAppContext().getCacheDir(), game.getSlug() + ".png");
+                if (new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png").exists()) {
+                    File gamePicFile = new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png");
                     Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
                     gamePicture.setImageBitmap(bitmap);
                 } else {

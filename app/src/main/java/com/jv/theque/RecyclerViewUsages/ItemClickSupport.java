@@ -1,4 +1,4 @@
-package com.jv.theque;
+package com.jv.theque.RecyclerViewUsages;
 
 import android.view.View;
 

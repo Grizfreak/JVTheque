@@ -1,25 +1,13 @@
-package com.jv.theque;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package com.jv.theque.GameImplementation;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.jv.theque.RAWGImplementation.RAWGGame;
-import com.jv.theque.RAWGImplementation.RAWGGenres;
-import com.jv.theque.RAWGImplementation.RAWGPlatform;
-import com.jv.theque.RAWGImplementation.RAWGPlatformsList;
-import com.jv.theque.RAWGImplementation.RAWGStoresList;
-import com.jv.theque.RAWGImplementation.RAWGTags;
-
-import org.json.JSONArray;
+import com.jv.theque.RAWGImplementation.SerializableGame.RAWGGame;
+import com.jv.theque.RAWGImplementation.SerializableGame.RAWGPlatformsList;
+import com.jv.theque.RAWGImplementation.SerializableGame.RAWGStoresList;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;

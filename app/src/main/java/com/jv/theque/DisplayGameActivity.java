@@ -16,13 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jv.theque.GameImplementation.Game;
+import com.jv.theque.RAWGImplementation.DownloadImageTask;
 import com.jv.theque.RAWGImplementation.RAWGGetGameDescriptionOperation;
-import com.jv.theque.RAWGImplementation.RAWGSearchOperation;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class DisplayGameActivity extends AppCompatActivity {
 
@@ -130,8 +129,8 @@ public class DisplayGameActivity extends AppCompatActivity {
     void displayImage(Game game, ImageView gamePicture) {
         if (game.getBackgroundImageLink() != null) {
 
-            if (new File(App.getAppContext().getCacheDir(), game.getSlug() + ".png").exists()) {
-                File gamePicFile = new File(App.getAppContext().getCacheDir(), game.getSlug() + ".png");
+            if (new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png").exists()) {
+                File gamePicFile = new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png");
                 Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
                 gamePicture.setImageBitmap(bitmap);
             } else {

@@ -1,4 +1,4 @@
-package com.jv.theque.RAWGImplementation;
+package com.jv.theque.RAWGImplementation.SerializableGame;
 
 import androidx.annotation.NonNull;
 

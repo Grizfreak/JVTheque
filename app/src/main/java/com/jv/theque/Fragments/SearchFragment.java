@@ -1,10 +1,9 @@
-package com.jv.theque;
+package com.jv.theque.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,17 +20,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jv.theque.DisplayGameActivity;
+import com.jv.theque.GameImplementation.Game;
+import com.jv.theque.RecyclerViewUsages.GameAdapter;
+import com.jv.theque.RecyclerViewUsages.ItemClickSupport;
+import com.jv.theque.MainActivity;
+import com.jv.theque.R;
 import com.jv.theque.RAWGImplementation.RAWGSearchOperation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,13 +48,16 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
     RecyclerView recyclerView;
     Button validatebtn;
     EditText searchedtext;
-    List<Game> datalist = MainActivity.UserGameList.getUserGameList();
+    List<Game> datalist;
     GameAdapter adapter;
+    private Fragment mFragment;
+    Bundle mBundle;
 
-    public HomeFragment() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 
@@ -58,11 +67,11 @@ public class HomeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
+     * @return A new instance of fragment SearchFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static SearchFragment newInstance(String param1, String param2) {
+        SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -77,10 +86,7 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        //TODO affichage dans le menu
-        for(Game g : MainActivity.UserGameList.getUserGameList()) {
-            Log.e("game",g.getName());
-        }
+
     }
 
     // Permet de mettre à jour la recyclerView avec les données des jeux récupérées via l'API
@@ -103,10 +109,10 @@ public class HomeFragment extends Fragment {
                         Intent intent = new Intent(MainActivity.getContext(), DisplayGameActivity.class);
                         intent.putExtra("Game",game);
                         MainActivity.getContext().startActivity(intent);
-                        //TODO on return on fragment updateRecyclerView
                     }
                 });
     }
+
 
     // Permet de "Ranger" le clavier virtuel et de le cacher lorsqu'il est visible à l'écran
     public void hideSoftKeyboard(View view){
@@ -115,22 +121,44 @@ public class HomeFragment extends Fragment {
     }
 
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+
+
+        //Instanciation d'une liste contenant les jeux d'une recherche
+        datalist = new ArrayList<>();
+
         // Attribution des objets xml à leurs équivalents dans la classe Java
 
         recyclerView = view.findViewById(R.id.RecyclerView);
         validatebtn = view.findViewById(R.id.validate);
         searchedtext = view.findViewById(R.id.search);
-        updateRecycler(datalist);
         this.configureOnClickRecyclerView();
 
         //Création d'un évènement sur le bouton "Rechercher"
         validatebtn.setOnClickListener(v -> {
+
+                    if (!internetIsConnected()){
+                        Toast.makeText(getContext(), "INTERNET !!!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    //Création d'une opération asynchrone pour permettre l'usage des connexions internet
+
+                    // Le get() permet ici d'attendre que l'opération soit terminée pour passer à la suite
+                    // TODO : Faire ça plus proprement parce que actuellement ça freeze toute la page
+                    try {
+                        datalist = new RAWGSearchOperation(apiKey,searchedtext.getText().toString().replaceAll(" ", "+"),datalist).execute("").get();
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     hideSoftKeyboard(recyclerView);
+                    updateRecycler(datalist);
                 }
         );
 
@@ -149,10 +177,16 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e("attachment","resumed");
-        updateRecycler(datalist);
+    public boolean internetIsConnected() {
+        try {
+            String command = "ping -c 1 google.com";
+            Log.e("ping"," "+Runtime.getRuntime().exec(command));
+            return (Runtime.getRuntime().exec(command).waitFor() == 0);
+        } catch (Exception e) {
+            return false;
+        }
     }
+
+
+
 }

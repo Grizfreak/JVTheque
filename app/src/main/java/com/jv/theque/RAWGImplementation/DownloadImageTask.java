@@ -1,10 +1,12 @@
-package com.jv.theque;
+package com.jv.theque.RAWGImplementation;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
+
+import com.jv.theque.MainActivity;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -27,7 +29,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         try {
             InputStream in = new java.net.URL(urldisplay).openStream();
             mIcon11 = BitmapFactory.decodeStream(in);
-            File file = new File(App.getAppContext().getCacheDir(), gameSlug + ".png");
+            File file = new File(MainActivity.getContext().getApplicationContext().getCacheDir(), gameSlug + ".png");
             file.createNewFile();
             FileOutputStream filO = new FileOutputStream(file);
             OutputStream os = new BufferedOutputStream(filO);

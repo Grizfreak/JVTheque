@@ -1,4 +1,4 @@
-package com.jv.theque.RAWGImplementation;
+package com.jv.theque.RAWGImplementation.SerializableGame;
 
 import androidx.annotation.NonNull;
 
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class RAWGPlatform implements Serializable {
+public class RAWGGenres implements Serializable {
 
     @SerializedName("id")
     @Expose

@@ -9,8 +9,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.jv.theque.Game;
-import com.jv.theque.RAWGImplementation.RAWGGame;
+import com.jv.theque.GameImplementation.Game;
+import com.jv.theque.RAWGImplementation.SerializableGame.RAWGGame;
 
 import java.io.IOException;
 import java.io.InputStream;
