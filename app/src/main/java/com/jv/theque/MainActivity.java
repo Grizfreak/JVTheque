@@ -4,20 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+
 import android.content.Context;
 import android.os.Bundle;
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.jv.theque.GameImplementation.UserGameList;
 
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private static Context context;
     //TODO Persistance de cette magnifique liste
-    public static com.jv.theque.GameImplementation.UserGameList UserGameList = new UserGameList();
-
+    public static UserData userData = new UserData();
 
 
     @Override
@@ -42,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public static Context getContext(){
+
+    public static Context getContext() {
         return context;
     }
 }

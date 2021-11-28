@@ -110,13 +110,13 @@ public class SettingsFragment extends Fragment {
 
         exportButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                MainActivity.UserGameList.saveToFile();
+                MainActivity.userData.saveToFile();
             }
         });
 
         clearButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                MainActivity.UserGameList.clear();
+                return;
             }
         });
 

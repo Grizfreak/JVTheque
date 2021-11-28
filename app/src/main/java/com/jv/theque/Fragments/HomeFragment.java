@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     Button validatebtn;
     EditText searchedtext;
-    List<Game> datalist = MainActivity.UserGameList.getUserGameList();
+    List<Game> datalist;
     GameAdapter adapter;
 
     public HomeFragment() {
@@ -81,30 +81,31 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         //TODO affichage dans le menu
-        for(Game g : MainActivity.UserGameList.getUserGameList()) {
-            Log.e("game",g.getName());
+        datalist = MainActivity.userData.getUserGameList().getGameList();
+        for (Game g : datalist) {
+            Log.e("game", g.getName());
         }
     }
 
     // Permet de mettre à jour la recyclerView avec les données des jeux récupérées via l'API
     private void updateRecycler(List<Game> datalist) {
         adapter = new GameAdapter(datalist);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity().getApplicationContext(),2);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
-    private void configureOnClickRecyclerView(){
+    private void configureOnClickRecyclerView() {
         ItemClickSupport.addTo(recyclerView, R.layout.fragment_search)
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Log.e("TAG", "Position : "+position);
-                        Toast.makeText(MainActivity.getContext(),datalist.get(position).getName(), Toast.LENGTH_SHORT).show();
+                        Log.e("TAG", "Position : " + position);
+                        Toast.makeText(MainActivity.getContext(), datalist.get(position).getName(), Toast.LENGTH_SHORT).show();
                         //TODO faire la vue mais en version belle maintenant que ça fonctionne
                         Game game = datalist.get(position);
                         Intent intent = new Intent(MainActivity.getContext(), DisplayGameActivity.class);
-                        intent.putExtra("Game",game);
+                        intent.putExtra("Game", game);
                         MainActivity.getContext().startActivity(intent);
                         //TODO on return on fragment updateRecyclerView
                     }
@@ -112,8 +113,8 @@ public class HomeFragment extends Fragment {
     }
 
     // Permet de "Ranger" le clavier virtuel et de le cacher lorsqu'il est visible à l'écran
-    public void hideSoftKeyboard(View view){
-        InputMethodManager imm =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+    public void hideSoftKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -137,12 +138,12 @@ public class HomeFragment extends Fragment {
                 }
         );
 
-        searchedtext.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+        searchedtext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                Log.i("nique","pressed"+i);
-                if(i == EditorInfo.IME_ACTION_DONE){
+                Log.i("nique", "pressed" + i);
+                if (i == EditorInfo.IME_ACTION_DONE) {
                     validatebtn.callOnClick();
                 }
                 return false;
@@ -155,7 +156,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("attachment","resumed");
+        Log.e("attachment", "resumed");
         updateRecycler(datalist);
     }
 }

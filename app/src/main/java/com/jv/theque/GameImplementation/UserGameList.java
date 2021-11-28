@@ -1,105 +1,70 @@
 package com.jv.theque.GameImplementation;
 
-import com.google.gson.reflect.TypeToken;
-import com.jv.theque.App;
-import com.jv.theque.MainActivity;
+import android.util.Log;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import com.google.gson.reflect.TypeToken;
+import com.jv.theque.TagsImplementation.Tag;
+import com.jv.theque.UserData;
+
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class UserGameList implements Serializable {
-
-    private static final String storageFileName = "userGameList.bin";
+public class UserGameList extends Observable implements Serializable {
 
     private final Type GAME_TYPE = new TypeToken<List<Game>>() {
     }.getType();
 
-    private ArrayList<Game> list = new ArrayList<Game>();
+    private List<Game> gameList = new ArrayList<Game>();
 
 
-    public UserGameList() {
-        list = loadListFromFile();
+    public UserGameList(UserData userData) {
+        addObserver(userData);
     }
 
-    public ArrayList<Game> getUserGameList() {
-        return list;
+    public UserGameList(UserData userData, List<Game> gameList) {
+        addObserver(userData);
+        this.gameList = gameList;
     }
 
-    public void addGame(Game newGame) {
+    public List<Game> getGameList() {
+        return gameList;
+    }
+
+    public synchronized void addGame(Game newGame) {
         boolean cancelInsertion = false;
-        for (Game tmpGame : list) {
+        for (Game tmpGame : gameList) {
             if (newGame.equals(tmpGame)) {
                 cancelInsertion = true;
             }
         }
 
         if (!cancelInsertion) {
-            list.add(newGame);
+            gameList.add(newGame);
         }
-        saveToFile();
+        notifyObservers();
+        notify();
+        notifyAll();
+        Log.i("MICHTOS", "game added, "+ countObservers() + " Observers notified");
     }
 
     public boolean contains(Game game) {
-        return list.contains(game);
+        return gameList.contains(game);
     }
 
-    public void removeGame(Game gameToDelete) {
-        if (list.contains(gameToDelete)) {
-            list.remove(gameToDelete);
+    public synchronized void removeGame(Game gameToDelete) {
+        if (gameList.contains(gameToDelete)) {
+            gameList.remove(gameToDelete);
+            notifyObservers();
         }
-        saveToFile();
+        notifyObservers();
+        notify();
+        notifyAll();
     }
 
-    public void clear() {
-        list = new ArrayList<Game>();
+    public List<Game> getList() {
+        return gameList;
     }
-
-    private ArrayList<Game> loadListFromFile() {
-
-        try {
-            File myObj = new File(App.getAppContext().getFilesDir(), storageFileName);
-            if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-
-            FileInputStream inputStream = new FileInputStream(myObj.getAbsoluteFile());
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            return (ArrayList<Game>) objectInputStream.readObject();
-
-        } catch (Exception e) {
-            return new ArrayList<Game>();
-        }
-    }
-
-    public void saveToFile() {
-
-        try {
-
-            File myObj = new File(App.getAppContext().getFilesDir(), storageFileName);
-            if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
-
-            FileOutputStream outputStream = new FileOutputStream(myObj.getAbsoluteFile());
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            objectOutputStream.writeObject(list);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 }

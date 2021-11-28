@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jv.theque.GameImplementation.Game;
+import com.jv.theque.GameImplementation.UserGameList;
 import com.jv.theque.RAWGImplementation.DownloadImageTask;
 import com.jv.theque.RAWGImplementation.RAWGGetGameDescriptionOperation;
 
@@ -63,6 +64,8 @@ public class DisplayGameActivity extends AppCompatActivity {
         displayImage(gameDisplayed, gameImage);
         //TODO modifier pour gérer la suppression d'un jeu
 
+        UserGameList userGameList = MainActivity.userData.getUserGameList();
+
         if (gameDisplayed.getDescription() == null) {
             try {
                 String newGameDescription = new RAWGGetGameDescriptionOperation(apiKey, gameDisplayed).execute("").get();
@@ -80,7 +83,7 @@ public class DisplayGameActivity extends AppCompatActivity {
 
 
 
-        if (MainActivity.UserGameList.contains(gameDisplayed)) {
+        if (userGameList.contains(gameDisplayed)) {
             addButton.setVisibility(View.GONE);
         } else {
             removeButton.setVisibility(View.GONE);
@@ -88,7 +91,7 @@ public class DisplayGameActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.UserGameList.addGame(gameDisplayed);
+                userGameList.addGame(gameDisplayed);
                 onBackPressed();
             }
         });
@@ -96,7 +99,7 @@ public class DisplayGameActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                MainActivity.UserGameList.removeGame(gameDisplayed);
+                userGameList.removeGame(gameDisplayed);
                 onBackPressed();
             }
         });
