@@ -59,7 +59,10 @@ public class DisplayGameActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
         title.setText(gameDisplayed.getName());
-        releaseDate.setText(releaseDate.getText() + " " + formatter.format(gameDisplayed.getRelease_date()));
+        Log.e("default date compare", String.valueOf(gameDisplayed.getRelease_date()) + " / " + String.valueOf(Game.DEFAULT_DATE) );
+        // Affiche la date correspondante du jeu, si la date n'est pas connue (valeur par défaut), affiche "Date de sortie : inconnue"
+        releaseDate.setText((gameDisplayed.getRelease_date().equals(Game.DEFAULT_DATE)) ?
+                (releaseDate.getText() + " inconnue") : (releaseDate.getText() + " " + formatter.format(gameDisplayed.getRelease_date())) );
         setPlatformButtons(gameDisplayed.getPlatforms().size());
         displayImage(gameDisplayed, gameImage);
         //TODO modifier pour gérer la suppression d'un jeu

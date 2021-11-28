@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Game implements Serializable {
+    public final static Date DEFAULT_DATE = new Date(0, 0, 1); // Date par défaut, renvoyée dans le cas où le jeu n'en comporte pas
+
     private String slug;
     private int id;
     private String name;
@@ -28,7 +30,7 @@ public class Game implements Serializable {
         this.id = Integer.parseInt(game.id);
         this.name = game.name;
         this.release_date = game.releaseDate;
-        this.tags = new HashMap<String, List<Tag>>();
+        this.tags = new HashMap<>();
         tags = this.setupTags(game);
         this.backgroundImageLink = game.backgroundImageLink;
         this.description = null;
@@ -74,7 +76,12 @@ public class Game implements Serializable {
     }
 
     public Date getRelease_date() {
-        return release_date;
+        if (release_date != null){
+            return release_date;
+        }
+        else {
+            return DEFAULT_DATE;
+        }
     }
 
     //TODO Return tag of each Category
