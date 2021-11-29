@@ -15,8 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class UserTagList extends Observable implements Serializable  {
+public class UserTagList implements Serializable, CustomObservable  {
     private List<Tag> tagList;
+    private List<CustomObserver> observerList = new ArrayList<CustomObserver>();
 
     public UserTagList(UserData userData) {
         addObserver(userData);
@@ -58,6 +59,7 @@ public class UserTagList extends Observable implements Serializable  {
             return false;
         }
         tagList.add(tag);
+        notifyObserver();
         return true;
     }
 
@@ -66,10 +68,23 @@ public class UserTagList extends Observable implements Serializable  {
             return false;
         }
         tagList.remove(tag);
+        notifyObserver();
         return true;
     }
 
     public UserTagList(List<Tag> tagList) {
         this.tagList = tagList;
+    }
+
+    @Override
+    public void addObserver(CustomObserver o) {
+        observerList.add(o);
+    }
+
+    @Override
+    public void notifyObserver() {
+        for(CustomObserver o : observerList){
+            o.update();
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.jv.theque;
 import android.util.Log;
 
 import com.jv.theque.GameImplementation.UserGameList;
+import com.jv.theque.TagsImplementation.CustomObserver;
 import com.jv.theque.TagsImplementation.UserTagList;
 
 import java.io.File;
@@ -16,14 +17,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 
-public class UserData implements Serializable, Observer {
+public class UserData implements Serializable, CustomObserver {
     private static String storageFileName = "UserData.bin";
 
     private UserGameList userGameList;
     private UserTagList userTagList;
 
     @Override
-    public void update(Observable observable, Object o) {
+    public void update() {
         Log.i("MICHTOS", "salut");
         this.saveToFile();
     }

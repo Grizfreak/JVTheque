@@ -3,6 +3,8 @@ package com.jv.theque.GameImplementation;
 import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
+import com.jv.theque.TagsImplementation.CustomObservable;
+import com.jv.theque.TagsImplementation.CustomObserver;
 import com.jv.theque.TagsImplementation.Tag;
 import com.jv.theque.UserData;
 
@@ -12,20 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class UserGameList extends Observable implements Serializable {
+public class UserGameList implements Serializable, CustomObservable {
 
     private final Type GAME_TYPE = new TypeToken<List<Game>>() {
     }.getType();
 
     private List<Game> gameList = new ArrayList<Game>();
+    private List<CustomObserver> observerList = new ArrayList<CustomObserver>();
 
-
-    public UserGameList(UserData userData) {
-        addObserver(userData);
+    public UserGameList(CustomObserver userData) {
+        this.addObserver(userData);
     }
 
-    public UserGameList(UserData userData, List<Game> gameList) {
-        addObserver(userData);
+    public UserGameList(CustomObserver userData, List<Game> gameList) {
+        this.addObserver(userData);
         this.gameList = gameList;
     }
 
@@ -44,10 +46,8 @@ public class UserGameList extends Observable implements Serializable {
         if (!cancelInsertion) {
             gameList.add(newGame);
         }
-        notifyObservers();
-        notify();
-        notifyAll();
-        Log.i("MICHTOS", "game added, "+ countObservers() + " Observers notified");
+        Log.i("MICHTOS", "e");
+        this.notifyObserver();
     }
 
     public boolean contains(Game game) {
@@ -57,14 +57,24 @@ public class UserGameList extends Observable implements Serializable {
     public synchronized void removeGame(Game gameToDelete) {
         if (gameList.contains(gameToDelete)) {
             gameList.remove(gameToDelete);
-            notifyObservers();
         }
-        notifyObservers();
-        notify();
-        notifyAll();
+        this.notifyObserver();
     }
 
     public List<Game> getList() {
         return gameList;
+    }
+
+    @Override
+    public void addObserver(CustomObserver o) {
+        observerList.add(o);
+    }
+
+    @Override
+    public void notifyObserver() {
+        for(CustomObserver o : observerList){
+            Log.i("MICHTOS","Observer notified");
+            o.update();
+        }
     }
 }
