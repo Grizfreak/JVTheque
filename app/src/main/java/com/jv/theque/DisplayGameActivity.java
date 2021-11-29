@@ -95,6 +95,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 userGameList.addGame(gameDisplayed);
+                gameDisplayed.addTagsToList();
                 onBackPressed();
             }
         });

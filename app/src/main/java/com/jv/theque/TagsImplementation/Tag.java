@@ -12,12 +12,13 @@ public interface Tag {
         USERTAG
     }
 
+    //TODO BECOME OBSERVABLE
     public TagType getType();
 
     public int color = Color.BLACK;
 
     public default void setColor(int color){
-        return;
+        return ;
     };
 
     public default void setName(String name){
