@@ -104,6 +104,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 userGameList.removeGame(gameDisplayed);
+
                 onBackPressed();
             }
         });

@@ -59,7 +59,7 @@ public class Game implements Serializable {
                 Log.e("ingameRAWG", tag.RAWGPlatform.name + " " + game.name);
                 Tag tag1 = new RAWGTag(tag.RAWGPlatform.name, this);
                 tags.get("platform").add(tag1);
-                }
+            }
         }
         //Récupération des magasins
         if (game.stores != null) {
@@ -85,24 +85,41 @@ public class Game implements Serializable {
     }
 
     public Date getRelease_date() {
-        if (release_date != null){
+        if (release_date != null) {
             return release_date;
-        }
-        else {
+        } else {
             return DEFAULT_DATE;
         }
     }
 
     //TODO Return tag of each Category
-    public ArrayList<Tag> getPlatforms(){
-        Log.e("envoi", "envoi de "+ this.tags.get("platform").size() + " tags pour jeu : "+this.name);
-        for (Tag t : this.tags.get("platform")){
-            Log.e("ingame",t.getName());
+    public ArrayList<Tag> getPlatforms() {
+        Log.e("envoi", "envoi de " + this.tags.get("platform").size() + " tags pour jeu : " + this.name);
+        for (Tag t : this.tags.get("platform")) {
+            Log.e("ingame", t.getName());
         }
         return (ArrayList<Tag>) this.tags.get("platform");
     }
 
-    public ArrayList<Tag> getStores(){
+    public List<Tag> getTags() {
+        List<Tag> tmpList = new ArrayList<Tag>();
+
+        List<String> keys = new ArrayList<>(tags.keySet());
+
+        for (String value : keys) {
+
+            List<Tag> tmpTagList = tags.get(value);
+
+            for (Tag t : tmpTagList) {
+                tmpList.add(t);
+            }
+
+        }
+
+        return tmpList;
+    }
+
+    public ArrayList<Tag> getStores() {
         return (ArrayList<Tag>) tags.get("store");
     }
 
@@ -110,11 +127,11 @@ public class Game implements Serializable {
         return backgroundImageLink;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -156,7 +173,7 @@ public class Game implements Serializable {
         gameObject.add("tags", tagObject);
 
         return gameObject.toString();*/
-        return"";
+        return "";
 
     }
 
@@ -176,8 +193,8 @@ public class Game implements Serializable {
     public void addTagsToList() {
         //TODO store tags in UserData and tout court enfait parce que je l'ai pas fait
         List<Tag> tmpTagList = new ArrayList<Tag>();
-        for (Tag tag : this.tags.get("platform")){
-            if(MainActivity.userData.getUserTagList().getList().contains(tag)){
+        for (Tag tag : this.tags.get("platform")) {
+            if (MainActivity.userData.getUserTagList().getList().contains(tag)) {
                 Log.i("MICHTOS", "looping through tag " + tag.getName());
                 tmpTagList.add(MainActivity.userData.getUserTagList().find(tag.getName()));
                 MainActivity.userData.getUserTagList().find(tag.getName()).addGame(this);

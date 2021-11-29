@@ -26,7 +26,7 @@ public class UserData implements Serializable, CustomObserver {
 
     @Override
     public void update() {
-        Log.i("MICHTOS", "salut");
+//        Log.i("MICHTOS", "\nGameList size is now " + userGameList.getGameList().size() + "\nTagList size is now " + userTagList.getList().size());
         this.saveToFile();
     }
 
@@ -60,8 +60,8 @@ public class UserData implements Serializable, CustomObserver {
 
             Log.i("MICHTOS", "Loaded UserGameList with " + userGameList.getGameList().size() + " games inside");
             Log.i("MICHTOS", "Loaded UserTagList with " + userTagList.getList().size() + " tags inside");
-            for (com.jv.theque.TagsImplementation.Tag tag : userTagList.getList()){
-                Log.i("MICHTOS",tag.getName() + " " + tag.getGames().size()) ;
+            for (com.jv.theque.TagsImplementation.Tag tag : userTagList.getList()) {
+                Log.i("MICHTOS", tag.getName() + " " + tag.getGames().size());
             }
 
         } catch (Exception e) {

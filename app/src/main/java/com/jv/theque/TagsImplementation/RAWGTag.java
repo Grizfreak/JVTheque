@@ -1,6 +1,9 @@
 package com.jv.theque.TagsImplementation;
 
+import android.util.Log;
+
 import com.jv.theque.GameImplementation.Game;
+import com.jv.theque.MainActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -57,6 +60,15 @@ public class RAWGTag implements Tag, Serializable {
         games.add(game);
         notifyObserver();
 
+    }
+
+    @Override
+    public synchronized void  removeGame(Game game) {
+        games.remove(game);
+        if(games.size() == 0){
+            MainActivity.userData.getUserTagList().remove(this);
+        }
+        notifyObserver();
     }
 
     @Override

@@ -70,6 +70,15 @@ public class UserTag implements Tag, Serializable {
     }
 
     @Override
+    public synchronized void removeGame(Game game) {
+        games.remove(game);
+        if(games.size() == 0){
+            MainActivity.userData.getUserTagList().remove(this);
+        }
+        notifyObserver();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

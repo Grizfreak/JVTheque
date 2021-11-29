@@ -46,7 +46,6 @@ public class UserGameList implements Serializable, CustomObservable {
         if (!cancelInsertion) {
             gameList.add(newGame);
         }
-        Log.i("MICHTOS", "e");
         this.notifyObserver();
     }
 
@@ -57,6 +56,9 @@ public class UserGameList implements Serializable, CustomObservable {
     public synchronized void removeGame(Game gameToDelete) {
         if (gameList.contains(gameToDelete)) {
             gameList.remove(gameToDelete);
+            for(Tag t : gameToDelete.getTags()){
+                t.removeGame(gameToDelete);
+            }
         }
         this.notifyObserver();
     }
@@ -73,7 +75,6 @@ public class UserGameList implements Serializable, CustomObservable {
     @Override
     public void notifyObserver() {
         for(CustomObserver o : observerList){
-            Log.i("MICHTOS","Observer notified");
             o.update();
         }
     }
