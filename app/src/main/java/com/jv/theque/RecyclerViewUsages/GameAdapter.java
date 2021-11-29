@@ -2,6 +2,7 @@ package com.jv.theque.RecyclerViewUsages;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jv.theque.TagsImplementation.RAWGTag;
+import com.jv.theque.TagsImplementation.Tag;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jv.theque.GameImplementation.Game;
-import com.jv.theque.GameImplementation.Tag;
 import com.jv.theque.MainActivity;
 import com.jv.theque.R;
 import com.jv.theque.RAWGImplementation.DownloadImageTask;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder>  {
@@ -80,12 +83,15 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             }
 
             gameName.setText(game.getName());
-            if (game.getPlatforms() != null) {
-                //TODO with map
-                List<Tag> tempo = game.getPlatforms();
-//                Log.e("liste",String.valueOf(tempo.isEmpty()));
-                if(!tempo.isEmpty()){
-                    gamePlat.setText(tempo.get(0).getName());
+
+            //Methode pour afficher la première plateforme du jeu
+            List<Tag> tmpList = game.getPlatforms();
+            if (tmpList != null){
+                if(!tmpList.isEmpty()){
+                    for (Tag t : tmpList){
+                        Log.e("inadapter",t.getName());
+                    }
+                    gamePlat.setText(tmpList.get(0).getName());
                 }
             }
         }

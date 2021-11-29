@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jv.theque.DisplayGameActivity;
+import com.jv.theque.FetchGames;
 import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.RecyclerViewUsages.GameAdapter;
 import com.jv.theque.RecyclerViewUsages.ItemClickSupport;
@@ -37,7 +38,7 @@ import java.util.concurrent.ExecutionException;
  * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements FetchGames {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,6 +57,7 @@ public class SearchFragment extends Fragment {
     GameAdapter adapter;
     private Fragment mFragment;
     Bundle mBundle;
+    Context context;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -92,7 +94,7 @@ public class SearchFragment extends Fragment {
     // Permet de mettre à jour la recyclerView avec les données des jeux récupérées via l'API
     private void updateRecycler(List<Game> datalist) {
         adapter = new GameAdapter(datalist);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity().getApplicationContext(),2);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(context,2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -127,6 +129,7 @@ public class SearchFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+        context = getContext();
 
 
 
@@ -151,14 +154,10 @@ public class SearchFragment extends Fragment {
 
                     // Le get() permet ici d'attendre que l'opération soit terminée pour passer à la suite
                     // TODO : Faire ça plus proprement parce que actuellement ça freeze toute la page
-                    try {
-                        datalist = new RAWGSearchOperation(apiKey,searchedtext.getText().toString().replaceAll(" ", "+"),datalist).execute("").get();
-                    } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    new RAWGSearchOperation(apiKey,searchedtext.getText().toString().replaceAll(" ", "+"),datalist, this).execute("");
 
                     hideSoftKeyboard(recyclerView);
-                    updateRecycler(datalist);
+
                 }
         );
 
@@ -188,5 +187,9 @@ public class SearchFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void query(List<Game> gameList) {
+        datalist = gameList;
+        updateRecycler(datalist);
+    }
 }

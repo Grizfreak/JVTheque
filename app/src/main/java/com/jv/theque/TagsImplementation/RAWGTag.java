@@ -3,20 +3,23 @@ package com.jv.theque.TagsImplementation;
 import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGTags;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class RAWGTag implements Tag {
+public class RAWGTag implements Tag, Serializable {
+
 
     private String name;
     private int color;
-    private List<Game> games;
+    private List<Game> games = new ArrayList<Game>();
     private TagType type = TagType.RAWGTAG;
 
-    public RAWGTag(String name) {
+    public RAWGTag(String name, Game game) {
         this.name = name;
-        this.games = new ArrayList<Game>();
         this.color = Tag.color;
+        games.add(game);
     }
 
     @Override
@@ -52,5 +55,26 @@ public class RAWGTag implements Tag {
     @Override
     public void addGame(Game game) {
         games.add(game);
+
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RAWGTag rawgTag = (RAWGTag) o;
+        return name.equals(rawgTag.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+
+
 }

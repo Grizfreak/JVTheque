@@ -1,5 +1,6 @@
 package com.jv.theque.TagsImplementation;
 
+import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.GameImplementation.UserGameList;
 import com.jv.theque.MainActivity;
 import com.jv.theque.UserData;
@@ -16,11 +17,11 @@ import java.util.List;
 import java.util.Observable;
 
 public class UserTagList implements Serializable, CustomObservable  {
-    private List<Tag> tagList;
+    private List<Tag> tagList = new ArrayList<Tag>();
     private List<CustomObserver> observerList = new ArrayList<CustomObserver>();
 
-    public UserTagList(UserData userData) {
-        addObserver(userData);
+    public UserTagList(CustomObserver userData) {
+        this.addObserver(userData);
     }
 
     public UserTagList(UserData userData, List<Tag> tagList) {
@@ -35,7 +36,7 @@ public class UserTagList implements Serializable, CustomObservable  {
     public Tag find(String name) {
 
         for (Tag tag : tagList) {
-            if (tag.getName() == name) {
+            if (tag.getName().equals(name)) {
                 return tag;
             }
         }

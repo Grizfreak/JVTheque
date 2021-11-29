@@ -1,10 +1,15 @@
 package com.jv.theque.GameImplementation;
 
+import android.util.Log;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.jv.theque.MainActivity;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGGame;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGPlatformsList;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGStoresList;
+import com.jv.theque.TagsImplementation.RAWGTag;
+import com.jv.theque.TagsImplementation.Tag;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,37 +36,41 @@ public class Game implements Serializable {
         this.name = game.name;
         this.release_date = game.releaseDate;
         this.tags = new HashMap<>();
-        tags = this.setupTags(game);
+        tags = this.setupTags();
+        setupRAWGTags(game);
         this.backgroundImageLink = game.backgroundImageLink;
         this.description = null;
 
     }
 
-    private Map<String, List<Tag>> setupTags(RAWGGame game) {
+    private Map<String, List<Tag>> setupTags() {
         Map tagMap = new HashMap<String, List<Tag>>();
-
-        //TODO Tags / Genres / Platform / Stores
         tagMap.put("Usertag", new ArrayList<Tag>());
         tagMap.put("platform", new ArrayList<Tag>());
         tagMap.put("store", new ArrayList<Tag>());
+        return tagMap;
+    }
 
+
+    private void setupRAWGTags(RAWGGame game) {
         //Récupération des plateformes
         if (game.platforms != null) {
             for (RAWGPlatformsList tag : game.platforms) {
-                Tag tag1 = new Tag(tag.RAWGPlatform.name, this);
-                ((ArrayList) tagMap.get("platform")).add(tag1);
-            }
+                Log.e("ingameRAWG", tag.RAWGPlatform.name + " " + game.name);
+                Tag tag1 = new RAWGTag(tag.RAWGPlatform.name, this);
+                tags.get("platform").add(tag1);
+                }
         }
         //Récupération des magasins
         if (game.stores != null) {
             for (RAWGStoresList tag : game.stores) {
-                Tag tag1 = new Tag(tag.RAWGStore.name, this);
-                ((ArrayList) tagMap.get("store")).add(tag1);
+                Tag tag1 = new RAWGTag(tag.RAWGStore.name, this);
+                ((ArrayList) tags.get("store")).add(tag1);
             }
 
         }
-        return tagMap;
     }
+
 
     public String getSlug() {
         return slug;
@@ -86,7 +95,11 @@ public class Game implements Serializable {
 
     //TODO Return tag of each Category
     public ArrayList<Tag> getPlatforms(){
-        return (ArrayList<Tag>) tags.get("platform");
+        Log.e("envoi", "envoi de "+ this.tags.get("platform").size() + " tags pour jeu : "+this.name);
+        for (Tag t : this.tags.get("platform")){
+            Log.e("ingame",t.getName());
+        }
+        return (ArrayList<Tag>) this.tags.get("platform");
     }
 
     public ArrayList<Tag> getStores(){
@@ -107,8 +120,7 @@ public class Game implements Serializable {
 
     @Override
     public String toString() {
-
-        JsonObject gameObject = new JsonObject();
+        /*JsonObject gameObject = new JsonObject();
         gameObject.addProperty("slug", slug);
         gameObject.addProperty("id", id);
         gameObject.addProperty("name", name);
@@ -143,7 +155,8 @@ public class Game implements Serializable {
 
         gameObject.add("tags", tagObject);
 
-        return gameObject.toString();
+        return gameObject.toString();*/
+        return"";
 
     }
 
@@ -158,5 +171,19 @@ public class Game implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(slug, id, name, release_date, tags, backgroundImageLink);
+    }
+
+    public void addTagsToList() {
+        //TODO store tags in UserData and tout court enfait parce que je l'ai pas fait
+        for (Tag tag : this.tags.get("platform")){
+            if(MainActivity.userData.getUserTagList().getList().contains(tag)){
+                tags.get("platform").remove(tag);
+                tags.get("platform").add(MainActivity.userData.getUserTagList().find(tag.getName()));
+                MainActivity.userData.getUserTagList().find(tag.getName()).addGame(this);
+                Log.i("MICHTOS", String.valueOf(MainActivity.userData.getUserTagList().find(tag.getName()).getGames().size()));
+            } else {
+                MainActivity.userData.getUserTagList().add(tag);
+            }
+        }
     }
 }

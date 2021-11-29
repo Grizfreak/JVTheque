@@ -9,6 +9,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.jv.theque.FetchGames;
 import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGGame;
 
@@ -21,12 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RAWGSearchOperation extends AsyncTask<String, Void, List<Game>> {
+    private final FetchGames fetchGames;
     private String apiKey;
     private String searchedText;
     private List<Game> datalist;
-    public RAWGSearchOperation(String apiKey, String search,List datalist){
+    public RAWGSearchOperation(String apiKey, String search, List datalist, FetchGames fetchGames){
         this.apiKey = apiKey;
         this.searchedText = search;
+        this.fetchGames = fetchGames;
     }
 
     @Override
@@ -70,4 +73,9 @@ public class RAWGSearchOperation extends AsyncTask<String, Void, List<Game>> {
         return datalist;
     }
 
+    @Override
+    protected void onPostExecute(List<Game> games) {
+        super.onPostExecute(games);
+        fetchGames.query(games);
+    }
 }

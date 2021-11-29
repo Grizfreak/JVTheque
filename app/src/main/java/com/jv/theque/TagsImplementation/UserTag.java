@@ -4,10 +4,12 @@ import android.graphics.Color;
 
 import com.jv.theque.GameImplementation.Game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class UserTag implements Tag {
+public class UserTag implements Tag, Serializable {
     private String name;
     private int color;
     private List<Game> games;
@@ -52,5 +54,18 @@ public class UserTag implements Tag {
     @Override
     public void addGame(Game game) {
         games.add(game);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserTag userTag = (UserTag) o;
+        return name.equals(userTag.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

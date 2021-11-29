@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.jv.theque.GameImplementation.UserGameList;
 import com.jv.theque.TagsImplementation.CustomObserver;
+import com.jv.theque.TagsImplementation.UserTag;
 import com.jv.theque.TagsImplementation.UserTagList;
 
 import java.io.File;
@@ -58,6 +59,10 @@ public class UserData implements Serializable, CustomObserver {
             this.userTagList = new UserTagList(this, loadedUserData.userTagList.getList());
 
             Log.i("MICHTOS", "Loaded UserGameList with " + userGameList.getGameList().size() + " games inside");
+            Log.i("MICHTOS", "Loaded UserTagList with " + userTagList.getList().size() + " tags inside");
+            for (com.jv.theque.TagsImplementation.Tag tag : userTagList.getList()){
+                Log.i("MICHTOS",tag.getName() + " " + tag.getGames().size()) ;
+            }
 
         } catch (Exception e) {
             this.userGameList = new UserGameList(this);
