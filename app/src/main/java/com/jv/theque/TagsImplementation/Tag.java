@@ -4,12 +4,23 @@ import android.graphics.Color;
 
 import com.jv.theque.GameImplementation.Game;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public interface Tag {
+public interface Tag extends CustomObservable {
     public enum TagType {
         RAWGTAG,
         USERTAG
+    }
+
+    public List<CustomObserver> customObserverList = new ArrayList<CustomObserver>();
+    public default void addObserver(CustomObserver o){
+        customObserverList.add(o);
+    }
+    public default void notifyObserver(){
+        for(CustomObserver o : customObserverList){
+            o.update();
+        }
     }
 
     public TagType getType();
