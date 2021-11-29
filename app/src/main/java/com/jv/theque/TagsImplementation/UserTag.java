@@ -1,8 +1,7 @@
 package com.jv.theque.TagsImplementation;
 
-import android.graphics.Color;
-
 import com.jv.theque.GameImplementation.Game;
+import com.jv.theque.MainActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ public class UserTag implements Tag, Serializable {
         this.name = name;
         this.games = new ArrayList<Game>();
         this.color = Tag.color;
+        addObserver(MainActivity.userData.getUserTagList());
     }
 
     @Override
@@ -27,18 +27,13 @@ public class UserTag implements Tag, Serializable {
     }
 
     @Override
-    public int getColor() {
-        return color;
-    }
-
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
     @Override
-    public TagType getType() {
-        return type;
+    public int getColor() {
+        return color;
     }
 
     @Override
@@ -47,13 +42,31 @@ public class UserTag implements Tag, Serializable {
     }
 
     @Override
+    public void addObserver(CustomObserver o) {
+        customObserverList.add(o);
+    }
+
+    @Override
+    public void notifyObserver() {
+        for (CustomObserver o : customObserverList) {
+            o.update();
+        }
+    }
+
+    @Override
+    public TagType getType() {
+        return type;
+    }
+
+    @Override
     public List<Game> getGames() {
         return games;
     }
 
     @Override
-    public void addGame(Game game) {
+    public synchronized void addGame(Game game) {
         games.add(game);
+        notifyObserver();
     }
 
     @Override

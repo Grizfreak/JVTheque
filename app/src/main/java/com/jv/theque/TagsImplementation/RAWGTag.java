@@ -1,7 +1,6 @@
 package com.jv.theque.TagsImplementation;
 
 import com.jv.theque.GameImplementation.Game;
-import com.jv.theque.RAWGImplementation.SerializableGame.RAWGTags;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ public class RAWGTag implements Tag, Serializable {
     private int color;
     private List<Game> games = new ArrayList<Game>();
     private TagType type = TagType.RAWGTAG;
+    private List<CustomObserver> observerList = new ArrayList<CustomObserver>();
 
     public RAWGTag(String name, Game game) {
         this.name = name;
@@ -28,8 +28,8 @@ public class RAWGTag implements Tag, Serializable {
     }
 
     @Override
-    public void setColor(int color) {
-        return;
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -38,13 +38,13 @@ public class RAWGTag implements Tag, Serializable {
     }
 
     @Override
-    public String getName() {
-        return name;
+    public int getColor() {
+        return color;
     }
 
     @Override
-    public int getColor() {
-        return color;
+    public void setColor(int color) {
+        return;
     }
 
     @Override
@@ -53,8 +53,9 @@ public class RAWGTag implements Tag, Serializable {
     }
 
     @Override
-    public void addGame(Game game) {
+    public synchronized void addGame(Game game) {
         games.add(game);
+        notifyObserver();
 
     }
 
@@ -76,5 +77,15 @@ public class RAWGTag implements Tag, Serializable {
         return this.getName();
     }
 
+    @Override
+    public void addObserver(CustomObserver o) {
+        customObserverList.add(o);
+    }
 
+    @Override
+    public void notifyObserver() {
+        for (CustomObserver o : customObserverList) {
+            o.update();
+        }
+    }
 }

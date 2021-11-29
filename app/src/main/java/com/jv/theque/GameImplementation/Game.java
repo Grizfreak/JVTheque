@@ -175,15 +175,20 @@ public class Game implements Serializable {
 
     public void addTagsToList() {
         //TODO store tags in UserData and tout court enfait parce que je l'ai pas fait
+        List<Tag> tmpTagList = new ArrayList<Tag>();
         for (Tag tag : this.tags.get("platform")){
             if(MainActivity.userData.getUserTagList().getList().contains(tag)){
-                tags.get("platform").remove(tag);
-                tags.get("platform").add(MainActivity.userData.getUserTagList().find(tag.getName()));
+                Log.i("MICHTOS", "looping through tag " + tag.getName());
+                tmpTagList.add(MainActivity.userData.getUserTagList().find(tag.getName()));
                 MainActivity.userData.getUserTagList().find(tag.getName()).addGame(this);
                 Log.i("MICHTOS", String.valueOf(MainActivity.userData.getUserTagList().find(tag.getName()).getGames().size()));
             } else {
+                tmpTagList.add(tag);
+                tag.addObserver(MainActivity.userData.getUserTagList());
                 MainActivity.userData.getUserTagList().add(tag);
             }
         }
+
+        this.tags.put("platform", tmpTagList);
     }
 }

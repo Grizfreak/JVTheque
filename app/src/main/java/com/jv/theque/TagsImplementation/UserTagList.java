@@ -1,5 +1,7 @@
 package com.jv.theque.TagsImplementation;
 
+import android.util.Log;
+
 import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.GameImplementation.UserGameList;
 import com.jv.theque.MainActivity;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class UserTagList implements Serializable, CustomObservable  {
+public class UserTagList implements Serializable, CustomObservable, CustomObserver  {
     private List<Tag> tagList = new ArrayList<Tag>();
     private List<CustomObserver> observerList = new ArrayList<CustomObserver>();
 
@@ -55,7 +57,7 @@ public class UserTagList implements Serializable, CustomObservable  {
         return null;
     }
 
-    public boolean add(Tag tag) {
+    public synchronized boolean add(Tag tag) {
         if (tagList.contains(tag)) {
             return false;
         }
@@ -64,7 +66,7 @@ public class UserTagList implements Serializable, CustomObservable  {
         return true;
     }
 
-    public boolean remove(Tag tag) {
+    public synchronized boolean remove(Tag tag) {
         if (!tagList.contains(tag)) {
             return false;
         }
@@ -87,5 +89,11 @@ public class UserTagList implements Serializable, CustomObservable  {
         for(CustomObserver o : observerList){
             o.update();
         }
+    }
+
+    @Override
+    public synchronized void update() {
+        Log.i("MICHTOS", "fréro j'ai un tag qui vient de changer, update toi batard");
+        notifyObserver();
     }
 }

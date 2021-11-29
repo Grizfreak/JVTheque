@@ -14,14 +14,8 @@ public interface Tag extends CustomObservable {
     }
 
     public List<CustomObserver> customObserverList = new ArrayList<CustomObserver>();
-    public default void addObserver(CustomObserver o){
-        customObserverList.add(o);
-    }
-    public default void notifyObserver(){
-        for(CustomObserver o : customObserverList){
-            o.update();
-        }
-    }
+    public void addObserver(CustomObserver o);
+    public void notifyObserver();
 
     public TagType getType();
 
