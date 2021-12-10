@@ -1,6 +1,8 @@
 package com.jv.theque.Fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -28,6 +30,7 @@ import com.jv.theque.RecyclerViewUsages.ItemClickSupport;
 import com.jv.theque.MainActivity;
 import com.jv.theque.R;
 import com.jv.theque.RAWGImplementation.RAWGSearchOperation;
+import com.jv.theque.TagsImplementation.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +144,7 @@ public class SearchFragment extends Fragment implements FetchGames {
         recyclerView = view.findViewById(R.id.RecyclerView);
         validatebtn = view.findViewById(R.id.validate);
         searchedtext = view.findViewById(R.id.search);
+
         this.configureOnClickRecyclerView();
 
         //Création d'un évènement sur le bouton "Rechercher"

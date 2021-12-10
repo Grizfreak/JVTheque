@@ -1,5 +1,7 @@
 package com.jv.theque.Fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -15,6 +17,9 @@ import android.widget.Toast;
 
 import com.jv.theque.MainActivity;
 import com.jv.theque.R;
+import com.jv.theque.TagsImplementation.Tag;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +42,7 @@ public class SettingsFragment extends Fragment {
 
     private Button exportButton;
     private Button clearButton;
+    private Button showTags;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -78,6 +84,7 @@ public class SettingsFragment extends Fragment {
 
 
         radioGroupTheme = view.findViewById(R.id.radioGroupTheme);
+        showTags = view.findViewById(R.id.showTags);
 
         // TODO : Définir par défault le choix du thème
         //  Au premier lancement : Thème 'système' par défaut
@@ -103,6 +110,57 @@ public class SettingsFragment extends Fragment {
                         break;
                 }
             }
+        });
+
+        showTags.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+            // Set Title.
+            builder.setTitle("See Tags available");
+
+            // Add a list
+            ArrayList<String> TagNames = new ArrayList<>();
+            for (Tag tag : MainActivity.userData.getUserTagList().getList()){
+                TagNames.add(tag.getName());
+            }
+            TagNames.add("+");
+            builder.setItems(TagNames.toArray(new String[0]), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Tag tag = null;
+                    if(which == MainActivity.userData.getUserTagList().getList().size()){
+                        Toast.makeText(v.getContext(),"yes t'a touché le plus",Toast.LENGTH_SHORT).show();
+                    } else {
+                        tag = MainActivity.userData.getUserTagList().getList().get(which);
+                    }
+                    dialog.dismiss(); // Close Dialog
+                    // Do some thing....
+                    // For example: Call method of MainActivity.
+                    if(tag != null){
+                        Toast.makeText(v.getContext(),"You select: " + tag.getName(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    // activity.someMethod(animal);
+                }
+            });
+
+            //
+            builder.setCancelable(true);
+
+            // Create "Cancel" button with OnClickListener.
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    Toast.makeText(v.getContext(),"You choose No button",
+                            Toast.LENGTH_SHORT).show();
+                    //  Cancel
+                    dialog.cancel();
+                }
+            });
+
+            // Create AlertDialog:
+            AlertDialog alert = builder.create();
+            alert.show();
         });
         exportButton = view.findViewById(R.id.exportList);
         clearButton = view.findViewById(R.id.clearList);

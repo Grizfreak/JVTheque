@@ -87,6 +87,12 @@
                     android:layout_height="wrap_content"
                     android:text="Clear Liste" />
 
+                <Button
+                    android:id="@+id/showTags"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Montrer les tags" />
+
             </LinearLayout>
         </ScrollView>
 
