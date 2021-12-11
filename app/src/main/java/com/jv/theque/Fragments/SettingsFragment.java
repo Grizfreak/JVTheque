@@ -15,11 +15,13 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.jv.theque.CustomDialog;
 import com.jv.theque.MainActivity;
 import com.jv.theque.R;
 import com.jv.theque.TagsImplementation.Tag;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,18 +115,20 @@ public class SettingsFragment extends Fragment {
         });
 
         showTags.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            List<Tag> test = new ArrayList<>();
+            CustomDialog.showAlertDialogTag(v.getContext(),test);
+            /*AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
             // Set Title.
             builder.setTitle("See Tags available");
 
             // Add a list
-            ArrayList<String> TagNames = new ArrayList<>();
+            ArrayList<String> tagNames = new ArrayList<>();
             for (Tag tag : MainActivity.userData.getUserTagList().getList()){
-                TagNames.add(tag.getName());
+                tagNames.add(tag.getName());
             }
-            TagNames.add("+");
-            builder.setItems(TagNames.toArray(new String[0]), new DialogInterface.OnClickListener() {
+            tagNames.add("+");
+            builder.setItems(tagNames.toArray(new String[0]), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Tag tag = null;
@@ -160,7 +164,7 @@ public class SettingsFragment extends Fragment {
 
             // Create AlertDialog:
             AlertDialog alert = builder.create();
-            alert.show();
+            alert.show();*/
         });
         exportButton = view.findViewById(R.id.exportList);
         clearButton = view.findViewById(R.id.clearList);

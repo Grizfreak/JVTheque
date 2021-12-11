@@ -97,4 +97,12 @@ public class UserTagList implements Serializable, CustomObservable, CustomObserv
         Log.i("MICHTOS", "j'ai un tag qui vient de changer, sauvegarde moi ça en local Michel !");
         notifyObserver();
     }
+
+    public List<String> getTagNameList(){
+     List<String> result = new ArrayList<>();
+     for (Tag tag : tagList){
+         result.add(tag.getName());
+     }
+     return result;
+    }
 }

@@ -39,5 +39,4 @@ public interface Tag extends CustomObservable {
 
     public void removeGame(Game game);
 
-
 }

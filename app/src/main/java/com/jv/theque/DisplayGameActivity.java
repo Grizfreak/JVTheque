@@ -3,6 +3,9 @@ package com.jv.theque;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,9 +23,12 @@ import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.GameImplementation.UserGameList;
 import com.jv.theque.RAWGImplementation.DownloadImageTask;
 import com.jv.theque.RAWGImplementation.RAWGGetGameDescriptionOperation;
+import com.jv.theque.TagsImplementation.Tag;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DisplayGameActivity extends AppCompatActivity {
 
@@ -34,6 +40,7 @@ public class DisplayGameActivity extends AppCompatActivity {
     private Button addButton, removeButton;
     private LinearLayout platformLayout;
     private TextView description;
+    UserGameList userGameList;
     public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
 
     @Override
@@ -59,15 +66,15 @@ public class DisplayGameActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
         title.setText(gameDisplayed.getName());
-        Log.e("default date compare", String.valueOf(gameDisplayed.getRelease_date()) + " / " + String.valueOf(Game.DEFAULT_DATE) );
+        Log.e("default date compare", String.valueOf(gameDisplayed.getRelease_date()) + " / " + String.valueOf(Game.DEFAULT_DATE));
         // Affiche la date correspondante du jeu, si la date n'est pas connue (valeur par défaut), affiche "Date de sortie : inconnue"
         releaseDate.setText((gameDisplayed.getRelease_date().equals(Game.DEFAULT_DATE)) ?
-                (releaseDate.getText() + " inconnue") : (releaseDate.getText() + " " + formatter.format(gameDisplayed.getRelease_date())) );
+                (releaseDate.getText() + " inconnue") : (releaseDate.getText() + " " + formatter.format(gameDisplayed.getRelease_date())));
         setPlatformButtons(gameDisplayed.getPlatforms().size());
         displayImage(gameDisplayed, gameImage);
         //TODO modifier pour gérer la suppression d'un jeu
 
-        UserGameList userGameList = MainActivity.userData.getUserGameList();
+        userGameList = MainActivity.userData.getUserGameList();
 
         if (gameDisplayed.getDescription() == null) {
             try {
@@ -75,15 +82,14 @@ public class DisplayGameActivity extends AppCompatActivity {
                 Log.i("GameDescription", newGameDescription);
                 newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n");
                 gameDisplayed.setDescription(newGameDescription);
-                description.setText(description.getText() + "\n"+ gameDisplayed.getDescription());
+                description.setText(description.getText() + "\n" + gameDisplayed.getDescription());
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
-            description.setText(description.getText() + "\n"+ gameDisplayed.getDescription());
+        } else {
+            description.setText(description.getText() + "\n" + gameDisplayed.getDescription());
         }
-
 
 
         if (userGameList.contains(gameDisplayed)) {
@@ -94,9 +100,9 @@ public class DisplayGameActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userGameList.addGame(gameDisplayed);
-                gameDisplayed.addTagsToList();
-                onBackPressed();
+                List<Tag> result = new ArrayList<>();
+                // code goes here.
+                CustomDialog.showDialogNewGameAdd(getActivity(), result, gameDisplayed);
             }
         });
         removeButton.setOnClickListener(new View.OnClickListener() {
@@ -104,11 +110,21 @@ public class DisplayGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 userGameList.removeGame(gameDisplayed);
-
                 onBackPressed();
             }
         });
 
+    }
+
+    protected void checkInputUser(List<Tag> result) {
+        if (result.size() == 0) {
+            Toast.makeText(this, "frérot met un tag au moins", Toast.LENGTH_SHORT).show();
+        } else {
+            gameDisplayed.setRAWGTags(result);
+            userGameList.addGame(gameDisplayed);
+            gameDisplayed.addTagsToList();
+            onBackPressed();
+        }
     }
 
     private void setPlatformButtons(int size) {
@@ -148,5 +164,16 @@ public class DisplayGameActivity extends AppCompatActivity {
 //                    Log.i("INFO", game.backgroundImageLink);
             }
         }
+    }
+
+    private DisplayGameActivity getActivity() {
+        Context context = this;
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (DisplayGameActivity) context;
+            }
+            context = ((ContextWrapper)context).getBaseContext();
+        }
+        return null;
     }
 }

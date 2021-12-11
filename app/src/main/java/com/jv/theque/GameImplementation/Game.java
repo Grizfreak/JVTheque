@@ -195,10 +195,8 @@ public class Game implements Serializable {
         List<Tag> tmpTagList = new ArrayList<Tag>();
         for (Tag tag : this.tags.get("platform")) {
             if (MainActivity.userData.getUserTagList().getList().contains(tag)) {
-                Log.i("MICHTOS", "looping through tag " + tag.getName());
                 tmpTagList.add(MainActivity.userData.getUserTagList().find(tag.getName()));
                 MainActivity.userData.getUserTagList().find(tag.getName()).addGame(this);
-                Log.i("MICHTOS", String.valueOf(MainActivity.userData.getUserTagList().find(tag.getName()).getGames().size()));
             } else {
                 tmpTagList.add(tag);
                 tag.addObserver(MainActivity.userData.getUserTagList());
@@ -207,5 +205,9 @@ public class Game implements Serializable {
         }
 
         this.tags.put("platform", tmpTagList);
+    }
+
+    public void setRAWGTags(List<Tag> toAdd) {
+        tags.put("platform",toAdd);
     }
 }
