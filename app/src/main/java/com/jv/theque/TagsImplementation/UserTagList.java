@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class UserTagList implements Serializable, CustomObservable, CustomObserver  {
+public class UserTagList implements Serializable, CustomObservable, CustomObserver {
     private List<Tag> tagList = new ArrayList<Tag>();
     private List<CustomObserver> observerList = new ArrayList<CustomObserver>();
 
@@ -49,7 +49,7 @@ public class UserTagList implements Serializable, CustomObservable, CustomObserv
     public Tag find(String name, Tag.TagType tagType) {
 
         for (Tag tag : tagList) {
-            if (tag.getName() == name && tag.getType() == tagType) {
+            if (tag.getName().equals(name) && tag.getType().equals(tagType)) {
                 return tag;
             }
         }
@@ -67,7 +67,8 @@ public class UserTagList implements Serializable, CustomObservable, CustomObserv
     }
 
     public synchronized boolean remove(Tag tag) {
-        if (!tagList.contains(tag)) {
+        //empêche le retrait de la liste d'un tag qui n'existe pas ou d'un tag fourni par l'API
+        if (!tagList.contains(tag) || tag.getType().equals(Tag.TagType.RAWGTAG)) {
             return false;
         }
         tagList.remove(tag);
@@ -86,14 +87,14 @@ public class UserTagList implements Serializable, CustomObservable, CustomObserv
 
     @Override
     public void notifyObserver() {
-        for(CustomObserver o : observerList){
+        for (CustomObserver o : observerList) {
             o.update();
         }
     }
 
     @Override
     public synchronized void update() {
-        Log.i("MICHTOS", "fréro j'ai un tag qui vient de changer, update toi batard");
+        Log.i("MICHTOS", "j'ai un tag qui vient de changer, sauvegarde moi ça en local Michel !");
         notifyObserver();
     }
 }
