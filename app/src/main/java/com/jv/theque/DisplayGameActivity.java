@@ -100,8 +100,9 @@ public class DisplayGameActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Instanciation d'une liste de résultats du dialogue
                 List<Tag> result = new ArrayList<>();
-                // code goes here.
+                //Affichage du dialogue d'ajout des premiers tags d'un jeu
                 CustomDialog.showDialogNewGameAdd(getActivity(), result, gameDisplayed);
             }
         });
@@ -117,9 +118,12 @@ public class DisplayGameActivity extends AppCompatActivity {
     }
 
     protected void checkInputUser(List<Tag> result) {
+        //Vérification du choix de l'utilisateur
         if (result.size() == 0) {
+            //Si celui ci est incorrect, affichage d'un message
             Toast.makeText(this, "frérot met un tag au moins", Toast.LENGTH_SHORT).show();
         } else {
+            //Si celui ci est valide, modification des tags, et ajout du jeu en local
             gameDisplayed.setRAWGTags(result);
             userGameList.addGame(gameDisplayed);
             gameDisplayed.addTagsToList();

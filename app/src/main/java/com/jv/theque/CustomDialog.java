@@ -77,26 +77,27 @@ public class CustomDialog {
         }
 
     public static void showDialogNewGameAdd(final DisplayGameActivity activity, List<Tag> result, Game toDisplay)  {
+        //Création d'un dialogue
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         // Set Title.
         builder.setTitle("Select");
 
-        // Add a list
+        // Ajout de la liste à afficher
         ArrayList<String> toDisplayInString = new ArrayList<>();
+        // Création d'un tableau de strings pour le format du builder
         for (Tag tag : toDisplay.getPlatforms()){
             toDisplayInString.add(tag.getName());
         }
         final String[] tags = toDisplayInString.toArray(new String[0]);
-
+        // Création d'un tableau référençant les objets validés ou non
         final boolean[] checkedInfos = new boolean[tags.length];
         Arrays.fill(checkedInfos,false);
-        //TODO if game has tags
-
-
+        //Application d'un mode multichoix sur une liste de Strings
         builder.setMultiChoiceItems(tags, checkedInfos, new DialogInterface.OnMultiChoiceClickListener()  {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                //A chaque appui sur un item, passage de son état booléen
                 checkedInfos[which] = isChecked;
             }
         });
@@ -105,21 +106,20 @@ public class CustomDialog {
         builder.setCancelable(true);
         builder.setIcon(R.drawable.logo);
 
-        // Create "Yes" button with OnClickListener.
+        // Création du bouton pour valider le dialogue
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                //Vérification de tous les objets true du tableau booléen
                 for (int i = 0;i < checkedInfos.length;i++){
                     boolean e = checkedInfos[i];
                     if (e == true){
+                        //Si vrai alors ajout du tag dans les résultats
                         result.add(new RAWGTag(tags[i],toDisplay));
                     }
                 }
-                for(Tag tag : result){
-                    Log.e("Michtos",tag.getName());
-                }
-
                 // Close Dialog
                 dialog.dismiss();
+                //Après la fermeture du dialogue vérification du résultat utilisateur
                 activity.checkInputUser(result);
             }
         });
