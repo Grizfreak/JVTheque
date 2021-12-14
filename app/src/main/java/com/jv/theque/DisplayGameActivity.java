@@ -1,8 +1,5 @@
 package com.jv.theque;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -18,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.GameImplementation.UserGameList;
@@ -40,8 +40,32 @@ public class DisplayGameActivity extends AppCompatActivity {
     private Button addButton, removeButton;
     private LinearLayout platformLayout;
     private TextView description;
+    View.OnClickListener btnaddClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Object tag = v.getTag();
+            Toast.makeText(getApplicationContext(), "clicked add button", Toast.LENGTH_SHORT).show();
+            List<Tag> result = new ArrayList<Tag>();
+            CustomDialog.showAlertDialogTag(v.getContext(), result);
+        }
+    };
     UserGameList userGameList;
     public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
+    private boolean inList = false;
+
+    protected void checkInputUser(List<Tag> result) {
+        //Vérification du choix de l'utilisateur
+        if (result.size() == 0) {
+            //Si celui ci est incorrect, affichage d'un message
+            Toast.makeText(this, "frérot met un tag au moins", Toast.LENGTH_SHORT).show();
+        } else {
+            //Si celui ci est valide, modification des tags, et ajout du jeu en local
+            gameDisplayed.setRAWGTags(result);
+            userGameList.addGame(gameDisplayed);
+            gameDisplayed.addTagsToList();
+            onBackPressed();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +89,15 @@ public class DisplayGameActivity extends AppCompatActivity {
         description = findViewById(R.id.gameDescription);
         Bundle extras = getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
+        if (MainActivity.userData.getUserGameList().contains(gameDisplayed)) {
+            inList = true;
+        }
         title.setText(gameDisplayed.getName());
-        Log.e("default date compare", String.valueOf(gameDisplayed.getRelease_date()) + " / " + String.valueOf(Game.DEFAULT_DATE));
-        // Affiche la date correspondante du jeu, si la date n'est pas connue (valeur par défaut), affiche "Date de sortie : inconnue"
         releaseDate.setText((gameDisplayed.getRelease_date().equals(Game.DEFAULT_DATE)) ?
                 (releaseDate.getText() + " inconnue") : (releaseDate.getText() + " " + formatter.format(gameDisplayed.getRelease_date())));
         setPlatformButtons(gameDisplayed.getPlatforms().size());
         displayImage(gameDisplayed, gameImage);
+
         //TODO modifier pour gérer la suppression d'un jeu
 
         userGameList = MainActivity.userData.getUserGameList();
@@ -92,7 +118,7 @@ public class DisplayGameActivity extends AppCompatActivity {
         }
 
 
-        if (userGameList.contains(gameDisplayed)) {
+        if (inList) {
             addButton.setVisibility(View.GONE);
         } else {
             removeButton.setVisibility(View.GONE);
@@ -117,23 +143,18 @@ public class DisplayGameActivity extends AppCompatActivity {
 
     }
 
-    protected void checkInputUser(List<Tag> result) {
-        //Vérification du choix de l'utilisateur
-        if (result.size() == 0) {
-            //Si celui ci est incorrect, affichage d'un message
-            Toast.makeText(this, "frérot met un tag au moins", Toast.LENGTH_SHORT).show();
-        } else {
-            //Si celui ci est valide, modification des tags, et ajout du jeu en local
-            gameDisplayed.setRAWGTags(result);
-            userGameList.addGame(gameDisplayed);
-            gameDisplayed.addTagsToList();
-            onBackPressed();
+
+    View.OnClickListener btnClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Object tag = v.getTag();
+            Toast.makeText(getApplicationContext(), "clicked button", Toast.LENGTH_SHORT).show();
         }
-    }
+    };
 
     private void setPlatformButtons(int size) {
-        AppCompatButton[] btnWord = new AppCompatButton[size];
-        for (int i = 0; i < btnWord.length; i++) {
+        AppCompatButton[] btnWord = new AppCompatButton[size + 1];
+        for (int i = 0; i < btnWord.length - 1; i++) {
             btnWord[i] = new AppCompatButton(this);
             btnWord[i].setHeight(10);
             btnWord[i].setWidth(10);
@@ -146,13 +167,30 @@ public class DisplayGameActivity extends AppCompatActivity {
         }
     }
 
-    View.OnClickListener btnClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Object tag = v.getTag();
-            Toast.makeText(getApplicationContext(), "clicked button", Toast.LENGTH_SHORT).show();
+    void displayTags(int size) {
+        AppCompatButton[] btnWord = new AppCompatButton[size + 1];
+        for (int i = 0; i < btnWord.length - 1; i++) {
+            btnWord[i] = new AppCompatButton(this);
+            btnWord[i].setHeight(10);
+            btnWord[i].setWidth(10);
+            btnWord[i].setBackgroundResource(R.drawable.custom_button);
+            btnWord[i].setTextSize(10);
+            btnWord[i].setTag(i);
+            btnWord[i].setText(gameDisplayed.getPlatforms().get(i).toString());
+            btnWord[i].setOnClickListener(btnClicked);
+            platformLayout.addView(btnWord[i]);
         }
-    };
+        Log.e("Michto", "J'suis rentré");
+        btnWord[size] = new AppCompatButton(this);
+        btnWord[size].setHeight(10);
+        btnWord[size].setWidth(10);
+        btnWord[size].setBackgroundResource(R.drawable.custom_button);
+        btnWord[size].setTextSize(10);
+        btnWord[size].setTag(size);
+        btnWord[size].setText("+");
+        btnWord[size].setOnClickListener(btnaddClicked);
+        platformLayout.addView(btnWord[size]);
+    }
 
     void displayImage(Game game, ImageView gamePicture) {
         if (game.getBackgroundImageLink() != null) {
