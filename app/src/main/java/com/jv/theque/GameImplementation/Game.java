@@ -10,6 +10,7 @@ import com.jv.theque.RAWGImplementation.SerializableGame.RAWGPlatformsList;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGStoresList;
 import com.jv.theque.TagsImplementation.RAWGTag;
 import com.jv.theque.TagsImplementation.Tag;
+import com.jv.theque.UserData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -71,7 +72,6 @@ public class Game implements Serializable {
         }
     }
 
-
     public String getSlug() {
         return slug;
     }
@@ -94,7 +94,7 @@ public class Game implements Serializable {
 
     //TODO Return tag of each Category
     public ArrayList<Tag> getPlatforms() {
-        Log.e("envoi", "envoi de " + this.tags.get("platform").size() + " tags pour jeu : " + this.name);
+        Log.e("envoi", "envoi de " + this.tags.get("platform").size() + " tags de plateforme pour le jeu : " + this.name);
         for (Tag t : this.tags.get("platform")) {
             Log.e("ingame", t.getName());
         }
@@ -102,7 +102,7 @@ public class Game implements Serializable {
     }
 
     public ArrayList<Tag> getUserTags() {
-        Log.e("envoi", "envoi de " + this.tags.get("Usertag").size() + " tags pour jeu : " + this.name);
+        Log.e("envoi", "envoi de " + this.tags.get("Usertag").size() + " tags custom pour le jeu : " + this.name);
         for (Tag t : this.tags.get("Usertag")) {
             Log.e("ingame", t.getName());
         }
@@ -185,10 +185,16 @@ public class Game implements Serializable {
 
     }
 
-    public void addUserTagtoList(Tag tag){
-        tag.addGame(this);
-        tags.get("Usertag").add(tag);
-        Log.e("Fesse",tag.getName());
+    public void addUserTagtoList(Tag tag) {
+
+
+        if (getTags().contains(tag)) {
+            return;
+        } else {
+            tag.addGame(this);
+            tags.get("Usertag").add(tag);
+            Log.e("Fesse", tag.getName());
+        }
     }
 
     @Override
@@ -222,6 +228,6 @@ public class Game implements Serializable {
     }
 
     public void setRAWGTags(List<Tag> toAdd) {
-        tags.put("platform",toAdd);
+        tags.put("platform", toAdd);
     }
 }

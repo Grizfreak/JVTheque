@@ -32,7 +32,7 @@ public class RAWGTag implements Tag, Serializable {
 
     @Override
     public String getName() {
-        return name;
+        return SpecialChars.get(getType()) + name;
     }
 
     @Override
@@ -63,9 +63,9 @@ public class RAWGTag implements Tag, Serializable {
     }
 
     @Override
-    public synchronized void  removeGame(Game game) {
+    public synchronized void removeGame(Game game) {
         games.remove(game);
-        if(games.size() == 0){
+        if (games.size() == 0) {
             MainActivity.userData.getUserTagList().remove(this);
         }
         notifyObserver();

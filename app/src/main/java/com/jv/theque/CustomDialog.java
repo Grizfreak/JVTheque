@@ -19,64 +19,71 @@ import java.util.List;
 
 public class CustomDialog {
 
-    public static void showAlertDialogTag(final Context activity, List<Tag> result)  {
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+    public static void showAlertDialogTag(final Context activity, List<Tag> result) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-            // Set Title.
-            builder.setTitle("Select");
+        // Set Title.
+        builder.setTitle("Select");
 
-            // Add a list
-            final String[] tags = MainActivity.userData.getUserTagList().getTagNameList().toArray(new String[0]);
+        // Add a list
+        final String[] tags = MainActivity.userData.getUserTagList().getTagNameList().toArray(new String[0]);
 
-            final boolean[] checkedInfos = new boolean[tags.length];
-            Arrays.fill(checkedInfos,false);
-            //TODO if game has tags
+        final boolean[] checkedInfos = new boolean[tags.length];
+        Arrays.fill(checkedInfos, false);
+        //TODO if game has tags
 
 
-            builder.setMultiChoiceItems(tags, checkedInfos, new DialogInterface.OnMultiChoiceClickListener()  {
-                @Override
-                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                    checkedInfos[which] = isChecked;
-                }
-            });
+        builder.setMultiChoiceItems(tags, checkedInfos, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                checkedInfos[which] = isChecked;
+            }
+        });
 
-            //
-            builder.setCancelable(true);
-            builder.setIcon(R.drawable.logo);
+        //
+        builder.setCancelable(true);
+        builder.setIcon(R.drawable.logo);
 
-            // Create "Yes" button with OnClickListener.
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    // Close Dialog
-                    dialog.dismiss();
-                    for (int i = 0;i < checkedInfos.length;i++){
-                        boolean e = checkedInfos[i];
-                        if (e == true){
-                            result.add(MainActivity.userData.getUserTagList().find(tags[i]));
+        // Create "Yes" button with OnClickListener.
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // Close Dialog
+                dialog.dismiss();
+                for (int i = 0; i < checkedInfos.length; i++) {
+                    boolean e = checkedInfos[i];
+                    if (e == true) {
+//                        System.out.println();
+                        for (Tag.TagType type : Tag.SpecialChars.keySet()) {
+                            if (tags[i].subSequence(0, 1).equals(Tag.SpecialChars.get(type))) {
+                                System.out.println(tags[i] + "est du type " + type);
+                            }
                         }
-                    }
-                    for(Tag tag : result){
-                        Log.e("Michtos",tag.getName());
+                        result.add(MainActivity.userData.getUserTagList().find(tags[i]));
                     }
                 }
-            });
+                for (Tag tag : result) {
 
-            // Create "Cancel" button with OnClickListener.
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    Toast.makeText(activity,"You choose Cancel button",
-                            Toast.LENGTH_SHORT).show();
-                    //  Cancel
-                    dialog.cancel();
+                    Log.e("Michtos", tag.getName());
                 }
-            });
+            }
+        });
 
-            // Create AlertDialog:
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
+        // Create "Cancel" button with OnClickListener.
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Toast.makeText(activity, "You choose Cancel button",
+                        Toast.LENGTH_SHORT).show();
+                //  Cancel
+                dialog.cancel();
+            }
+        });
 
-    public static void showDialogNewGameAdd(final DisplayGameActivity activity, List<Tag> result, Game toDisplay)  {
+        // Create AlertDialog:
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public static void showDialogNewGameAdd(final DisplayGameActivity activity, List<Tag> result, Game toDisplay) {
         //Création d'un dialogue
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
@@ -86,15 +93,15 @@ public class CustomDialog {
         // Ajout de la liste à afficher
         ArrayList<String> toDisplayInString = new ArrayList<>();
         // Création d'un tableau de strings pour le format du builder
-        for (Tag tag : toDisplay.getPlatforms()){
+        for (Tag tag : toDisplay.getPlatforms()) {
             toDisplayInString.add(tag.getName());
         }
         final String[] tags = toDisplayInString.toArray(new String[0]);
         // Création d'un tableau référençant les objets validés ou non
         final boolean[] checkedInfos = new boolean[tags.length];
-        Arrays.fill(checkedInfos,false);
+        Arrays.fill(checkedInfos, false);
         //Application d'un mode multichoix sur une liste de Strings
-        builder.setMultiChoiceItems(tags, checkedInfos, new DialogInterface.OnMultiChoiceClickListener()  {
+        builder.setMultiChoiceItems(tags, checkedInfos, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 //A chaque appui sur un item, passage de son état booléen
@@ -110,11 +117,11 @@ public class CustomDialog {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //Vérification de tous les objets true du tableau booléen
-                for (int i = 0;i < checkedInfos.length;i++){
+                for (int i = 0; i < checkedInfos.length; i++) {
                     boolean e = checkedInfos[i];
-                    if (e == true){
+                    if (e == true) {
                         //Si vrai alors ajout du tag dans les résultats
-                        result.add(new RAWGTag(tags[i],toDisplay));
+                        result.add(new RAWGTag(tags[i], toDisplay));
                     }
                 }
                 // Close Dialog
@@ -127,7 +134,7 @@ public class CustomDialog {
         // Create "Cancel" button with OnClickListener.
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(activity,"You choose Cancel button",
+                Toast.makeText(activity, "You choose Cancel button",
                         Toast.LENGTH_SHORT).show();
                 //  Cancel
                 dialog.cancel();

@@ -169,6 +169,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     UserTag us = new UserTag(txt.getText().toString());
                     Toast.makeText(getApplicationContext(),us.getName(),Toast.LENGTH_LONG).show();
+                    MainActivity.userData.getUserTagList().add(us);
                     gameDisplayed.addUserTagtoList(us);
                     updateTags();
                 }
