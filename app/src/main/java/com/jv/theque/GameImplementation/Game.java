@@ -101,6 +101,14 @@ public class Game implements Serializable {
         return (ArrayList<Tag>) this.tags.get("platform");
     }
 
+    public ArrayList<Tag> getUserTags() {
+        Log.e("envoi", "envoi de " + this.tags.get("Usertag").size() + " tags pour jeu : " + this.name);
+        for (Tag t : this.tags.get("Usertag")) {
+            Log.e("ingame", t.getName());
+        }
+        return (ArrayList<Tag>) this.tags.get("Usertag");
+    }
+
     public List<Tag> getTags() {
         List<Tag> tmpList = new ArrayList<Tag>();
 
@@ -175,6 +183,12 @@ public class Game implements Serializable {
         return gameObject.toString();*/
         return "";
 
+    }
+
+    public void addUserTagtoList(Tag tag){
+        tag.addGame(this);
+        tags.get("Usertag").add(tag);
+        Log.e("Fesse",tag.getName());
     }
 
     @Override
