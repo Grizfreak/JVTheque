@@ -91,7 +91,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
                     for (Tag t : tmpList){
                         Log.e("inadapter",t.getName());
                     }
-                    gamePlat.setText(tmpList.get(0).getName());
+                    gamePlat.setText("(" + tmpList.get(0).getName() + ")");
                 }
             }
         }

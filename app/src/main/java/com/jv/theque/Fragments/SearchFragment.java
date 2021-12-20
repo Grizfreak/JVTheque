@@ -1,8 +1,6 @@
 package com.jv.theque.Fragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,6 +17,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +29,9 @@ import com.jv.theque.RecyclerViewUsages.ItemClickSupport;
 import com.jv.theque.MainActivity;
 import com.jv.theque.R;
 import com.jv.theque.RAWGImplementation.RAWGSearchOperation;
-import com.jv.theque.TagsImplementation.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,7 +51,7 @@ public class SearchFragment extends Fragment implements FetchGames {
 
     public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
     RecyclerView recyclerView;
-    Button validatebtn;
+    ImageButton validatebtn;
     EditText searchedtext;
     List<Game> datalist;
     GameAdapter adapter;

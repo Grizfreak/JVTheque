@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.GameImplementation.UserGameList;
 import com.jv.theque.RAWGImplementation.DownloadImageTask;
@@ -37,7 +38,8 @@ public class DisplayGameActivity extends AppCompatActivity {
     private ImageView gameImage;
     private Game gameDisplayed;
     private Intent intent;
-    private Button addButton, removeButton;
+    private Button removeButton;
+    private FloatingActionButton addButton;
     private LinearLayout platformLayout;
     private TextView description;
     View.OnClickListener btnaddClicked = new View.OnClickListener() {
@@ -106,7 +108,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             try {
                 String newGameDescription = new RAWGGetGameDescriptionOperation(apiKey, gameDisplayed).execute("").get();
                 Log.i("GameDescription", newGameDescription);
-                newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n");
+                newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br />","\n");
                 gameDisplayed.setDescription(newGameDescription);
                 description.setText(description.getText() + "\n" + gameDisplayed.getDescription());
 

@@ -19,21 +19,39 @@
         android:scaleType="centerCrop"
         android:src="@drawable/logo_anim_final_light" />
 
-    <TextView
-        android:id="@+id/name2"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.25"
-        android:text="@string/game_name"
-        android:textAlignment="center" />
+        android:layout_height="match_parent"
+        android:layout_weight="0.5">
 
-    <TextView
-        android:id="@+id/platform2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:padding="10dp"
-        android:text="@string/platform"
-        android:textAlignment="center" />
+        <TextView
+            android:id="@+id/platform2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="@string/platform"
+            android:textAlignment="textStart"
+            app:layout_constraintStart_toEndOf="@+id/space"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Space
+            android:id="@+id/space"
+            android:layout_width="15dp"
+            android:layout_height="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/platform2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/name2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name2"
+            android:layout_width="203dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="@string/game_name"
+            android:textAlignment="textEnd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
