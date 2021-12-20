@@ -26,12 +26,19 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/logo_anim_final_light" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/GameTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="Game Title"
+                android:textColor="#000000"
                 android:textSize="30dp" />
 
             <HorizontalScrollView
@@ -49,13 +56,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Platforms :"
+                        android:paddingLeft="30dp"
+                        android:text="Platforms :  "
+                        android:textColor="#000000"
                         android:textSize="15dp" />
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
 
                 </LinearLayout>
             </HorizontalScrollView>
@@ -86,10 +90,11 @@
                         android:id="@+id/textView2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
                         android:layout_marginTop="15dp"
                         android:layout_weight="1"
+                        android:paddingLeft="30dp"
                         android:text="Tags :"
+                        android:textColor="#000000"
                         android:textSize="15dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -113,15 +118,22 @@
                 android:id="@+id/gameDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
                 android:text="Description :"
-                android:textSize="15dp" />
+                android:textColor="#000000"
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/releaseDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
                 android:text="Date de sortie :"
-                android:textSize="15dp" />
+                android:textColor="#000000"
+                android:textSize="17dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -135,7 +147,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/supresion_button"
                     android:text="Supprimer" />
-
             </LinearLayout>
 
         </LinearLayout>

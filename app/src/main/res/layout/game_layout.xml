@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_weight="0.5"
     android:orientation="vertical"
-    android:paddingRight="15dp"
-    android:paddingLeft="15dp">
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/image2"
@@ -21,7 +21,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="0.5">
 
         <TextView
@@ -30,25 +30,34 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:text="@string/game_name"
-            android:textAlignment="textEnd"
+            android:textAlignment="center"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/platform2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="20dp"
             android:layout_weight="0.25"
             android:text="@string/platform"
             android:textAlignment="textStart"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name2" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/platform2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
