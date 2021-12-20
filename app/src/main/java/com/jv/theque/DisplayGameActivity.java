@@ -40,7 +40,7 @@ public class DisplayGameActivity extends AppCompatActivity {
     private Intent intent;
     private Button removeButton;
     private FloatingActionButton addButton;
-    private LinearLayout platformLayout;
+    private LinearLayout platformLayout, userTagLayout;
     private TextView description;
     View.OnClickListener btnaddClicked = new View.OnClickListener() {
         @Override
@@ -89,6 +89,7 @@ public class DisplayGameActivity extends AppCompatActivity {
         releaseDate = findViewById(R.id.releaseDate);
         platformLayout = findViewById(R.id.PlatformLayout);
         description = findViewById(R.id.gameDescription);
+        userTagLayout = findViewById(R.id.UserTagLayout);
         Bundle extras = getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
         if (MainActivity.userData.getUserGameList().contains(gameDisplayed)) {
@@ -125,6 +126,12 @@ public class DisplayGameActivity extends AppCompatActivity {
         } else {
             removeButton.setVisibility(View.GONE);
         }
+        if(inList) {
+            AppCompatButton btnAddTag = new AppCompatButton(this);
+            btnAddTag.setText("+");
+            btnAddTag.setOnClickListener(addANewTag);
+            userTagLayout.addView(btnAddTag);
+        }
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,6 +152,13 @@ public class DisplayGameActivity extends AppCompatActivity {
 
     }
 
+    View.OnClickListener addANewTag = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            newTagDialog cdd = new newTagDialog(DisplayGameActivity.this);
+            cdd.show();
+        }
+    };
 
     View.OnClickListener btnClicked = new View.OnClickListener() {
         @Override
