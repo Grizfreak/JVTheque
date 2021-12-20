@@ -15,41 +15,46 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             android:ems="10"
             android:hint="Rechercher un jeu..."
             android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/TagLinearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:id="@+id/TagLinearLayout"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/HomelinearLayout"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Homesearch" />
+            app:layout_constraintTop_toBottomOf="@+id/Homesearch"
+            tools:ignore="SpeakableTextPresentCheck">
+
+            <LinearLayout
+                android:id="@+id/TagLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
 
         <LinearLayout
             android:id="@+id/HomelinearLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
 
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="15dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/TagLinearLayout"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/HomeRecyclerView"

@@ -194,6 +194,7 @@ public class HomeFragment extends Fragment {
                 btnWord[i].setWidth(50);*/
                 btnWord[i].setBackgroundResource(R.drawable.custom_button);
                 btnWord[i].setTextSize(10);
+                btnWord[i].setPadding(15,3, 15, 3);
                 btnWord[i].setTag(i);
                 //TODO modify way to get all Tags
                 btnWord[i].setText(MainActivity.userData.getUserTagList().getList().get(i).getName());
