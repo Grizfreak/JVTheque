@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class UserGameList implements Serializable, CustomObservable {
+public class UserGameList implements Serializable, CustomObservable, CustomObserver {
 
     private final Type GAME_TYPE = new TypeToken<List<Game>>() {
     }.getType();
@@ -53,10 +53,20 @@ public class UserGameList implements Serializable, CustomObservable {
         return gameList.contains(game);
     }
 
+    public Game find(String slug) {
+        for (Game game : gameList) {
+            if (game.getSlug().equals(slug)) {
+                Log.i("MICHTOS", "j'ai trouvé le jeu " + game);
+                return game;
+            }
+        }
+        return null;
+    }
+
     public synchronized void removeGame(Game gameToDelete) {
         if (gameList.contains(gameToDelete)) {
             gameList.remove(gameToDelete);
-            for(Tag t : gameToDelete.getTags()){
+            for (Tag t : gameToDelete.getTags()) {
                 t.removeGame(gameToDelete);
             }
         }
@@ -74,8 +84,13 @@ public class UserGameList implements Serializable, CustomObservable {
 
     @Override
     public void notifyObserver() {
-        for(CustomObserver o : observerList){
+        for (CustomObserver o : observerList) {
             o.update();
         }
+    }
+
+    @Override
+    public void update() {
+        notifyObserver();
     }
 }

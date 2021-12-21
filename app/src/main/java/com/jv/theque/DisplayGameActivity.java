@@ -31,9 +31,8 @@ import com.jv.theque.RAWGImplementation.RAWGGetGameDescriptionOperation;
 import com.jv.theque.TagsImplementation.Tag;
 import com.jv.theque.TagsImplementation.UserTag;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,9 +98,14 @@ public class DisplayGameActivity extends AppCompatActivity {
         userTagLayout = findViewById(R.id.UserTagLayout);
         Bundle extras = getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
+
+        userGameList = MainActivity.userData.getUserGameList();
+
         if (MainActivity.userData.getUserGameList().contains(gameDisplayed)) {
             inList = true;
+            gameDisplayed = userGameList.find(gameDisplayed.getSlug());
         }
+
         title.setText(gameDisplayed.getName());
         releaseDate.setText((gameDisplayed.getRelease_date().equals(Game.DEFAULT_DATE)) ?
                 (releaseDate.getText() + " inconnue") : (releaseDate.getText() + " " + formatter.format(gameDisplayed.getRelease_date())));
@@ -110,13 +114,12 @@ public class DisplayGameActivity extends AppCompatActivity {
         updateTags();
         //TODO modifier pour gérer la suppression d'un jeu
 
-        userGameList = MainActivity.userData.getUserGameList();
 
         if (gameDisplayed.getDescription() == null) {
             try {
                 String newGameDescription = new RAWGGetGameDescriptionOperation(apiKey, gameDisplayed).execute("").get();
                 Log.i("GameDescription", newGameDescription);
-                newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br />","\n");
+                newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br />", "\n");
                 gameDisplayed.setDescription(newGameDescription);
                 description.setText(description.getText() + "\n" + gameDisplayed.getDescription());
 
@@ -163,18 +166,19 @@ public class DisplayGameActivity extends AppCompatActivity {
             View dialogView = inflater.inflate(R.layout.add_new_tag_dialog, null);
             alert.setView(dialogView);
             EditText txt = dialogView.findViewById(R.id.editTextTextPersonName);
-            alert.setPositiveButton("Valider",new DialogInterface.OnClickListener(){
+            alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     UserTag us = new UserTag(txt.getText().toString());
-                    Toast.makeText(getApplicationContext(),us.getName(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), us.getName(), Toast.LENGTH_LONG).show();
                     MainActivity.userData.getUserTagList().add(us);
-                    gameDisplayed.addUserTagtoList(us);
+//                    gameDisplayed.addUserTagtoList(us);
+                    gameDisplayed.addTag(us);
                     updateTags();
                 }
             });
-            alert.setNegativeButton("Annuler",new DialogInterface.OnClickListener(){
+            alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -187,10 +191,12 @@ public class DisplayGameActivity extends AppCompatActivity {
 
     private void updateTags() {
         //TODO REFACTOR
-        if(!gameDisplayed.getUserTags().isEmpty()){
-        userTagLayout.removeAllViews();
-        AppCompatButton[] btnWord = new AppCompatButton[gameDisplayed.getUserTags().size()];
-            for (int i = 0; i < btnWord.length - 1; i++) {
+        if (!gameDisplayed.getUserTags().isEmpty()) {
+            Log.i("MICHTOS", "SALUT MON POTE");
+            userTagLayout.removeAllViews();
+            AppCompatButton[] btnWord = new AppCompatButton[gameDisplayed.getUserTags().size()];
+            for (int i = 0; i < btnWord.length; i++) {
+
                 btnWord[i] = new AppCompatButton(this);
                 btnWord[i].setHeight(10);
                 btnWord[i].setWidth(10);
@@ -202,7 +208,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 userTagLayout.addView(btnWord[i]);
             }
         }
-        if(inList) {
+        if (inList) {
             AppCompatButton btnAddTag = new AppCompatButton(this);
             btnAddTag.setText("+");
             btnAddTag.setOnClickListener(addANewTag);
@@ -255,7 +261,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             if (context instanceof Activity) {
                 return (DisplayGameActivity) context;
             }
-            context = ((ContextWrapper)context).getBaseContext();
+            context = ((ContextWrapper) context).getBaseContext();
         }
         return null;
     }

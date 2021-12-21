@@ -178,6 +178,8 @@ public class SettingsFragment extends Fragment {
 
         clearButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                MainActivity.userData.getUserGameList().getList().clear();
+                MainActivity.userData.getUserTagList().getList().clear();
                 return;
             }
         });

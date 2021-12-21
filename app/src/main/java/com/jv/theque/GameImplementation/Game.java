@@ -2,15 +2,12 @@ package com.jv.theque.GameImplementation;
 
 import android.util.Log;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.jv.theque.MainActivity;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGGame;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGPlatformsList;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGStoresList;
 import com.jv.theque.TagsImplementation.RAWGTag;
 import com.jv.theque.TagsImplementation.Tag;
-import com.jv.theque.UserData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,7 +38,6 @@ public class Game implements Serializable {
         setupRAWGTags(game);
         this.backgroundImageLink = game.backgroundImageLink;
         this.description = null;
-
     }
 
     private Map<String, List<Tag>> setupTags() {
@@ -51,7 +47,6 @@ public class Game implements Serializable {
         tagMap.put("store", new ArrayList<Tag>());
         return tagMap;
     }
-
 
     private void setupRAWGTags(RAWGGame game) {
         //Récupération des plateformes
@@ -136,7 +131,7 @@ public class Game implements Serializable {
     }
 
     public String getDescription() {
-        return this.description;
+        return this.description + String.valueOf(tags);
     }
 
     public void setDescription(String description) {
@@ -181,21 +176,20 @@ public class Game implements Serializable {
         gameObject.add("tags", tagObject);
 
         return gameObject.toString();*/
-        return "";
+        return getName() + " avec " + tags.get("Usertag").size() + " tags custom";
 
     }
 
-    public void addUserTagtoList(Tag tag) {
-
-
-        if (getTags().contains(tag)) {
-            return;
-        } else {
-            tag.addGame(this);
-            tags.get("Usertag").add(tag);
-            Log.e("Fesse", tag.getName());
-        }
-    }
+//    public void addUserTagtoList(Tag tag) {
+//
+//        if (getTags().contains(tag)) {
+//            return;
+//        } else {
+//            tag.addGame(this);
+//            tags.get("Usertag").add(tag);
+//            Log.e("Fesse", tag.getName());
+//        }
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -225,6 +219,47 @@ public class Game implements Serializable {
         }
 
         this.tags.put("platform", tmpTagList);
+    }
+
+    public void addTag(Tag tag) {
+        List<Tag> tagList = new ArrayList<Tag>();
+        String listName;
+        switch (tag.getType()) {
+            case RAWGTAG: {
+                listName = "platform";
+                break;
+            }
+            case USERTAG: {
+                listName = "Usertag";
+                break;
+            }
+            default: {
+                throw new IllegalStateException("tagType " + tag.getType() + " does not exist");
+            }
+        }
+        ;
+        tagList = tags.get(listName);
+
+        if (!tagList.contains(tag)) {
+
+            if (MainActivity.userData.getUserTagList().getList().contains(tag)) {
+                tagList.add(MainActivity.userData.getUserTagList().find(tag.getName()));
+                MainActivity.userData.getUserTagList().find(tag.getName()).addGame(this);
+            } else {
+                tag.addObserver(MainActivity.userData.getUserTagList());
+                MainActivity.userData.getUserTagList().add(tag);
+                tag.addGame(this);
+                tagList.add(tag);
+
+            }
+            tags.put(listName, tagList);
+            MainActivity.userData.saveToFile();
+            Log.i("MICHTOS", "le tag " + tag + " a été ajouté à la liste " + listName + " dans le jeu " + getName());
+            Log.i("MICHTOS", String.valueOf(tags));
+
+        } else {
+            Log.e("MICHTOS", "le tag " + tag + " est déjà présent dans le jeu");
+        }
     }
 
     public void setRAWGTags(List<Tag> toAdd) {

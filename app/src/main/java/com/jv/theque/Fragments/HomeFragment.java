@@ -220,7 +220,7 @@ public class HomeFragment extends Fragment {
                 ArrayList<Game> result = new ArrayList<>();
              for(Tag t : searchedTags){
                  for(Game game : actuallyDisplayed){
-                     if(game.getPlatforms().contains(t)){
+                     if(game.getTags().contains(t)){
                          result.add(game);
                      }
                  }

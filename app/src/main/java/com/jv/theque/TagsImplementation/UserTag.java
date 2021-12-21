@@ -90,4 +90,9 @@ public class UserTag implements Tag, Serializable {
     public int hashCode() {
         return Objects.hash(name);
     }
+
+    @Override
+    public String toString() {
+        return "UserTag{name='" + name + "'}";
+    }
 }
