@@ -114,58 +114,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        showTags.setOnClickListener(v -> {
-            List<Tag> test = new ArrayList<>();
-            CustomDialog.showAlertDialogTag(v.getContext(),test);
-            /*AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-
-            // Set Title.
-            builder.setTitle("See Tags available");
-
-            // Add a list
-            ArrayList<String> tagNames = new ArrayList<>();
-            for (Tag tag : MainActivity.userData.getUserTagList().getList()){
-                tagNames.add(tag.getName());
-            }
-            tagNames.add("+");
-            builder.setItems(tagNames.toArray(new String[0]), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Tag tag = null;
-                    if(which == MainActivity.userData.getUserTagList().getList().size()){
-                        Toast.makeText(v.getContext(),"yes t'a touché le plus",Toast.LENGTH_SHORT).show();
-                    } else {
-                        tag = MainActivity.userData.getUserTagList().getList().get(which);
-                    }
-                    dialog.dismiss(); // Close Dialog
-                    // Do some thing....
-                    // For example: Call method of MainActivity.
-                    if(tag != null){
-                        Toast.makeText(v.getContext(),"You select: " + tag.getName(),
-                                Toast.LENGTH_SHORT).show();
-                    }
-
-                    // activity.someMethod(animal);
-                }
-            });
-
-            //
-            builder.setCancelable(true);
-
-            // Create "Cancel" button with OnClickListener.
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    Toast.makeText(v.getContext(),"You choose No button",
-                            Toast.LENGTH_SHORT).show();
-                    //  Cancel
-                    dialog.cancel();
-                }
-            });
-
-            // Create AlertDialog:
-            AlertDialog alert = builder.create();
-            alert.show();*/
-        });
         exportButton = view.findViewById(R.id.exportList);
         clearButton = view.findViewById(R.id.clearList);
 

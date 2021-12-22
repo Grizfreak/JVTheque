@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -11,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.TagsImplementation.RAWGTag;
 import com.jv.theque.TagsImplementation.Tag;
+import com.jv.theque.TagsImplementation.UserTag;
 import com.jv.theque.TagsImplementation.UserTagList;
 
 import java.util.ArrayList;
@@ -19,65 +23,55 @@ import java.util.List;
 
 public class CustomDialog {
 
-    public static void showAlertDialogTag(final Context activity, List<Tag> result) {
+    public static void showAlertDialogTag(final DisplayGameActivity activity, List<Tag> result) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         // Set Title.
         builder.setTitle("Select");
 
         // Add a list
-        final String[] tags = MainActivity.userData.getUserTagList().getTagNameList().toArray(new String[0]);
-
-        final boolean[] checkedInfos = new boolean[tags.length];
-        Arrays.fill(checkedInfos, false);
-        //TODO if game has tags
-
-
-        builder.setMultiChoiceItems(tags, checkedInfos, new DialogInterface.OnMultiChoiceClickListener() {
+        String[] tags = MainActivity.userData.getUserTagList().getTagNameList().toArray(new String[0]);
+        builder.setItems(tags, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                checkedInfos[which] = isChecked;
+            public void onClick(DialogInterface dialogInterface, int i) {
+              String tag = tags[i];
+                  dialogInterface.dismiss();
+                  Tag tagToAdd = MainActivity.userData.getUserTagList().find(tag);
+                  activity.gameDisplayed.addTag(tagToAdd);
+                  activity.updateTags();
             }
         });
+        builder.setNeutralButton("Ajouter un nouveau tag", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+                LayoutInflater inflater = activity.getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.add_new_tag_dialog, null);
+                alert.setView(dialogView);
+                EditText txt = dialogView.findViewById(R.id.editTextTextPersonName);
+                alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
 
-        //
-        builder.setCancelable(true);
-        builder.setIcon(R.drawable.logo);
-
-        // Create "Yes" button with OnClickListener.
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // Close Dialog
-                dialog.dismiss();
-                for (int i = 0; i < checkedInfos.length; i++) {
-                    boolean e = checkedInfos[i];
-                    if (e == true) {
-//                        System.out.println();
-                        for (Tag.TagType type : Tag.SpecialChars.keySet()) {
-                            if (tags[i].subSequence(0, 1).equals(Tag.SpecialChars.get(type))) {
-                                System.out.println(tags[i] + "est du type " + type);
-                            }
-                        }
-                        result.add(MainActivity.userData.getUserTagList().find(tags[i]));
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        UserTag us = new UserTag(txt.getText().toString());
+                        Toast.makeText(activity.getApplicationContext(), us.getName(), Toast.LENGTH_LONG).show();
+                        MainActivity.userData.getUserTagList().add(us);
+//                    gameDisplayed.addUserTagtoList(us);
+                        activity.gameDisplayed.addTag(us);
+                        activity.updateTags();
                     }
-                }
-                for (Tag tag : result) {
+                });
+                alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
 
-                    Log.e("Michtos", tag.getName());
-                }
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alert.show();
             }
         });
-
-        // Create "Cancel" button with OnClickListener.
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(activity, "You choose Cancel button",
-                        Toast.LENGTH_SHORT).show();
-                //  Cancel
-                dialog.cancel();
-            }
-        });
-
         // Create AlertDialog:
         AlertDialog alert = builder.create();
         alert.show();

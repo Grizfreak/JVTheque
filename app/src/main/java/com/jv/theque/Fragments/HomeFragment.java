@@ -187,6 +187,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setTagsButtons() {
+        tagLayout.removeAllViews();
             AppCompatButton[] btnWord = new AppCompatButton[MainActivity.userData.getUserTagList().getList().size() + 1];
             for (int i = 0; i < btnWord.length - 1; i++) {
                 btnWord[i] = new AppCompatButton(getActivity().getApplicationContext());
@@ -221,7 +222,9 @@ public class HomeFragment extends Fragment {
              for(Tag t : searchedTags){
                  for(Game game : actuallyDisplayed){
                      if(game.getTags().contains(t)){
-                         result.add(game);
+                         if(!result.contains(game)){
+                             result.add(game);
+                         }
                      }
                  }
              }
@@ -235,5 +238,6 @@ public class HomeFragment extends Fragment {
         super.onResume();
         Log.e("attachment", "resumed");
         updateRecycler(datalist);
+        setTagsButtons();
     }
 }

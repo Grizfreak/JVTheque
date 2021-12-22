@@ -36,7 +36,6 @@ public class UserTagList implements Serializable, CustomObservable, CustomObserv
     }
 
     public Tag find(String name) {
-
         for (Tag tag : tagList) {
             if (tag.getName().equals(name)) {
                 return tag;
@@ -47,7 +46,6 @@ public class UserTagList implements Serializable, CustomObservable, CustomObserv
     }
 
     public Tag find(String name, Tag.TagType tagType) {
-
         for (Tag tag : tagList) {
             if (tag.getName().equals(name) && tag.getType().equals(tagType)) {
                 return tag;
@@ -101,7 +99,9 @@ public class UserTagList implements Serializable, CustomObservable, CustomObserv
     public List<String> getTagNameList(){
      List<String> result = new ArrayList<>();
      for (Tag tag : tagList){
-         result.add(tag.getName());
+         if (tag instanceof UserTag){
+             result.add(tag.getName());
+         }
      }
      return result;
     }

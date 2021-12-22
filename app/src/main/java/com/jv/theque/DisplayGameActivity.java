@@ -42,24 +42,16 @@ public class DisplayGameActivity extends AppCompatActivity {
     private ImageButton returnButton;
     private TextView title, releaseDate;
     private ImageView gameImage;
-    private Game gameDisplayed;
+    protected Game gameDisplayed;
     private Intent intent;
     private Button removeButton;
     private FloatingActionButton addButton;
     private LinearLayout platformLayout, userTagLayout;
     private TextView description;
-    View.OnClickListener btnaddClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Object tag = v.getTag();
-            Toast.makeText(getApplicationContext(), "clicked add button", Toast.LENGTH_SHORT).show();
-            List<Tag> result = new ArrayList<Tag>();
-            CustomDialog.showAlertDialogTag(v.getContext(), result);
-        }
-    };
     UserGameList userGameList;
     public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
     private boolean inList = false;
+
 
     protected void checkInputUser(List<Tag> result) {
         //Vérification du choix de l'utilisateur
@@ -161,39 +153,18 @@ public class DisplayGameActivity extends AppCompatActivity {
         public void onClick(View view) {
             //TODO INTERFACE BETWEEN
             //TODO DISPLAY USERTAGS IN LAYOUT
-            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View dialogView = inflater.inflate(R.layout.add_new_tag_dialog, null);
-            alert.setView(dialogView);
-            EditText txt = dialogView.findViewById(R.id.editTextTextPersonName);
-            alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    UserTag us = new UserTag(txt.getText().toString());
-                    Toast.makeText(getApplicationContext(), us.getName(), Toast.LENGTH_LONG).show();
-                    MainActivity.userData.getUserTagList().add(us);
-//                    gameDisplayed.addUserTagtoList(us);
-                    gameDisplayed.addTag(us);
-                    updateTags();
-                }
-            });
-            alert.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
-            });
-            alert.show();
+            //Displaying all usertag available
+            Toast.makeText(getApplicationContext(), "clicked add button", Toast.LENGTH_SHORT).show();
+            List<Tag> result = new ArrayList<Tag>();
+            CustomDialog.showAlertDialogTag(getActivity(), result);
         }
     };
 
-    private void updateTags() {
+    public void updateTags() {
         //TODO REFACTOR
+        userTagLayout.removeAllViews();
         if (!gameDisplayed.getUserTags().isEmpty()) {
             Log.i("MICHTOS", "SALUT MON POTE");
-            userTagLayout.removeAllViews();
             AppCompatButton[] btnWord = new AppCompatButton[gameDisplayed.getUserTags().size()];
             for (int i = 0; i < btnWord.length; i++) {
 
@@ -205,6 +176,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 btnWord[i].setTag(i);
                 btnWord[i].setText(gameDisplayed.getUserTags().get(i).getName());
                 btnWord[i].setOnClickListener(btnClicked);
+                btnWord[i].setOnLongClickListener(btnLongClicked);
                 userTagLayout.addView(btnWord[i]);
             }
         }
@@ -216,6 +188,46 @@ public class DisplayGameActivity extends AppCompatActivity {
         }
     }
 
+    View.OnLongClickListener btnLongClicked = new View.OnLongClickListener() {
+
+        @Override
+        public boolean onLongClick(View view) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+
+            // Set Title and Message:
+            builder.setTitle("Confirmation").setMessage("Voulez-vous retirer ce tag ?");
+
+            //
+            builder.setCancelable(true);
+            builder.setIcon(R.drawable.logo);
+
+            // Create "Yes" button with OnClickListener.
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    AppCompatButton btn = (AppCompatButton) view;
+                    Tag tag = MainActivity.userData.getUserTagList().find(btn.getText().toString());
+                    gameDisplayed.getUserTags().remove(tag);
+                    tag.removeGame(gameDisplayed);
+                    updateTags();
+                }
+            });
+
+            // Create "No" button with OnClickListener.
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    Toast.makeText(view.getContext(),"You choose No button",
+                            Toast.LENGTH_SHORT).show();
+                    //  Cancel
+                    dialog.cancel();
+                }
+            });
+
+            // Create AlertDialog:
+            AlertDialog alert = builder.create();
+            alert.show();
+            return false;
+        }
+    };
     View.OnClickListener btnClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
