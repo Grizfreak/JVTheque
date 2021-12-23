@@ -73,11 +73,11 @@ public class FavoritesFragment extends Fragment {
         displayList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                FavoriteSearch a = MainActivity.userData.getUserFavorites().get(i);
+                FavoriteSearch a = MainActivity.userData.getUserFavorites().getList().get(i);
                 a.changeFragment((AppCompatActivity) view.getContext());
             }
         });
-        ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<FavoriteSearch>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites());
+        ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<FavoriteSearch>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
         displayList.setAdapter(arrayAdapter);
         return view;
     }

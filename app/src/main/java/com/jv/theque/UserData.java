@@ -25,11 +25,15 @@ public class UserData implements Serializable, CustomObserver {
 
     private UserGameList userGameList;
     private UserTagList userTagList;
-    private ArrayList<FavoriteSearch> userFavorites = new ArrayList<>();
+    private FavoriteSearchsList userFavorites;
 
     @Override
     public void update() {
-//        Log.i("MICHTOS", "\nGameList size is now " + userGameList.getGameList().size() + "\nTagList size is now " + userTagList.getList().size());
+        StringBuilder builder = new StringBuilder();
+        builder.append("GameList size is now " + userGameList.getGameList().size());
+        builder.append("\nTagList size is now " + userTagList.getList().size());
+        builder.append("\nFavoriteList size is now " + userFavorites.getList().size());
+        Log.i("MICHTOS", builder.toString());
         this.saveToFile();
     }
 
@@ -45,7 +49,9 @@ public class UserData implements Serializable, CustomObserver {
         return userTagList;
     }
 
-    public ArrayList<FavoriteSearch> getUserFavorites() {return userFavorites;}
+    public FavoriteSearchsList getUserFavorites() {
+        return userFavorites;
+    }
 
     private void loadListFromFile() {
         try {
@@ -59,19 +65,25 @@ public class UserData implements Serializable, CustomObserver {
             FileInputStream inputStream = new FileInputStream(myObj.getAbsoluteFile());
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             UserData loadedUserData = (UserData) objectInputStream.readObject();
-            this.userGameList = loadedUserData.userGameList;
+
+            //this.userGameList = loadedUserData.userGameList;
             this.userGameList = new UserGameList(this, loadedUserData.userGameList.getList());
             this.userTagList = new UserTagList(this, loadedUserData.userTagList.getList());
+            this.userFavorites = new FavoriteSearchsList(this, loadedUserData.userFavorites.getList());
 
             Log.i("MICHTOS", "Loaded UserGameList with " + userGameList.getGameList().size() + " games inside");
             Log.i("MICHTOS", "Loaded UserTagList with " + userTagList.getList().size() + " tags inside");
+            Log.i("MICTHOS", "Loaded USerFavorites with" + userFavorites.getList().size() + " searchs inside");
+
             for (com.jv.theque.TagsImplementation.Tag tag : userTagList.getList()) {
-                Log.i("MICHTOS", tag.getName() + " " + tag.getGames().size());
+                Log.i("MICHTOS", tag.getName() + " : " + tag.getGames().size() + " jeux");
             }
 
         } catch (Exception e) {
+            Log.e("MICHTOS", String.valueOf(e));
             this.userGameList = new UserGameList(this);
             this.userTagList = new UserTagList(this);
+            this.userFavorites = new FavoriteSearchsList(this);
         }
         return;
     }

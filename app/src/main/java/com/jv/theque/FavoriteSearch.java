@@ -1,41 +1,35 @@
 package com.jv.theque;
 
-import android.app.Activity;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.jv.theque.Fragments.HomeFragment;
 import com.jv.theque.TagsImplementation.Tag;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
-public class FavoriteSearch {
-    private ArrayList<Tag> searched;
+public class FavoriteSearch implements Serializable {
+    private ArrayList<Tag> tag_searched;
     private String text_searched;
 
-    public FavoriteSearch(ArrayList<Tag> searched,String text_searched){
-        this.searched=searched;
-        this.text_searched=text_searched;
+    public FavoriteSearch(ArrayList<Tag> tag_searched, String text_searched) {
+        this.tag_searched = tag_searched;
+        this.text_searched = text_searched;
     }
 
     public String getText_searched() {
         return text_searched;
     }
 
-    public ArrayList<Tag> getSearched() {
-        return searched;
+    public ArrayList<Tag> getTag_searched() {
+        return tag_searched;
     }
 
-    public void changeFragment(AppCompatActivity activity){
-        NavHostFragment n =(NavHostFragment) activity.getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
+    public void changeFragment(AppCompatActivity activity) {
+        NavHostFragment n = (NavHostFragment) activity.getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         NavController navController = n.getNavController();
         navController.navigateUp();
         navController.navigate(R.id.action_searchFragment_to_homeFragment);
@@ -46,6 +40,28 @@ public class FavoriteSearch {
     @NonNull
     @Override
     public String toString() {
-        return this.text_searched + " / ";
+        StringBuilder strBuilder = new StringBuilder();
+
+        if (text_searched.length() > 0) {
+            strBuilder.append('"');
+            strBuilder.append(text_searched);
+            strBuilder.append('"');
+        }
+
+        if (tag_searched.size() > 0) {
+            strBuilder.append(" Tags : ");
+
+            for (int i = 0; i < tag_searched.size(); i++) {
+                Tag tag = tag_searched.get(i);
+                strBuilder.append(tag.getName());
+                if (i < tag_searched.size() - 1) {
+                    strBuilder.append(", ");
+                }
+
+            }
+        }
+
+
+        return strBuilder.toString();
     }
 }

@@ -131,7 +131,7 @@ public class Game implements Serializable {
     }
 
     public String getDescription() {
-        return this.description + String.valueOf(tags);
+        return this.description;
     }
 
     public void setDescription(String description) {

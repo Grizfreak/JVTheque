@@ -193,7 +193,7 @@ public class HomeFragment extends Fragment {
 
         if(LastSearch != null){
             searchedtext.setText(LastSearch.getText_searched());
-            searchedTags = LastSearch.getSearched();
+            searchedTags = LastSearch.getTag_searched();
             Log.e("Michtos",searchedtext.getText().toString());
             LastSearch = null;
         }
