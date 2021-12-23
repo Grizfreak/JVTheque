@@ -2,12 +2,18 @@ package com.jv.theque.Fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import com.jv.theque.FavoriteSearch;
+import com.jv.theque.MainActivity;
 import com.jv.theque.R;
 
 /**
@@ -25,6 +31,7 @@ public class FavoritesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    ListView displayList;
 
     public FavoritesFragment() {
         // Required empty public constructor
@@ -61,6 +68,18 @@ public class FavoritesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
+        displayList = view.findViewById(R.id.displayList);
+        displayList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FavoriteSearch a = MainActivity.userData.getUserFavorites().get(i);
+                a.changeFragment((AppCompatActivity) view.getContext());
+            }
+        });
+        ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<FavoriteSearch>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites());
+        displayList.setAdapter(arrayAdapter);
+        return view;
     }
+
 }

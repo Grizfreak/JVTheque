@@ -5,11 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.FavoritesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/displayList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="FAVORITES"
-        android:textSize="24sp" />
-
+        android:layout_height="match_parent" />
 </FrameLayout>

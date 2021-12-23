@@ -15,7 +15,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private static Context context;
-    //TODO Persistance de cette magnifique liste
     public static UserData userData = new UserData();
 
 

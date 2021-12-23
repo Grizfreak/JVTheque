@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jv.theque.DisplayGameActivity;
+import com.jv.theque.FavoriteSearch;
 import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.RecyclerViewUsages.GameAdapter;
 import com.jv.theque.RecyclerViewUsages.ItemClickSupport;
@@ -53,11 +54,13 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     RecyclerView recyclerView;
-    EditText searchedtext;
+    public EditText searchedtext;
     List<Game> datalist;
-    LinearLayout tagLayout;
+    public LinearLayout tagLayout;
     GameAdapter adapter;
-    List<Tag> searchedTags;
+    Button favorite;
+    public List<Tag> searchedTags;
+    public static FavoriteSearch LastSearch;
     List<Game> actuallyDisplayed;
 
     public HomeFragment() {
@@ -80,6 +83,10 @@ public class HomeFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static void setSearch(FavoriteSearch favoriteSearch) {
+        LastSearch = favoriteSearch;
     }
 
     @Override
@@ -112,12 +119,10 @@ public class HomeFragment extends Fragment {
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Log.e("TAG", "Position : " + position);
                         Toast.makeText(MainActivity.getContext(), actuallyDisplayed.get(position).getName(), Toast.LENGTH_SHORT).show();
-                        //TODO faire la vue mais en version belle maintenant que ça fonctionne
                         Game game = actuallyDisplayed.get(position);
                         Intent intent = new Intent(MainActivity.getContext(), DisplayGameActivity.class);
                         intent.putExtra("Game", game);
                         MainActivity.getContext().startActivity(intent);
-                        //TODO on return on fragment updateRecyclerView
                     }
                 });
     }
@@ -139,10 +144,12 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.HomeRecyclerView);
         searchedtext = view.findViewById(R.id.Homesearch);
         tagLayout = view.findViewById(R.id.TagLinearLayout);
+        favorite = view.findViewById(R.id.favorite);
         searchedTags = new ArrayList<>();
         actuallyDisplayed = new ArrayList<>();
         updateRecycler(datalist);
         setTagsButtons();
+
         this.configureOnClickRecyclerView();
         searchedtext.addTextChangedListener(new TextWatcher() {
             @Override
@@ -152,18 +159,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.e("Michtos","ok je check le changement");
-                if(charSequence.toString().trim().toLowerCase(Locale.ROOT).equals("")){
-                    updateRecycler(datalist);
-                } else {
-                    ArrayList result = new ArrayList();
-                    for (Game game : actuallyDisplayed){
-                        if(game.getName().toLowerCase(Locale.ROOT).contains(charSequence.toString().toLowerCase(Locale.ROOT))){
-                            result.add(game);
-                        }
-                    }
-                    updateRecycler(result);
-                }
+                OnTextChangedCall();
             }
 
             @Override
@@ -182,7 +178,25 @@ public class HomeFragment extends Fragment {
                 return false;
             }
         });
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(searchedtext.getText().toString().equals("") && searchedTags.isEmpty()){
+                    Toast.makeText(view.getContext(),"Mets au moins un truc dans ta recherche stp",Toast.LENGTH_LONG).show();
+                } else {
+                    FavoriteSearch a = new FavoriteSearch((ArrayList<Tag>) searchedTags,searchedtext.getText().toString());
+                    MainActivity.userData.getUserFavorites().add(a);
+                }
+            }
+        });
 
+
+        if(LastSearch != null){
+            searchedtext.setText(LastSearch.getText_searched());
+            searchedTags = LastSearch.getSearched();
+            Log.e("Michtos",searchedtext.getText().toString());
+            LastSearch = null;
+        }
         return view;
     }
 
@@ -197,7 +211,6 @@ public class HomeFragment extends Fragment {
                 btnWord[i].setTextSize(10);
                 btnWord[i].setPadding(15,3, 15, 3);
                 btnWord[i].setTag(i);
-                //TODO modify way to get all Tags
                 btnWord[i].setText(MainActivity.userData.getUserTagList().getList().get(i).getName());
                 btnWord[i].setOnClickListener(btnClicked);
                 tagLayout.addView(btnWord[i]);
@@ -239,5 +252,20 @@ public class HomeFragment extends Fragment {
         Log.e("attachment", "resumed");
         updateRecycler(datalist);
         setTagsButtons();
+    }
+
+    public void OnTextChangedCall() {
+        Log.e("Michtos","ok je check le changement");
+        if(searchedtext.getText().toString().trim().toLowerCase(Locale.ROOT).equals("")){
+            updateRecycler(datalist);
+        } else {
+            ArrayList result = new ArrayList();
+            for (Game game : actuallyDisplayed){
+                if(game.getName().toLowerCase(Locale.ROOT).contains(searchedtext.getText().toString().toLowerCase(Locale.ROOT))){
+                    result.add(game);
+                }
+            }
+            updateRecycler(result);
+        }
     }
 }

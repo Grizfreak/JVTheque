@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,6 +25,7 @@ public class UserData implements Serializable, CustomObserver {
 
     private UserGameList userGameList;
     private UserTagList userTagList;
+    private ArrayList<FavoriteSearch> userFavorites = new ArrayList<>();
 
     @Override
     public void update() {
@@ -41,6 +44,8 @@ public class UserData implements Serializable, CustomObserver {
     public UserTagList getUserTagList() {
         return userTagList;
     }
+
+    public ArrayList<FavoriteSearch> getUserFavorites() {return userFavorites;}
 
     private void loadListFromFile() {
         try {
