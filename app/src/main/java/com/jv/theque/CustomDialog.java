@@ -132,7 +132,6 @@ public class CustomDialog {
                         Toast.LENGTH_SHORT).show();
                 //  Cancel
                 dialog.cancel();
-                notifyAll();
             }
 
         });
