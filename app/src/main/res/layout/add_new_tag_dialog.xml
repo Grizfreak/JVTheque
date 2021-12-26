@@ -11,14 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:background="@color/teal_200"
-            android:padding="10dp"
-            android:layout_gravity="center">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/text_dialog"
@@ -35,8 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Nom du tag" />
+            android:hint="Nom du tag"
+            android:inputType="textPersonName" />
 
         <TextView
             android:id="@+id/textView4"
@@ -64,86 +68,93 @@
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab1"
-                        android:layout_margin="4dp"
-                        android:backgroundTint="@color/RED"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|bottom"
-                        app:borderWidth="0dp"/>
+                        android:layout_margin="4dp"
+                        android:backgroundTint="@color/RED"
+                        app:borderWidth="0dp" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab2"
-                        android:layout_margin="4dp"
-                        android:backgroundTint="@color/GREEN_DARK"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|bottom"
-                        app:borderWidth="0dp"/>
+                        android:layout_margin="4dp"
+                        android:backgroundTint="@color/GREEN_DARK"
+                        app:borderWidth="0dp" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/BLUE_DARK"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
-                        app:borderWidth="0dp"/>
+                        app:borderWidth="0dp" />
+
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/BEIGE"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
-                        app:borderWidth="0dp"/>
+                        app:borderWidth="0dp" />
+
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/PINK"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
-                        app:borderWidth="0dp"/>
+                        app:borderWidth="0dp" />
+
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/PURPLE"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
-                        app:borderWidth="0dp"/>
+                        app:borderWidth="0dp" />
+
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/YELLOW"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
-                        app:borderWidth="0dp"/>
+                        app:borderWidth="0dp" />
+
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/BLUE_LIGHT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
-                        app:borderWidth="0dp"/>
+                        app:borderWidth="0dp" />
+
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/GREEN_LIGHT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
-                        app:borderWidth="0dp"/>
+                        app:borderWidth="0dp" />
+
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab10"
-                        android:layout_margin="4dp"
-                        android:backgroundTint="@color/ORANGE"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|bottom"
-                        app:borderWidth="0dp"/>
+                        android:layout_margin="4dp"
+                        android:backgroundTint="@color/ORANGE"
+                        app:borderWidth="0dp" />
                 </LinearLayout>
             </HorizontalScrollView>
         </FrameLayout>
