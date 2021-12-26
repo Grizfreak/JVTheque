@@ -35,7 +35,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Homesearch"
-            tools:ignore="SpeakableTextPresentCheck">
+            tools:ignore="SpeakableTextPresentCheck"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:id="@+id/TagLinearLayout"
@@ -47,9 +48,9 @@
 
         <LinearLayout
             android:id="@+id/HomelinearLayout"
+
             android:layout_width="0dp"
             android:layout_height="0dp"
-
             android:layout_marginTop="15dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"

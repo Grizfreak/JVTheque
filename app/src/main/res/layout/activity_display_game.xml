@@ -53,8 +53,8 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="30dp"
                     android:text="Platforms : "
-                    android:textColor="#000000"
-                    android:textSize="15dp" />
+                    android:textColor="#00ACC1"
+                    android:textSize="17dp" />
 
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
@@ -82,10 +82,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:paddingLeft="30dp"
                     android:text="Tags : "
-                    android:textColor="#000000"
-                    android:textSize="15dp"
+                    android:textColor="#00ACC1"
+                    android:textSize="17dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

@@ -208,7 +208,7 @@ public class HomeFragment extends Fragment {
                 /*btnWord[i].setHeight(50);
                 btnWord[i].setWidth(50);*/
                 btnWord[i].setBackgroundResource(R.drawable.custom_button);
-                btnWord[i].setTextSize(10);
+                btnWord[i].setTextSize(15);
                 btnWord[i].setPadding(15,3, 15, 3);
                 btnWord[i].setTag(i);
                 btnWord[i].setText(MainActivity.userData.getUserTagList().getList().get(i).getName());
@@ -224,9 +224,13 @@ public class HomeFragment extends Fragment {
             if(searchedTags.contains(tag)){
                 searchedTags.remove(tag);
                 b.setBackgroundResource(R.drawable.custom_button);
+                b.setTextSize(15);
+                b.setPadding(15,3, 15, 3);
             } else {
                 searchedTags.add(tag);
-                b.setBackgroundResource(android.R.drawable.btn_default);
+                b.setBackgroundResource(R.drawable.custom_button_green);
+                b.setTextSize(15);
+                b.setPadding(15,3, 15, 3);
             }
             if(searchedTags.isEmpty()){
                 updateRecycler(datalist);
