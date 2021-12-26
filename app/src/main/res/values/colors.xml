@@ -14,4 +14,17 @@
     <!-- MENU BAR -->
     <color name="colorAccentDark">#4aa87a</color>
     <color name="background_light">#ff6666</color>
+
+    <!-- COLOR PICKER -->
+    <color name="RED">#DD403A</color>
+    <color name="GREEN_DARK">#697A21</color>
+    <color name="BLUE_DARK">#083D77</color>
+    <color name="BEIGE">#EFD09E</color>
+    <color name="PINK">#D999B9</color>
+    <color name="PURPLE">#320E3B</color>
+    <color name="YELLOW">#F8D525</color>
+    <color name="BLUE_LIGHT">#75F4F4</color>
+    <color name="GREEN_LIGHT">#ACE894</color>
+    <color name="ORANGE">#F3742B</color>
+
 </resources>

@@ -2,6 +2,8 @@ package com.jv.theque.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -52,6 +54,8 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    View view;
 
     RecyclerView recyclerView;
     public EditText searchedtext;
@@ -138,7 +142,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
         // Attribution des objets xml à leurs équivalents dans la classe Java
 
         recyclerView = view.findViewById(R.id.HomeRecyclerView);
@@ -205,9 +209,9 @@ public class HomeFragment extends Fragment {
             AppCompatButton[] btnWord = new AppCompatButton[MainActivity.userData.getUserTagList().getList().size() + 1];
             for (int i = 0; i < btnWord.length - 1; i++) {
                 btnWord[i] = new AppCompatButton(getActivity().getApplicationContext());
-                /*btnWord[i].setHeight(50);
-                btnWord[i].setWidth(50);*/
-                btnWord[i].setBackgroundResource(R.drawable.custom_button);
+                btnWord[i].setBackgroundResource(R.drawable.custom_tag);
+                GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
+                drawable.setStroke(3, Color.RED); // set stroke width and stroke color
                 btnWord[i].setTextSize(15);
                 btnWord[i].setPadding(15,3, 15, 3);
                 btnWord[i].setTag(i);
@@ -219,16 +223,20 @@ public class HomeFragment extends Fragment {
     View.OnClickListener btnClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            int defColor = Color.RED;
             Button b = (Button) v;
+            GradientDrawable drawable = (GradientDrawable) b.getBackground();
             Tag tag = MainActivity.userData.getUserTagList().find(b.getText().toString());
             if(searchedTags.contains(tag)){
                 searchedTags.remove(tag);
-                b.setBackgroundResource(R.drawable.custom_button);
+                drawable.setStroke(3, defColor); // set stroke width and stroke color
+                drawable.setColor(Color.TRANSPARENT);           // set solid color
                 b.setTextSize(15);
                 b.setPadding(15,3, 15, 3);
             } else {
                 searchedTags.add(tag);
-                b.setBackgroundResource(R.drawable.custom_button_green);
+                drawable.setStroke(3, defColor); // set stroke width and stroke color
+                drawable.setColor(Color.argb(20, 255, 0, 0));           // set solid color
                 b.setTextSize(15);
                 b.setPadding(15,3, 15, 3);
             }

@@ -3,14 +3,18 @@ package com.jv.theque;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.TagsImplementation.RAWGTag;
 import com.jv.theque.TagsImplementation.Tag;
@@ -21,7 +25,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import petrov.kristiyan.colorpicker.ColorPicker;
+
 public class CustomDialog {
+
+
+    private static FloatingActionButton prevSelectColor = null;
+    // Permet de sélectionner le bouton de choix de la couleur (et le stocker dans une variable)
+    static View.OnClickListener notreListener = view -> {
+        FloatingActionButton b = (FloatingActionButton) view;
+        if (prevSelectColor != null)  prevSelectColor.setImageResource(0);
+        b.setImageResource(R.drawable.check);
+        prevSelectColor = b;
+    };
 
     public static void showAlertDialogTag(final DisplayGameActivity activity, List<Tag> result) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -41,6 +57,8 @@ public class CustomDialog {
                   activity.updateTags();
             }
         });
+
+
         builder.setNeutralButton("Ajouter un nouveau tag", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -50,6 +68,16 @@ public class CustomDialog {
                 View dialogView = inflater.inflate(R.layout.add_new_tag_dialog, null);
                 alert.setView(dialogView);
                 EditText txt = dialogView.findViewById(R.id.editTextTextPersonName);
+
+
+                LinearLayout ll = dialogView.findViewById(R.id.btnLinearLayout);
+                final int childCount = ll.getChildCount();
+                for (int k = 0; k < childCount; k++) {
+                    FloatingActionButton v = (FloatingActionButton) ll.getChildAt(k);
+                    v.setOnClickListener(notreListener);
+                }
+
+
                 alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
 
                     @Override
