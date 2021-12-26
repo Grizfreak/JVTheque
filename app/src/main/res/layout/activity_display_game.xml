@@ -36,15 +36,18 @@
                 android:id="@+id/GameTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:text="Game Title"
-                android:textColor="#000000"
+                android:textColor="#00ACC1"
                 android:textSize="30dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
@@ -57,14 +60,15 @@
                     android:textSize="17dp" />
 
                 <HorizontalScrollView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:scrollbars="none"
                     tools:ignore="SpeakableTextPresentCheck">
 
                     <LinearLayout
                         android:id="@+id/PlatformLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                     </LinearLayout>
@@ -72,17 +76,19 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="20dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
                     android:paddingLeft="30dp"
                     android:text="Tags : "
                     android:textColor="#00ACC1"
@@ -92,20 +98,24 @@
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
                     tools:ignore="SpeakableTextPresentCheck">
 
                     <LinearLayout
                         android:id="@+id/UserTagLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:orientation="horizontal">
 
                     </LinearLayout>
                 </HorizontalScrollView>
 
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
             <TextView
                 android:id="@+id/gameDescription"

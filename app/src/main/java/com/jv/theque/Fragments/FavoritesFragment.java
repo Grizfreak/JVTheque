@@ -77,6 +77,15 @@ public class FavoritesFragment extends Fragment {
                 a.changeFragment((AppCompatActivity) view.getContext());
             }
         });
+        displayList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                MainActivity.userData.getUserFavorites().getList().remove(position);
+                ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<FavoriteSearch>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
+                displayList.setAdapter(arrayAdapter);
+                return false;
+            }
+        });
         ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<FavoriteSearch>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
         displayList.setAdapter(arrayAdapter);
         return view;

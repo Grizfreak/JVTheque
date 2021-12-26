@@ -22,6 +22,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,7 +63,7 @@ public class HomeFragment extends Fragment {
     List<Game> datalist;
     public LinearLayout tagLayout;
     GameAdapter adapter;
-    Button favorite;
+    ImageButton favorite;
     public List<Tag> searchedTags;
     public static FavoriteSearch LastSearch;
     List<Game> actuallyDisplayed;
@@ -163,7 +164,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                OnTextChangedCall();
+                searchForTags();
             }
 
             @Override
@@ -185,41 +186,49 @@ public class HomeFragment extends Fragment {
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(searchedtext.getText().toString().equals("") && searchedTags.isEmpty()){
-                    Toast.makeText(view.getContext(),"Mets au moins un truc dans ta recherche stp",Toast.LENGTH_LONG).show();
+                if (searchedtext.getText().toString().equals("") && searchedTags.isEmpty()) {
+                    Toast.makeText(view.getContext(), "Mets au moins un truc dans ta recherche stp", Toast.LENGTH_LONG).show();
                 } else {
-                    FavoriteSearch a = new FavoriteSearch((ArrayList<Tag>) searchedTags,searchedtext.getText().toString());
+                    FavoriteSearch a = new FavoriteSearch((ArrayList<Tag>) searchedTags, searchedtext.getText().toString());
                     MainActivity.userData.getUserFavorites().add(a);
                 }
             }
         });
 
-
-        if(LastSearch != null){
-            searchedtext.setText(LastSearch.getText_searched());
-            searchedTags = LastSearch.getTag_searched();
-            Log.e("Michtos",searchedtext.getText().toString());
-            LastSearch = null;
-        }
         return view;
     }
 
     private void setTagsButtons() {
         tagLayout.removeAllViews();
-            AppCompatButton[] btnWord = new AppCompatButton[MainActivity.userData.getUserTagList().getList().size() + 1];
-            for (int i = 0; i < btnWord.length - 1; i++) {
-                btnWord[i] = new AppCompatButton(getActivity().getApplicationContext());
-                btnWord[i].setBackgroundResource(R.drawable.custom_tag);
-                GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
-                drawable.setStroke(3, Color.RED); // set stroke width and stroke color
+
+//            AppCompatButton[] btnWord = new AppCompatButton[MainActivity.userData.getUserTagList().getList().size() + 1];
+//            for (int i = 0; i < btnWord.length - 1; i++) {
+//                btnWord[i] = new AppCompatButton(getActivity().getApplicationContext());
+//                btnWord[i].setBackgroundResource(R.drawable.custom_tag);
+//                GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
+//                drawable.setStroke(3, Color.RED); // set stroke width and stroke color
+
+        AppCompatButton[] btnWord = new AppCompatButton[MainActivity.userData.getUserTagList().getList().size() + 1];
+        for (int i = 0; i < btnWord.length - 1; i++) {
+            Tag t = MainActivity.userData.getUserTagList().getList().get(i);
+            btnWord[i] = new AppCompatButton(getActivity().getApplicationContext());
+                /*btnWord[i].setHeight(50);
+                btnWord[i].setWidth(50);*/
+            btnWord[i].setBackgroundResource(R.drawable.custom_button);
+            btnWord[i].setTextSize(15);
+            btnWord[i].setPadding(15, 3, 15, 3);
+            btnWord[i].setTag(i);
+            if (searchedTags.contains(t)) {
+                btnWord[i].setBackgroundResource(R.drawable.custom_button_green);
                 btnWord[i].setTextSize(15);
-                btnWord[i].setPadding(15,3, 15, 3);
-                btnWord[i].setTag(i);
-                btnWord[i].setText(MainActivity.userData.getUserTagList().getList().get(i).getName());
-                btnWord[i].setOnClickListener(btnClicked);
-                tagLayout.addView(btnWord[i]);
+                btnWord[i].setPadding(15, 3, 15, 3);
             }
+            btnWord[i].setText(t.getName());
+            btnWord[i].setOnClickListener(btnClicked);
+            tagLayout.addView(btnWord[i]);
         }
+    }
+
     View.OnClickListener btnClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -227,36 +236,62 @@ public class HomeFragment extends Fragment {
             Button b = (Button) v;
             GradientDrawable drawable = (GradientDrawable) b.getBackground();
             Tag tag = MainActivity.userData.getUserTagList().find(b.getText().toString());
-            if(searchedTags.contains(tag)){
+            if (searchedTags.contains(tag)) {
                 searchedTags.remove(tag);
                 drawable.setStroke(3, defColor); // set stroke width and stroke color
                 drawable.setColor(Color.TRANSPARENT);           // set solid color
                 b.setTextSize(15);
-                b.setPadding(15,3, 15, 3);
+                b.setPadding(15, 3, 15, 3);
             } else {
                 searchedTags.add(tag);
                 drawable.setStroke(3, defColor); // set stroke width and stroke color
                 drawable.setColor(Color.argb(20, 255, 0, 0));           // set solid color
                 b.setTextSize(15);
-                b.setPadding(15,3, 15, 3);
+                b.setPadding(15, 3, 15, 3);
             }
-            if(searchedTags.isEmpty()){
-                updateRecycler(datalist);
-            } else {
-                ArrayList<Game> result = new ArrayList<>();
-             for(Tag t : searchedTags){
-                 for(Game game : actuallyDisplayed){
-                     if(game.getTags().contains(t)){
-                         if(!result.contains(game)){
-                             result.add(game);
-                         }
-                     }
-                 }
-             }
-             updateRecycler(result);
-            }
+            searchForTags();
         }
     };
+
+    private void searchForTags() {
+        if (searchedTags.isEmpty() && searchedtext.getText().toString().trim().toLowerCase(Locale.ROOT).equals("")) {
+            updateRecycler(datalist);
+        } else {
+            ArrayList<Game> result = new ArrayList<>();
+            if (searchedtext.getText().toString().trim().toLowerCase(Locale.ROOT).equals("")) {
+                for (Tag t : searchedTags) {
+                    for (Game game : datalist) {
+                        if (game.getTags().contains(t)) {
+                            if (!result.contains(game)) {
+                                result.add(game);
+                            }
+                        }
+                    }
+                }
+            } else if (searchedTags.isEmpty()) {
+                for (Game game : datalist) {
+                    if (game.getName().toLowerCase(Locale.ROOT).contains(searchedtext.getText().toString().toLowerCase(Locale.ROOT)) && !result.contains(game)) {
+                        result.add(game);
+                    }
+                }
+            } else {
+                for (Tag t : searchedTags) {
+                    for (Game game : datalist) {
+                        if (!result.contains(game) && game.getTags().contains(t) && game.getName().toLowerCase(Locale.ROOT).contains(searchedtext.getText().toString().toLowerCase(Locale.ROOT))) {
+                            result.add(game);
+                        }
+                    }
+                }
+            }
+            updateRecycler(result);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 
     @Override
     public void onResume() {
@@ -264,16 +299,29 @@ public class HomeFragment extends Fragment {
         Log.e("attachment", "resumed");
         updateRecycler(datalist);
         setTagsButtons();
+        if (LastSearch != null) {
+            searchedtext.setText(LastSearch.getText_searched());
+            searchedTags = (List<Tag>) LastSearch.getTag_searched().clone();
+            Log.e("Michtos", searchedtext.getText().toString());
+            setTagsButtons();
+            searchForTags();
+            for (Tag tag : LastSearch.getTag_searched()) {
+                Log.e("NIQUELESSALOPES", tag.getName());
+            }
+            LastSearch = null;
+        }
     }
 
     public void OnTextChangedCall() {
-        Log.e("Michtos","ok je check le changement");
-        if(searchedtext.getText().toString().trim().toLowerCase(Locale.ROOT).equals("")){
+        Log.e("Michtos", "ok je check le changement");
+        if (searchedtext.getText().toString().trim().toLowerCase(Locale.ROOT).equals("") && searchedTags.isEmpty()) {
             updateRecycler(datalist);
+        } else if (searchedtext.getText().toString().trim().toLowerCase(Locale.ROOT).equals("")) {
+            searchForTags();
         } else {
             ArrayList result = new ArrayList();
-            for (Game game : actuallyDisplayed){
-                if(game.getName().toLowerCase(Locale.ROOT).contains(searchedtext.getText().toString().toLowerCase(Locale.ROOT))){
+            for (Game game : actuallyDisplayed) {
+                if (game.getName().toLowerCase(Locale.ROOT).contains(searchedtext.getText().toString().toLowerCase(Locale.ROOT))) {
                     result.add(game);
                 }
             }

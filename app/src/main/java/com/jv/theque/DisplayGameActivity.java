@@ -169,11 +169,10 @@ public class DisplayGameActivity extends AppCompatActivity {
             for (int i = 0; i < btnWord.length; i++) {
 
                 btnWord[i] = new AppCompatButton(this);
-                btnWord[i].setHeight(10);
-                btnWord[i].setWidth(10);
                 btnWord[i].setBackgroundResource(R.drawable.custom_button);
-                btnWord[i].setTextSize(10);
                 btnWord[i].setTag(i);
+                btnWord[i].setTextSize(15);
+                btnWord[i].setPadding(7,0, 7, 0);
                 btnWord[i].setText(gameDisplayed.getUserTags().get(i).getName());
                 btnWord[i].setOnClickListener(btnClicked);
                 btnWord[i].setOnLongClickListener(btnLongClicked);
@@ -240,10 +239,9 @@ public class DisplayGameActivity extends AppCompatActivity {
         AppCompatButton[] btnWord = new AppCompatButton[size + 1];
         for (int i = 0; i < btnWord.length - 1; i++) {
             btnWord[i] = new AppCompatButton(this);
-            btnWord[i].setHeight(10);
-            btnWord[i].setWidth(10);
             btnWord[i].setBackgroundResource(R.drawable.custom_button);
-            btnWord[i].setTextSize(10);
+            btnWord[i].setTextSize(15);
+            btnWord[i].setPadding(7,1, 7, 1);
             btnWord[i].setTag(i);
             btnWord[i].setText(gameDisplayed.getPlatforms().get(i).toString());
             btnWord[i].setOnClickListener(btnClicked);
