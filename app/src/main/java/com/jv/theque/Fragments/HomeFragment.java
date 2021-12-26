@@ -186,10 +186,11 @@ public class HomeFragment extends Fragment {
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (searchedtext.getText().toString().equals("") && searchedTags.isEmpty()) {
+                if (searchedtext.getText().toString().trim().equals("") && searchedTags.isEmpty()) {
                     Toast.makeText(view.getContext(), "Mets au moins un truc dans ta recherche stp", Toast.LENGTH_LONG).show();
                 } else {
                     FavoriteSearch a = new FavoriteSearch((ArrayList<Tag>) searchedTags, searchedtext.getText().toString());
+                    Toast.makeText(view.getContext(),"Le favori a été ajouté",Toast.LENGTH_SHORT).show();
                     MainActivity.userData.getUserFavorites().add(a);
                 }
             }
@@ -200,26 +201,21 @@ public class HomeFragment extends Fragment {
 
     private void setTagsButtons() {
         tagLayout.removeAllViews();
-
-//            AppCompatButton[] btnWord = new AppCompatButton[MainActivity.userData.getUserTagList().getList().size() + 1];
-//            for (int i = 0; i < btnWord.length - 1; i++) {
-//                btnWord[i] = new AppCompatButton(getActivity().getApplicationContext());
-//                btnWord[i].setBackgroundResource(R.drawable.custom_tag);
-//                GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
-//                drawable.setStroke(3, Color.RED); // set stroke width and stroke color
-
         AppCompatButton[] btnWord = new AppCompatButton[MainActivity.userData.getUserTagList().getList().size() + 1];
         for (int i = 0; i < btnWord.length - 1; i++) {
             Tag t = MainActivity.userData.getUserTagList().getList().get(i);
             btnWord[i] = new AppCompatButton(getActivity().getApplicationContext());
-                /*btnWord[i].setHeight(50);
-                btnWord[i].setWidth(50);*/
-            btnWord[i].setBackgroundResource(R.drawable.custom_button);
+            btnWord[i].setBackgroundResource(R.drawable.custom_tag);
+            GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
+            drawable.setStroke(3, Color.RED); // set stroke width and stroke color
             btnWord[i].setTextSize(15);
             btnWord[i].setPadding(15, 3, 15, 3);
             btnWord[i].setTag(i);
+            drawable.setColor(Color.TRANSPARENT);
             if (searchedTags.contains(t)) {
-                btnWord[i].setBackgroundResource(R.drawable.custom_button_green);
+                int defColor = Color.RED;
+                drawable.setStroke(3, defColor); // set stroke width and stroke color
+                drawable.setColor(Color.argb(20, 255, 0, 0));// set solid color
                 btnWord[i].setTextSize(15);
                 btnWord[i].setPadding(15, 3, 15, 3);
             }
@@ -309,23 +305,6 @@ public class HomeFragment extends Fragment {
                 Log.e("NIQUELESSALOPES", tag.getName());
             }
             LastSearch = null;
-        }
-    }
-
-    public void OnTextChangedCall() {
-        Log.e("Michtos", "ok je check le changement");
-        if (searchedtext.getText().toString().trim().toLowerCase(Locale.ROOT).equals("") && searchedTags.isEmpty()) {
-            updateRecycler(datalist);
-        } else if (searchedtext.getText().toString().trim().toLowerCase(Locale.ROOT).equals("")) {
-            searchForTags();
-        } else {
-            ArrayList result = new ArrayList();
-            for (Game game : actuallyDisplayed) {
-                if (game.getName().toLowerCase(Locale.ROOT).contains(searchedtext.getText().toString().toLowerCase(Locale.ROOT))) {
-                    result.add(game);
-                }
-            }
-            updateRecycler(result);
         }
     }
 }

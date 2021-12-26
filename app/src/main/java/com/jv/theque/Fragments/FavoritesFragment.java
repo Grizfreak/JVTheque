@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.jv.theque.FavoriteSearch;
 import com.jv.theque.MainActivity;
@@ -83,6 +84,7 @@ public class FavoritesFragment extends Fragment {
                 MainActivity.userData.getUserFavorites().getList().remove(position);
                 ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<FavoriteSearch>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
                 displayList.setAdapter(arrayAdapter);
+                Toast.makeText(view.getContext(),"Le favori a été supprimé",Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
