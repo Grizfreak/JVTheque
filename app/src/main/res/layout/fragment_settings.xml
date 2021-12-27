@@ -150,7 +150,7 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:id="@+id/nighModeSwitch"
+                                android:id="@+id/information_sign"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:paddingRight="10dp"
@@ -170,19 +170,25 @@
                                 android:textAlignment="textStart"
                                 android:textColor="@color/menu_bar_colors"
                                 app:backgroundTint="@color/black"
-                                app:layout_constraintEnd_toEndOf="@+id/nighModeSwitch"
+                                app:layout_constraintEnd_toEndOf="@+id/information_sign"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 tools:ignore="TouchTargetSizeCheck" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
+                        <TextView
+                            android:id="@+id/info_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mangesesmorts" />
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:id="@+id/textView5"
+                                android:id="@+id/ml_sign"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:paddingRight="10dp"
@@ -210,11 +216,18 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
+                        <TextView
+                            android:id="@+id/ml_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mangesesmorts" />
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                             <TextView
+                                android:id="@+id/cgu_sign"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:paddingRight="10dp"
@@ -240,6 +253,12 @@
                                 tools:ignore="TouchTargetSizeCheck" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/cgu_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mangesesmorts" />
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

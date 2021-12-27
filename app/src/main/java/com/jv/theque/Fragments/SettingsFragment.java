@@ -1,7 +1,5 @@
 package com.jv.theque.Fragments;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -13,15 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jv.theque.CustomDialog;
 import com.jv.theque.MainActivity;
 import com.jv.theque.R;
-import com.jv.theque.TagsImplementation.Tag;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,10 +35,11 @@ public class SettingsFragment extends Fragment {
 
     // Variables
     private RadioGroup radioGroupTheme;
-
+    private TextView info_text, info_sign,cgu_text,cgu_sign,ml_text,ml_sign;
     private Button exportButton;
     private Button clearButton;
     private Button showTags;
+    private Button button_ml,button_cgu,button_info;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -87,6 +82,19 @@ public class SettingsFragment extends Fragment {
 
         radioGroupTheme = view.findViewById(R.id.radioGroupTheme);
         showTags = view.findViewById(R.id.showTags);
+        button_cgu = view.findViewById(R.id.button_cgu);
+        button_info = view.findViewById(R.id.button_info);
+        button_ml = view.findViewById(R.id.button_ml);
+        info_sign = view.findViewById(R.id.information_sign);
+        info_text = view.findViewById(R.id.info_text);
+        ml_sign = view.findViewById(R.id.ml_sign);
+        ml_text = view.findViewById(R.id.ml_text);
+        cgu_sign = view.findViewById(R.id.cgu_sign);
+        cgu_text = view.findViewById(R.id.cgu_text);
+
+        ml_text.setVisibility(View.GONE);
+        cgu_text.setVisibility(View.GONE);
+        info_text.setVisibility(View.GONE);
 
         // TODO : Définir par défault le choix du thème
         //  Au premier lancement : Thème 'système' par défaut
@@ -132,8 +140,43 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        button_info.setOnClickListener(onAproposClicked);
+        button_ml.setOnClickListener(onAproposClicked);
+        button_cgu.setOnClickListener(onAproposClicked);
+
 
         // Inflate the layout for this fragment
         return view;
     }
+
+    View.OnClickListener onAproposClicked = new View.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+            Button b = (Button) view;
+            TextView sign, text;
+            switch (b.getId()){
+                case R.id.button_cgu:
+                        sign = cgu_sign;
+                        text = cgu_text;
+                    break;
+                case R.id.button_ml:
+                        sign = ml_sign;
+                        text = ml_text;
+                    break;
+                case R.id.button_info:
+                        sign = info_sign;
+                        text = info_text;
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + b.getId());
+            }
+            if (text.getVisibility() == View.VISIBLE){
+                text.setVisibility(View.GONE);
+                sign.setText(">");
+            } else {
+                text.setVisibility(View.VISIBLE);
+                sign.setText("v");
+            }
+        }
+    };
 }
