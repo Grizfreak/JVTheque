@@ -9,7 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.GradientDrawable;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -216,7 +218,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             for (int i = 0; i < btnWord.length; i++) {
 
                 btnWord[i] = new AppCompatButton(this);
-                btnWord[i].setBackgroundResource(R.drawable.custom_button);
+                btnWord[i].setBackgroundResource(R.drawable.custom_tag);
                 btnWord[i].setTag(i);
                 btnWord[i].setTextSize(15);
                 btnWord[i].setPadding(7, 0, 7, 0);
@@ -296,13 +298,34 @@ public class DisplayGameActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         for (int i = 0; i < btnWord.length - 1; i++) {
+            int tagColor = gameDisplayed.getPlatforms().get(i).getColor();
             btnWord[i] = new AppCompatButton(this);
-            btnWord[i].setBackgroundResource(R.drawable.custom_button);
-            btnWord[i].setTextSize(15);
+            btnWord[i].setBackgroundResource(R.drawable.custom_tag);
+            GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
+            drawable.setStroke(5, tagColor);
+            int r=0,g=0,b=0;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                int color = (int)Long.parseLong(String.format("%06X", (0xFFFFFF & tagColor)), 16);
+                r = (color >> 16) & 0xFF;
+                g = (color >> 8) & 0xFF;
+                b = (color >> 0) & 0xFF;
+            }
+            btnWord[i].setTextSize(12);
+            btnWord[i].setPadding(20, 3, 20, 3);
+            btnWord[i].setTag(i);
+            drawable.setColor(Color.argb(25,r,g,b));
+            btnWord[i].setLayoutParams(params);
+            params.setMargins(15, 0, 0, 0);
+            /*
+            btnWord[i] = new AppCompatButton(this);
+            btnWord[i].setBackgroundResource(R.drawable.custom_tag);
+            btnWord[i].setTextSize(12);
             btnWord[i].setPadding(7, 1, 7, 1);
             btnWord[i].setTag(i);
             btnWord[i].setLayoutParams(params);
             params.setMargins(7, 0, 0, 0);
+             */
+
             btnWord[i].setText(gameDisplayed.getPlatforms().get(i).toString());
             btnWord[i].setOnClickListener(btnClicked);
             platformLayout.addView(btnWord[i]);

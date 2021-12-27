@@ -211,8 +211,6 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < btnWord.length - 1; i++) {
             Tag t = MainActivity.userData.getUserTagList().getList().get(i);
             int defColor = t.getColor();
-
-                // -16777216 noir
             btnWord[i] = new AppCompatButton(getActivity().getApplicationContext());
             btnWord[i].setBackgroundResource(R.drawable.custom_tag);
             GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
