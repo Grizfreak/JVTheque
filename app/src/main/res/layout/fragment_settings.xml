@@ -131,7 +131,6 @@
                         android:background="#48686868"
                         android:paddingLeft="20dp"
                         android:paddingTop="10dp"
-                        android:password="false"
                         android:text="À PROPOS"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -181,7 +180,11 @@
                             android:id="@+id/info_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Mangesesmorts" />
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="20dp"
+                            android:text="Cette application est un projet effectuer dans le cadre du projet tutoré du semestre 3 au sein de l'IUT de Laval.\n\nIl a été déveloper par une équipe de 5 développeur : AUBERT Antonin, GUINOISEAU Maxime, AKYUZ Erhan, BRAULT Simon, BOULET Jérémy"
+                            android:textAlignment="center" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -220,7 +223,16 @@
                             android:id="@+id/ml_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Mangesesmorts" />
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="20dp"
+                            android:text="Le nom et le type de société : IUT de Laval\n\n
+L'adresse de l'entreprise que l'utilisateur peut contacter directement : 52 Rue des Docteurs Calmette et Guérin, 53000 Laval, France\n\n
+L'email et le numéro de téléphone : iut-info@univ-lemans.fr / 02 43 59 49 01\n\n
+Le montant du capital : 0€ (on est des étudiants)\n\n
+Responsable de publication : LAFORCADE Pierre\n\n
+Nom, adresse et numéro de téléphone du fournisseur d'hébergement : GitHub ; San Francisco, Californie, États-Unis"
+                            android:textAlignment="center" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -258,7 +270,11 @@
                             android:id="@+id/cgu_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Mangesesmorts" />
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:text="Pour toute question consernant les mention légale veuillez nous contacter via ce mail : iut-info@univ-lemans.fr \n\n\n\n
+"
+                            android:textAlignment="center" />
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

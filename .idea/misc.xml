@@ -8,30 +8,20 @@
         <entry key="..\:/Android/PTS3/app/src/main/res/layout/fragment_favorites.xml" value="0.22395833333333334" />
         <entry key="..\:/Android/PTS3/app/src/main/res/layout/fragment_home.xml" value="0.55" />
         <entry key="..\:/Android/PTS3/app/src/main/res/layout/fragment_settings.xml" value="0.55" />
-        <entry key="..\:/Android/PTS3_Android/app/src/main/res/layout/activity_display_game.xml" value="0.22708333333333333" />
-        <entry key="..\:/Android/PTS3_Android/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Android/PTS3_Android/app/src/main/res/layout/add_new_tag_dialog.xml" value="0.18802083333333333" />
-        <entry key="..\:/Android/PTS3_Android/app/src/main/res/layout/fragment_favorites.xml" value="0.3875" />
-        <entry key="..\:/Android/PTS3_Android/app/src/main/res/layout/fragment_home.xml" value="0.3875" />
-        <entry key="..\:/Android/PTS3_Android/app/src/main/res/layout/fragment_search.xml" value="0.18802083333333333" />
         <entry key="..\:/Android/PTS3_Android/app/src/main/res/layout/simple_list_item_multiple_choice.xml" value="0.33541666666666664" />
-        <entry key="..\:/Android/PTS3_Android/app/src/main/res/menu/menu_bar.xml" value="0.3875" />
-        <entry key="..\:/Users/Maxime/StudioProjects/PTS3_Android/app/src/main/res/drawable/baseline_home_24.xml" value="0.20260416666666667" />
-        <entry key="..\:/Users/Maxime/StudioProjects/PTS3_Android/app/src/main/res/drawable/custom_button.xml" value="0.20260416666666667" />
-        <entry key="..\:/Users/Maxime/StudioProjects/PTS3_Android/app/src/main/res/drawable/custom_button_green.xml" value="0.20260416666666667" />
-        <entry key="..\:/Users/Maxime/StudioProjects/PTS3_Android/app/src/main/res/drawable/custom_tag.xml" value="0.20260416666666667" />
-        <entry key="..\:/Users/Maxime/StudioProjects/PTS3_Android/app/src/main/res/layout/activity_display_game.xml" value="0.33" />
         <entry key="..\:/Users/Maxime/StudioProjects/PTS3_Android/app/src/main/res/layout/activity_main.xml" value="0.28306159420289856" />
         <entry key="..\:/Users/Maxime/StudioProjects/PTS3_Android/app/src/main/res/layout/fragment_home.xml" value="0.328804347826087" />
         <entry key="..\:/Users/Maxime/StudioProjects/PTS3_Android/app/src/main/res/layout/game_layout.xml" value="0.33" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/background_splash.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/custom_button.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/custom_tag.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/data.xml" value="0.34739583333333335" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/gradient_color.xml" value="0.33" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/menu_bar_colors.xml" value="0.1787037037037037" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/selector.xml" value="0.21875" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/activity_display_game.xml" value="0.3625" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/add_new_tag_dialog.xml" value="0.25" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/background_splash.xml" value="0.22" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/fragment.xml" value="0.2234375" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/fragment_favorites.xml" value="0.2484375" />
@@ -40,15 +30,17 @@
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/fragment_settings.xml" value="0.25" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/game_layout.xml" value="0.2755208333333333" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/menu/menu_bar.xml" value="0.23385416666666667" />
+        <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/drawable/button_add_tag.xml" value="0.33" />
+        <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/drawable/button_param.xml" value="0.5" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/drawable/custom_button.xml" value="0.3828125" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/drawable/supresion_button.xml" value="0.3828125" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/activity_display_game.xml" value="0.33" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/background_splash.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/fragment_favorites.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/fragment_favorites.xml" value="0.33" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/fragment_search.xml" value="0.33" />
-        <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/fragment_settings.xml" value="0.33" />
+        <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/fragment_settings.xml" value="0.37111228255139694" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/game_layout.xml" value="0.33" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/simple_list_item_multiple_choice.xml" value="0.20520833333333333" />
       </map>
