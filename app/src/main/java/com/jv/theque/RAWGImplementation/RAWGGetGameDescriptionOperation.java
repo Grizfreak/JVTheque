@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class RAWGGetGameDescriptionOperation extends AsyncTask<String, Void, String> {
+public class RAWGGetGameDescriptionOperation extends AsyncTask<String, Void, JsonObject> {
     private String apiKey;
     private Game searchedGame;
 
@@ -24,7 +24,7 @@ public class RAWGGetGameDescriptionOperation extends AsyncTask<String, Void, Str
     }
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected JsonObject doInBackground(String... strings) {
         //Url de la requête
         String uri = "https://api.rawg.io/api/games/" + searchedGame.getSlug() + "?key=" + apiKey;
         Log.i("uri", uri);
@@ -39,7 +39,7 @@ public class RAWGGetGameDescriptionOperation extends AsyncTask<String, Void, Str
             JsonElement root = jp.parse(inputStreamReader); //Convert the input stream to a json element
             JsonObject rootObj = root.getAsJsonObject(); //May be an array, may be an object.
 
-            return rootObj.get("description").getAsString();
+            return rootObj;
 
         } catch (IOException e) {
             e.printStackTrace();

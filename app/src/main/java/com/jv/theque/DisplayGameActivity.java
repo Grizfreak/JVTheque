@@ -7,6 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.JsonObject;
 import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.GameImplementation.UserGameList;
 import com.jv.theque.RAWGImplementation.DownloadImageTask;
@@ -46,7 +50,7 @@ public class DisplayGameActivity extends AppCompatActivity {
     private Intent intent;
     private Button removeButton;
     private FloatingActionButton addButton;
-    private LinearLayout platformLayout, userTagLayout;
+    private LinearLayout platformLayout, userTagLayout, starContainer;
     private TextView description;
     UserGameList userGameList;
     public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
@@ -64,6 +68,37 @@ public class DisplayGameActivity extends AppCompatActivity {
             userGameList.addGame(gameDisplayed);
             gameDisplayed.addTagsToList();
             onBackPressed();
+        }
+    }
+
+    public synchronized void displayStars(LinearLayout starContainer) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(75, 75);
+
+        starContainer.removeAllViewsInLayout();
+
+        for (int i = 1; i <= 5; i++) {
+            boolean greyTint = i > gameDisplayed.getNote();
+
+            ImageView tmpImgBtn = new ImageView(this);
+            if (greyTint) {
+                tmpImgBtn.setBackgroundResource(R.drawable.star_nope);
+            } else {
+                tmpImgBtn.setBackgroundResource(R.drawable.star);
+            }
+            tmpImgBtn.setLayoutParams(layoutParams);
+            int finalI = i;
+            tmpImgBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (inList) {
+                        gameDisplayed.setNote(finalI);
+                        MainActivity.userData.saveToFile();
+                        displayStars(starContainer);
+                    }
+                }
+            });
+
+            starContainer.addView(tmpImgBtn);
         }
     }
 
@@ -88,6 +123,7 @@ public class DisplayGameActivity extends AppCompatActivity {
         platformLayout = findViewById(R.id.PlatformLayout);
         description = findViewById(R.id.gameDescription);
         userTagLayout = findViewById(R.id.UserTagLayout);
+        starContainer = findViewById(R.id.starContainer);
         Bundle extras = getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
 
@@ -107,13 +143,20 @@ public class DisplayGameActivity extends AppCompatActivity {
         //TODO modifier pour gérer la suppression d'un jeu
 
 
-        if (gameDisplayed.getDescription() == null) {
+        if (gameDisplayed.getDescription() == null || gameDisplayed.getNote() == -1) {
             try {
-                String newGameDescription = new RAWGGetGameDescriptionOperation(apiKey, gameDisplayed).execute("").get();
+                JsonObject json = new RAWGGetGameDescriptionOperation(apiKey, gameDisplayed).execute("").get();
+                String newGameDescription = json.get("description").getAsString();
+                int newNote = Math.round(json.get("rating").getAsFloat());
                 Log.i("GameDescription", newGameDescription);
                 newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br />", "\n");
                 gameDisplayed.setDescription(newGameDescription);
                 description.setText(description.getText() + "\n" + gameDisplayed.getDescription());
+
+                //si l'utilisateur n'a pas déjà mis une note on met la note moyenne mis par les utilisateurs
+                if (gameDisplayed.getNote() == -1) {
+                    gameDisplayed.setNote(newNote);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -122,6 +165,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             description.setText(description.getText() + "\n" + gameDisplayed.getDescription());
         }
 
+        displayStars(starContainer);
 
         if (inList) {
             addButton.setVisibility(View.GONE);
@@ -176,7 +220,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 btnWord[i].setBackgroundResource(R.drawable.custom_button);
                 btnWord[i].setTag(i);
                 btnWord[i].setTextSize(15);
-                btnWord[i].setPadding(7,0, 7, 0);
+                btnWord[i].setPadding(7, 0, 7, 0);
                 btnWord[i].setLayoutParams(params);
                 params.setMargins(0, 0, 7, 0);
                 btnWord[i].setText(gameDisplayed.getUserTags().get(i).getName());
@@ -225,7 +269,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             // Create "No" button with OnClickListener.
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    Toast.makeText(view.getContext(),"You choose No button",
+                    Toast.makeText(view.getContext(), "You choose No button",
                             Toast.LENGTH_SHORT).show();
                     //  Cancel
                     dialog.cancel();
@@ -256,7 +300,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             btnWord[i] = new AppCompatButton(this);
             btnWord[i].setBackgroundResource(R.drawable.custom_button);
             btnWord[i].setTextSize(15);
-            btnWord[i].setPadding(7,1, 7, 1);
+            btnWord[i].setPadding(7, 1, 7, 1);
             btnWord[i].setTag(i);
             btnWord[i].setLayoutParams(params);
             params.setMargins(7, 0, 0, 0);

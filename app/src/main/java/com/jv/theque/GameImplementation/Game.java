@@ -27,6 +27,7 @@ public class Game implements Serializable {
     private Map<String, List<Tag>> tags;
     private String backgroundImageLink;
     private String description;
+    private int note;
 
     public Game(RAWGGame game) {
         this.slug = game.slug;
@@ -38,6 +39,7 @@ public class Game implements Serializable {
         setupRAWGTags(game);
         this.backgroundImageLink = game.backgroundImageLink;
         this.description = null;
+        this.note = -1;
     }
 
     private Map<String, List<Tag>> setupTags() {
@@ -140,56 +142,8 @@ public class Game implements Serializable {
 
     @Override
     public String toString() {
-        /*JsonObject gameObject = new JsonObject();
-        gameObject.addProperty("slug", slug);
-        gameObject.addProperty("id", id);
-        gameObject.addProperty("name", name);
-        gameObject.addProperty("release_date", String.valueOf(release_date));
-        gameObject.addProperty("backgroundImageLink", backgroundImageLink);
-
-        JsonObject tagObject = new JsonObject();
-
-        JsonArray tempTagSubArray = new JsonArray();
-        for(Tag tag : tags.get("tag")){
-            tempTagSubArray.add(tag.toString());
-        }
-        tagObject.add("tag", tempTagSubArray);
-
-        tempTagSubArray = new JsonArray();
-        for(Tag tag : tags.get("genre")){
-            tempTagSubArray.add(tag.toString());
-        }
-        tagObject.add("genre", tempTagSubArray);
-
-        tempTagSubArray = new JsonArray();
-        for(Tag tag : tags.get("platform")){
-            tempTagSubArray.add(tag.toString());
-        }
-        tagObject.add("platform", tempTagSubArray);
-
-        tempTagSubArray = new JsonArray();
-        for(Tag tag : tags.get("store")){
-            tempTagSubArray.add(tag.toString());
-        }
-        tagObject.add("store", tempTagSubArray);
-
-        gameObject.add("tags", tagObject);
-
-        return gameObject.toString();*/
         return getName() + " avec " + tags.get("Usertag").size() + " tags custom";
-
     }
-
-//    public void addUserTagtoList(Tag tag) {
-//
-//        if (getTags().contains(tag)) {
-//            return;
-//        } else {
-//            tag.addGame(this);
-//            tags.get("Usertag").add(tag);
-//            Log.e("Fesse", tag.getName());
-//        }
-//    }
 
     @Override
     public boolean equals(Object o) {
@@ -264,5 +218,13 @@ public class Game implements Serializable {
 
     public void setRAWGTags(List<Tag> toAdd) {
         tags.put("platform", toAdd);
+    }
+
+    public int getNote() {
+        return note;
+    }
+
+    public void setNote(int note) {
+        this.note = note;
     }
 }

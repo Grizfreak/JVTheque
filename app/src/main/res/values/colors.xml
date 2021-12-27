@@ -26,5 +26,6 @@
     <color name="BLUE_LIGHT">#75F4F4</color>
     <color name="GREEN_LIGHT">#ACE894</color>
     <color name="ORANGE">#F3742B</color>
+    <color name="GRAY">#909090</color>
 
 </resources>
