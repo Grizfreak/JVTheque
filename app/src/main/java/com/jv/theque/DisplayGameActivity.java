@@ -163,6 +163,10 @@ public class DisplayGameActivity extends AppCompatActivity {
     public void updateTags() {
         //TODO REFACTOR
         userTagLayout.removeAllViews();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
         if (!gameDisplayed.getUserTags().isEmpty()) {
             Log.i("MICHTOS", "SALUT MON POTE");
             AppCompatButton[] btnWord = new AppCompatButton[gameDisplayed.getUserTags().size()];
@@ -173,6 +177,8 @@ public class DisplayGameActivity extends AppCompatActivity {
                 btnWord[i].setTag(i);
                 btnWord[i].setTextSize(15);
                 btnWord[i].setPadding(7,0, 7, 0);
+                btnWord[i].setLayoutParams(params);
+                params.setMargins(0, 0, 7, 0);
                 btnWord[i].setText(gameDisplayed.getUserTags().get(i).getName());
                 btnWord[i].setOnClickListener(btnClicked);
                 btnWord[i].setOnLongClickListener(btnLongClicked);
@@ -180,8 +186,13 @@ public class DisplayGameActivity extends AppCompatActivity {
             }
         }
         if (inList) {
-            AppCompatButton btnAddTag = new AppCompatButton(this);
+            /*AppCompatButton btnAddTag = new AppCompatButton(this);
             btnAddTag.setText("+");
+            btnAddTag.setTextSize(25);
+            btnAddTag.setBackgroundResource(R.drawable.custom_button);
+            btnAddTag.setOnClickListener(addANewTag);*/
+            AppCompatButton btnAddTag = new AppCompatButton(this);
+            btnAddTag.setBackgroundResource(R.drawable.button_add_tag);
             btnAddTag.setOnClickListener(addANewTag);
             userTagLayout.addView(btnAddTag);
         }
@@ -237,12 +248,18 @@ public class DisplayGameActivity extends AppCompatActivity {
 
     private void setPlatformButtons(int size) {
         AppCompatButton[] btnWord = new AppCompatButton[size + 1];
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
         for (int i = 0; i < btnWord.length - 1; i++) {
             btnWord[i] = new AppCompatButton(this);
             btnWord[i].setBackgroundResource(R.drawable.custom_button);
             btnWord[i].setTextSize(15);
             btnWord[i].setPadding(7,1, 7, 1);
             btnWord[i].setTag(i);
+            btnWord[i].setLayoutParams(params);
+            params.setMargins(7, 0, 0, 0);
             btnWord[i].setText(gameDisplayed.getPlatforms().get(i).toString());
             btnWord[i].setOnClickListener(btnClicked);
             platformLayout.addView(btnWord[i]);

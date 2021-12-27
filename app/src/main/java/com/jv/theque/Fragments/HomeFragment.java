@@ -201,6 +201,10 @@ public class HomeFragment extends Fragment {
 
     private void setTagsButtons() {
         tagLayout.removeAllViews();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        );
         AppCompatButton[] btnWord = new AppCompatButton[MainActivity.userData.getUserTagList().getList().size() + 1];
         for (int i = 0; i < btnWord.length - 1; i++) {
             Tag t = MainActivity.userData.getUserTagList().getList().get(i);
@@ -212,6 +216,8 @@ public class HomeFragment extends Fragment {
             btnWord[i].setPadding(15, 3, 15, 3);
             btnWord[i].setTag(i);
             drawable.setColor(Color.TRANSPARENT);
+            btnWord[i].setLayoutParams(params);
+            params.setMargins(7, 0, 0, 0);
             if (searchedTags.contains(t)) {
                 int defColor = Color.RED;
                 drawable.setStroke(3, defColor); // set stroke width and stroke color
