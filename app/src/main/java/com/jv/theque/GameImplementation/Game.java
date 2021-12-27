@@ -1,8 +1,10 @@
 package com.jv.theque.GameImplementation;
 
+import android.graphics.Color;
 import android.util.Log;
 
 import com.jv.theque.MainActivity;
+import com.jv.theque.R;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGGame;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGPlatformsList;
 import com.jv.theque.RAWGImplementation.SerializableGame.RAWGStoresList;
@@ -174,6 +176,7 @@ public class Game implements Serializable {
         //TODO store tags in UserData and tout court enfait parce que je l'ai pas fait
         List<Tag> tmpTagList = new ArrayList<Tag>();
         for (Tag tag : this.tags.get("platform")) {
+            // Si le tag est dans la liste
             if (MainActivity.userData.getUserTagList().getList().contains(tag)) {
                 tmpTagList.add(MainActivity.userData.getUserTagList().find(tag.getName()));
                 MainActivity.userData.getUserTagList().find(tag.getName()).addGame(this);

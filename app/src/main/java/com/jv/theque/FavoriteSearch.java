@@ -32,7 +32,7 @@ public class FavoriteSearch implements Serializable {
         NavHostFragment n = (NavHostFragment) activity.getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         NavController navController = n.getNavController();
         navController.navigateUp();
-        navController.navigate(R.id.action_searchFragment_to_homeFragment);
+        navController.navigate(R.id.action_homeFragment_to_homeFragment);
         HomeFragment.setSearch(this);
 
     }

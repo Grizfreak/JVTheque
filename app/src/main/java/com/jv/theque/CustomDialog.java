@@ -1,10 +1,7 @@
 package com.jv.theque;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,20 +16,17 @@ import com.jv.theque.GameImplementation.Game;
 import com.jv.theque.TagsImplementation.RAWGTag;
 import com.jv.theque.TagsImplementation.Tag;
 import com.jv.theque.TagsImplementation.UserTag;
-import com.jv.theque.TagsImplementation.UserTagList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class CustomDialog {
 
 
     private static FloatingActionButton prevSelectColor = null;
     // Permet de sélectionner le bouton de choix de la couleur (et le stocker dans une variable)
-    static View.OnClickListener notreListener = view -> {
+    static View.OnClickListener colorBtnListener = view -> {
         FloatingActionButton b = (FloatingActionButton) view;
         if (prevSelectColor != null)  prevSelectColor.setImageResource(0);
         b.setImageResource(R.drawable.check);
@@ -69,12 +63,11 @@ public class CustomDialog {
                 alert.setView(dialogView);
                 EditText txt = dialogView.findViewById(R.id.editTextTextPersonName);
 
-
                 LinearLayout ll = dialogView.findViewById(R.id.btnLinearLayout);
                 final int childCount = ll.getChildCount();
                 for (int k = 0; k < childCount; k++) {
                     FloatingActionButton v = (FloatingActionButton) ll.getChildAt(k);
-                    v.setOnClickListener(notreListener);
+                    v.setOnClickListener(colorBtnListener);
                 }
 
 
@@ -83,6 +76,44 @@ public class CustomDialog {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         UserTag us = new UserTag(txt.getText().toString());
+                        int color;
+                        switch (prevSelectColor.getId()){
+                            case R.id.fab1:
+                                Log.e("tamere", "1");
+                                color = activity.getResources().getColor(R.color.RED);              break;
+                            case R.id.fab2:
+                                Log.e("tamere", "2");
+                                color = activity.getResources().getColor(R.color.GREEN_DARK);       break;
+                            case R.id.fab3:
+                                Log.e("tamere", "3");
+                                color = activity.getResources().getColor(R.color.BLUE_DARK);        break;
+                            case R.id.fab4:
+                                Log.e("tamere", "4");
+                                color = R.color.BEIGE;          break;
+                            case R.id.fab5:
+                                Log.e("tamere", "5");
+                                color = R.color.PINK;           break;
+                            case R.id.fab6:
+                                Log.e("tamere", "6");
+                                color = R.color.PURPLE;         break;
+                            case R.id.fab7:
+                                Log.e("tamere", "7");
+                                color = R.color.YELLOW;         break;
+                            case R.id.fab8:
+                                Log.e("tamere", "8");
+                                color = R.color.BLUE_LIGHT;     break;
+                            case R.id.fab9:
+                                Log.e("tamere", "9");
+                                color = R.color.GREEN_LIGHT;    break;
+                            case R.id.fab10:
+                                Log.e("tamere", "10");
+                                color = R.color.ORANGE;         break;
+                            default:
+                                Log.e("tamere", "def");
+                                color = Color.BLACK;            break;
+                            }
+                            us.setColor(color);
+                            Log.e("color", ""+us.getColor());
                         Toast.makeText(activity.getApplicationContext(), us.getName(), Toast.LENGTH_LONG).show();
                         MainActivity.userData.getUserTagList().add(us);
 //                    gameDisplayed.addUserTagtoList(us);

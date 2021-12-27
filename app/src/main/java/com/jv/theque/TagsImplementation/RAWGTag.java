@@ -1,5 +1,6 @@
 package com.jv.theque.TagsImplementation;
 
+import android.graphics.Color;
 import android.util.Log;
 
 import com.jv.theque.GameImplementation.Game;
@@ -21,7 +22,43 @@ public class RAWGTag implements Tag, Serializable {
 
     public RAWGTag(String name, Game game) {
         this.name = name;
-        this.color = Tag.color;
+        switch (name.substring(1)){
+            case "macOS":
+            case "Linux":
+            case "Web":
+            case "PC":
+                color = Color.argb(255,67, 67, 69);  break;
+            case "Xbox":
+            case "Xbox 360":
+            case "Xbox One":
+            case "Xbox Series S/X":
+                color = Color.argb(255,0, 126, 0);  break;
+            case "PSP":
+            case "PS Vita":
+            case "PlayStation 2":
+            case "PlayStation 3":
+            case "PlayStation 4":
+            case "PlayStation 5":
+                color = Color.argb(255,0, 67, 156);  break;
+            case "Game Boy":
+            case "Game Boy Advance":
+            case "NES":
+            case "SNES":
+            case "Nintendo 64":
+            case "GameCube":
+            case "Nintendo DS":
+            case "Nintendo 3DS":
+            case "Wii":
+            case "Wii U":
+            case "Nintendo Switch":
+                color = Color.argb(255,230, 0, 18);  break;
+            case "iOS":
+            case "Android":
+                color = Color.argb(255,122, 106, 62);  break;
+            default:
+                color = Color.GRAY;
+                break;
+        }
         games.add(game);
     }
 
@@ -38,7 +75,7 @@ public class RAWGTag implements Tag, Serializable {
     @Override
     public void setName(String name) {
         return;
-    }
+    }   // Empêche de modifier le nom d'un tag de l'API
 
     @Override
     public int getColor() {
