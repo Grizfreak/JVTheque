@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.Image;
 import android.os.Build;
@@ -230,9 +232,10 @@ public class DisplayGameActivity extends AppCompatActivity {
                 }
                 drawable.setColor(Color.argb(25,r,g,b));
                 btnWord[i].setTag(i);
-                btnWord[i].setTextSize(15);
+                btnWord[i].setTextSize(12);
                 btnWord[i].setPadding(7, 0, 7, 0);
                 btnWord[i].setLayoutParams(params);
+                btnWord[i].setTransformationMethod(null);
                 params.setMargins(0, 0, 7, 0);
                 btnWord[i].setText(gameDisplayed.getUserTags().get(i).getName());
                 btnWord[i].setOnClickListener(btnClicked);
@@ -245,11 +248,19 @@ public class DisplayGameActivity extends AppCompatActivity {
             btnAddTag.setText("+");
             btnAddTag.setTextSize(25);
             btnAddTag.setBackgroundResource(R.drawable.custom_button);
-            btnAddTag.setOnClickListener(addANewTag);*/
-            AppCompatButton btnAddTag = new AppCompatButton(this);
-            btnAddTag.setBackgroundResource(R.drawable.button_add_tag);
             btnAddTag.setOnClickListener(addANewTag);
+            */
+            FloatingActionButton btnAddTag = new FloatingActionButton(this);
+            btnAddTag.setBackgroundTintList(ColorStateList.valueOf(Color.argb(220,0,172,193)));
+            //btnAddTag.setImageResource(android.R.drawable.ic_input_add);
+            btnAddTag.setForeground(getDrawable(R.drawable.plus));
+            btnAddTag.setLayoutParams(params);
+            params.setMargins(0, 0, 20, 0);
+            btnAddTag.setOnClickListener(addANewTag);
+            btnAddTag.setScaleType(ImageView.ScaleType.CENTER);
+
             userTagLayout.addView(btnAddTag);
+
         }
     }
 
@@ -323,6 +334,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             btnWord[i].setTextSize(12);
             btnWord[i].setPadding(20, 3, 20, 3);
             btnWord[i].setTag(i);
+            btnWord[i].setTransformationMethod(null);
             drawable.setColor(Color.argb(25,r,g,b));
             btnWord[i].setLayoutParams(params);
             params.setMargins(15, 0, 0, 0);

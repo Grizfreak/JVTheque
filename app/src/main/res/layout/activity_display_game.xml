@@ -107,7 +107,7 @@
                         android:id="@+id/UserTagLayout"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
-                        android:orientation="horizontal"></LinearLayout>
+                        android:orientation="horizontal"/>
                 </HorizontalScrollView>
 
             </LinearLayout>
