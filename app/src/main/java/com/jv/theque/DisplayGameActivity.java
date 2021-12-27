@@ -97,8 +97,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                     }
                 }
             });
-
-            starContainer.addView(tmpImgBtn);
+            if((greyTint && inList) || !greyTint) starContainer.addView(tmpImgBtn);
         }
     }
 
