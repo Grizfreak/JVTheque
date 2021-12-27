@@ -45,8 +45,6 @@ dependencies {
     implementation "androidx.fragment:fragment:$fragment_version"
 
     // Splash screen
-    def lottieVersion = "4.2.0"
-    implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
 
 }

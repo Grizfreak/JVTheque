@@ -16,7 +16,7 @@
         android:background="@drawable/menu_bar_shape"
         app:itemIconTint="@color/menu_bar_colors"
         app:itemTextColor="@color/menu_bar_colors"
-        app:labelVisibilityMode="unlabeled"
+        app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -208,22 +210,32 @@ public class HomeFragment extends Fragment {
         AppCompatButton[] btnWord = new AppCompatButton[MainActivity.userData.getUserTagList().getList().size() + 1];
         for (int i = 0; i < btnWord.length - 1; i++) {
             Tag t = MainActivity.userData.getUserTagList().getList().get(i);
+            int defColor = t.getColor();
+
+                // -16777216 noir
             btnWord[i] = new AppCompatButton(getActivity().getApplicationContext());
             btnWord[i].setBackgroundResource(R.drawable.custom_tag);
             GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
-            drawable.setStroke(3, Color.RED); // set stroke width and stroke color
+            drawable.setStroke(5, defColor);                                // Changement de la taille et la couleur du contour du tag
             btnWord[i].setTextSize(15);
-            btnWord[i].setPadding(15, 3, 15, 3);
+            btnWord[i].setPadding(20, 3, 20, 3);
             btnWord[i].setTag(i);
             drawable.setColor(Color.TRANSPARENT);
             btnWord[i].setLayoutParams(params);
-            params.setMargins(7, 0, 0, 0);
+            params.setMargins(15, 0, 0, 0);
             if (searchedTags.contains(t)) {
-                int defColor = Color.RED;
-                drawable.setStroke(3, defColor); // set stroke width and stroke color
-                drawable.setColor(Color.argb(20, 255, 0, 0));// set solid color
+
+                drawable.setStroke(5, defColor);                            // Changement de la taille et la couleur du contour du tag
+                int r=0,g=0,b=0;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    int color = (int)Long.parseLong(String.format("%06X", (0xFFFFFF & defColor)), 16);
+                    r = (color >> 16) & 0xFF;
+                    g = (color >> 8) & 0xFF;
+                    b = (color >> 0) & 0xFF;
+                }
+                drawable.setColor(Color.argb(50, r, g, b));   // Changement de la couleur d'arrière-plan du tag
                 btnWord[i].setTextSize(15);
-                btnWord[i].setPadding(15, 3, 15, 3);
+                btnWord[i].setPadding(20, 3, 20, 3);
             }
             btnWord[i].setText(t.getName());
             btnWord[i].setOnClickListener(btnClicked);
@@ -234,22 +246,28 @@ public class HomeFragment extends Fragment {
     View.OnClickListener btnClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int defColor = Color.RED;
-            Button b = (Button) v;
-            GradientDrawable drawable = (GradientDrawable) b.getBackground();
-            Tag tag = MainActivity.userData.getUserTagList().find(b.getText().toString());
+
+            Button btn = (Button) v;
+            GradientDrawable drawable = (GradientDrawable) btn.getBackground();
+            Tag tag = MainActivity.userData.getUserTagList().find(btn.getText().toString());
+            int defColor = tag.getColor();
             if (searchedTags.contains(tag)) {
                 searchedTags.remove(tag);
-                drawable.setStroke(3, defColor); // set stroke width and stroke color
+                drawable.setStroke(5, defColor); // set stroke width and stroke color
                 drawable.setColor(Color.TRANSPARENT);           // set solid color
-                b.setTextSize(15);
-                b.setPadding(15, 3, 15, 3);
+                btn.setTextSize(15);
             } else {
                 searchedTags.add(tag);
-                drawable.setStroke(3, defColor); // set stroke width and stroke color
-                drawable.setColor(Color.argb(20, 255, 0, 0));           // set solid color
-                b.setTextSize(15);
-                b.setPadding(15, 3, 15, 3);
+                drawable.setStroke(5, defColor); // set stroke width and stroke color
+                int r=0,g=0,b=0;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    int color = (int)Long.parseLong(String.format("%06X", (0xFFFFFF & defColor)), 16);
+                    r = (color >> 16) & 0xFF;
+                    g = (color >> 8) & 0xFF;
+                    b = (color >> 0) & 0xFF;
+                }
+                drawable.setColor(Color.argb(50, r, g, b));   // Changement de la couleur d'arrière-plan du tag
+                btn.setTextSize(15);
             }
             searchForTags();
         }
