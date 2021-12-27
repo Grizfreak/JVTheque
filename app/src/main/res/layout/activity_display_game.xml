@@ -119,13 +119,13 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="37dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/notes"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:paddingLeft="30dp"
                     android:text="Note :"
@@ -137,8 +137,8 @@
 
                 <LinearLayout
                     android:id="@+id/starContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"></LinearLayout>
 
             </LinearLayout>
@@ -148,25 +148,51 @@
                 android:layout_height="20dp" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:text="Description :"
+                android:textColor="#00ACC1"
+                android:textSize="17sp" />
+
+            <TextView
                 android:id="@+id/gameDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:text="Description :"
                 android:textColor="#000000"
                 android:textSize="17sp" />
 
-            <TextView
-                android:id="@+id/releaseDate"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:text="Date de sortie :"
-                android:textColor="#000000"
-                android:textSize="17dp" />
+                android:layout_height="match_parent"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:id="@+id/releaseDate2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
+                    android:text="Date de sortie :"
+                    android:textColor="#00ACC1"
+                    android:textSize="17dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/releaseDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="30dp"
+                    android:textColor="#000000"
+                    android:textSize="17dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/releaseDate2"
+                    app:layout_constraintTop_toTopOf="@+id/releaseDate2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
