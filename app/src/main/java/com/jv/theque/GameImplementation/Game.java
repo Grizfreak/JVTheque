@@ -137,6 +137,18 @@ public class Game implements Serializable {
     }
 
     public void setDescription(String description) {
+        description = description.replaceAll("<br/>", "\n");
+        description = description.replaceAll("<h1>", " ");
+        description = description.replaceAll("<h2>", " ");
+        description = description.replaceAll("<h3>", " ");
+        description = description.replaceAll("</h1>", " ");
+        description = description.replaceAll("</h2>", " ");
+        description = description.replaceAll("</h3>", " ");
+        description = description.replaceAll("<ul>", "\n");
+        description = description.replaceAll("</ul>", "\n");
+        description = description.replaceAll("<li>", "- ");
+        description = description.replaceAll("</li>", "\n");
+        description = description.replaceAll("&#39;", "'");
         this.description = description;
     }
 
