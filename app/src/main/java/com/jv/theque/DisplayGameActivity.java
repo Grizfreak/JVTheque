@@ -216,9 +216,19 @@ public class DisplayGameActivity extends AppCompatActivity {
             Log.i("MICHTOS", "SALUT MON POTE");
             AppCompatButton[] btnWord = new AppCompatButton[gameDisplayed.getUserTags().size()];
             for (int i = 0; i < btnWord.length; i++) {
-
+                int tagColor = gameDisplayed.getUserTags().get(i).getColor();
                 btnWord[i] = new AppCompatButton(this);
                 btnWord[i].setBackgroundResource(R.drawable.custom_tag);
+                GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
+                drawable.setStroke(5, tagColor);
+                int r=0,g=0,b=0;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    int color = (int)Long.parseLong(String.format("%06X", (0xFFFFFF & tagColor)), 16);
+                    r = (color >> 16) & 0xFF;
+                    g = (color >> 8) & 0xFF;
+                    b = (color >> 0) & 0xFF;
+                }
+                drawable.setColor(Color.argb(25,r,g,b));
                 btnWord[i].setTag(i);
                 btnWord[i].setTextSize(15);
                 btnWord[i].setPadding(7, 0, 7, 0);
@@ -316,15 +326,6 @@ public class DisplayGameActivity extends AppCompatActivity {
             drawable.setColor(Color.argb(25,r,g,b));
             btnWord[i].setLayoutParams(params);
             params.setMargins(15, 0, 0, 0);
-            /*
-            btnWord[i] = new AppCompatButton(this);
-            btnWord[i].setBackgroundResource(R.drawable.custom_tag);
-            btnWord[i].setTextSize(12);
-            btnWord[i].setPadding(7, 1, 7, 1);
-            btnWord[i].setTag(i);
-            btnWord[i].setLayoutParams(params);
-            params.setMargins(7, 0, 0, 0);
-             */
 
             btnWord[i].setText(gameDisplayed.getPlatforms().get(i).toString());
             btnWord[i].setOnClickListener(btnClicked);

@@ -22,10 +22,10 @@ public class RAWGTag implements Tag, Serializable {
 
     public RAWGTag(String name, Game game) {
         this.name = name;
-        String tamere;
-        if (name.contains("\u200e")) tamere = name.substring(1);
-        else tamere = name;
-        switch (tamere){
+        String realName;
+        if (name.contains("\u200e")) realName = name.substring(1);
+        else realName = name;
+        switch (realName){
             case "macOS":
             case "Linux":
             case "Web":
