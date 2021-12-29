@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jv.theque.tagsImplementation.Tag;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,7 +63,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         }
         @Override
         public void onClick(View v) {
-            Toast.makeText(MainActivity.getContext(),String.valueOf(itemView.getId()), Toast.LENGTH_SHORT);
         }
 
 
@@ -86,9 +84,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             List<Tag> tmpList = game.getPlatforms();
             if (tmpList != null){
                 if(!tmpList.isEmpty()){
-                    for (Tag t : tmpList){
-                        Log.e("inadapter",t.getName());
-                    }
                     gamePlat.setText("(" + tmpList.get(0).getName() + ")");
                 }
             }

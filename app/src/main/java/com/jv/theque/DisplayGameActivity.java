@@ -58,7 +58,7 @@ public class DisplayGameActivity extends AppCompatActivity {
         //Vérification du choix de l'utilisateur
         if (result.size() == 0) {
             //Si celui ci est incorrect, affichage d'un message
-            Toast.makeText(this, "frérot met un tag au moins", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Veuillez ajouter au minimum un tag", Toast.LENGTH_SHORT).show();
         } else {
             //Si celui ci est valide, modification des tags, et ajout du jeu en local
             gameDisplayed.setRAWGTags(result);
@@ -144,7 +144,6 @@ public class DisplayGameActivity extends AppCompatActivity {
                 JsonObject json = new RAWGGetGameDescriptionOperation(apiKey, gameDisplayed).execute("").get();
                 String newGameDescription = json.get("description").getAsString();
                 int newNote = Math.round(json.get("rating").getAsFloat());
-                Log.i("GameDescription", newGameDescription);
                 newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br />", "\n");
                 gameDisplayed.setDescription(newGameDescription);
                 description.setText(description.getText() + "\n" + gameDisplayed.getDescription());
@@ -194,7 +193,6 @@ public class DisplayGameActivity extends AppCompatActivity {
             //TODO INTERFACE BETWEEN
             //TODO DISPLAY USERTAGS IN LAYOUT
             //Displaying all usertag available
-            Toast.makeText(getApplicationContext(), "clicked add button", Toast.LENGTH_SHORT).show();
             List<Tag> result = new ArrayList<Tag>();
             CustomDialog.showAlertDialogTag(getActivity(), result);
         }
@@ -208,7 +206,6 @@ public class DisplayGameActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
         if (!gameDisplayed.getUserTags().isEmpty()) {
-            Log.i("MICHTOS", "SALUT MON POTE");
             AppCompatButton[] btnWord = new AppCompatButton[gameDisplayed.getUserTags().size()];
             for (int i = 0; i < btnWord.length; i++) {
                 int tagColor = gameDisplayed.getUserTags().get(i).getColor();
@@ -284,8 +281,6 @@ public class DisplayGameActivity extends AppCompatActivity {
             // Create "No" button with OnClickListener.
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    Toast.makeText(view.getContext(), "You choose No button",
-                            Toast.LENGTH_SHORT).show();
                     //  Cancel
                     dialog.cancel();
                 }
@@ -301,7 +296,6 @@ public class DisplayGameActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Object tag = v.getTag();
-            Toast.makeText(getApplicationContext(), "clicked button", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -349,7 +343,6 @@ public class DisplayGameActivity extends AppCompatActivity {
 
                 new DownloadImageTask(gamePicture, game.getSlug())
                         .execute(game.getBackgroundImageLink().replace("https://media.rawg.io/media/games/", "https://api.rawg.io/media/resize/420/-/games/"));
-//                    Log.i("INFO", game.backgroundImageLink);
             }
         }
     }

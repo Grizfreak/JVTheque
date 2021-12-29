@@ -27,7 +27,6 @@ public class RAWGGetGameDescriptionOperation extends AsyncTask<String, Void, Jso
     protected JsonObject doInBackground(String... strings) {
         //Url de la requête
         String uri = "https://api.rawg.io/api/games/" + searchedGame.getSlug() + "?key=" + apiKey;
-        Log.i("uri", uri);
         try {
             //On tente une connexion sur la requête
             URLConnection request = new URL(uri).openConnection();

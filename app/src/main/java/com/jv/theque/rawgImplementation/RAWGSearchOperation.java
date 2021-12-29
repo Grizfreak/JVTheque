@@ -36,7 +36,6 @@ public class RAWGSearchOperation extends AsyncTask<String, Void, List<Game>> {
     protected List<Game> doInBackground(String... strings) {
         //Url de la requête
         String uri = "https://api.rawg.io/api/games?key=" + apiKey + "&search=" + searchedText;
-        Log.i("uri",uri);
         try {
             //On tente une connexion sur la requête
             URLConnection request = new URL(uri).openConnection();
@@ -62,7 +61,6 @@ public class RAWGSearchOperation extends AsyncTask<String, Void, List<Game>> {
 
             // FIN
             for (RAWGGame x : list) {
-//                Log.i("Game", x.toString());
                 //Initialisation des valeurs de la liste de données
                 datalist.add(new Game(x));
             }

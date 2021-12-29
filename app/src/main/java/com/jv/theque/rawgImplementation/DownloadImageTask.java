@@ -37,10 +37,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             os.close();
             filO.close();
 
-            Log.println(Log.DEBUG, "ChargementImage", "Image pour le slug " + gameSlug + " chargée dans le fichier " + file.getPath());
-
         } catch (Exception e) {
-            Log.e("Error", " " + e);
             //e.printStackTrace();
         }
         return mIcon11;

@@ -102,7 +102,6 @@ public class CustomDialog {
                                 color = Color.BLACK;                                            break;
                             }
                             us.setColor(color);
-                        Toast.makeText(activity.getApplicationContext(), us.getName(), Toast.LENGTH_LONG).show();
                         MainActivity.userData.getUserTagList().add(us);
 //                    gameDisplayed.addUserTagtoList(us);
                         activity.gameDisplayed.addTag(us);
@@ -175,8 +174,6 @@ public class CustomDialog {
         // Create "Cancel" button with OnClickListener.
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Toast.makeText(activity, "You choose Cancel button",
-                        Toast.LENGTH_SHORT).show();
                 //  Cancel
                 dialog.cancel();
             }

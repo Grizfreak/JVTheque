@@ -82,7 +82,6 @@ public class UserTagList implements Serializable, CustomObservable, CustomObserv
 
     @Override
     public synchronized void update() {
-        Log.i("MICHTOS", "j'ai un tag qui vient de changer, sauvegarde moi ça en local Michel !");
         notifyObserver();
     }
 

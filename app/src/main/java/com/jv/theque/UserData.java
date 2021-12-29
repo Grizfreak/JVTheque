@@ -1,8 +1,7 @@
 package com.jv.theque;
 
-import android.util.Log;
 
-import com.jv.theque.favoritesImplementation.FavoriteSearchsList;
+import com.jv.theque.favoritesImplementation.FavoriteSearchList;
 import com.jv.theque.gameImplementation.UserGameList;
 import com.jv.theque.tagsImplementation.CustomObserver;
 import com.jv.theque.tagsImplementation.Tag;
@@ -21,7 +20,7 @@ public class UserData implements Serializable, CustomObserver {
     private static String storageFileName = "UserData.bin";
     private UserGameList userGameList;
     private UserTagList userTagList;
-    private FavoriteSearchsList userFavorites;
+    private FavoriteSearchList userFavorites;
 
     @Override
     public void update() {
@@ -29,7 +28,6 @@ public class UserData implements Serializable, CustomObserver {
         builder.append("GameList size is now " + userGameList.getGameList().size());
         builder.append("\nTagList size is now " + userTagList.getList().size());
         builder.append("\nFavoriteList size is now " + userFavorites.getList().size());
-        Log.i("MICHTOS", builder.toString());
         this.saveToFile();
     }
 
@@ -45,7 +43,7 @@ public class UserData implements Serializable, CustomObserver {
         return userTagList;
     }
 
-    public FavoriteSearchsList getUserFavorites() {
+    public FavoriteSearchList getUserFavorites() {
         return userFavorites;
     }
 
@@ -65,21 +63,12 @@ public class UserData implements Serializable, CustomObserver {
             //this.userGameList = loadedUserData.userGameList;
             this.userGameList = new UserGameList(this, loadedUserData.userGameList.getList());
             this.userTagList = new UserTagList(this, loadedUserData.userTagList.getList());
-            this.userFavorites = new FavoriteSearchsList(this, loadedUserData.userFavorites.getList());
-
-            Log.i("MICHTOS", "Loaded UserGameList with " + userGameList.getGameList().size() + " games inside");
-            Log.i("MICHTOS", "Loaded UserTagList with " + userTagList.getList().size() + " tags inside");
-            Log.i("MICTHOS", "Loaded USerFavorites with" + userFavorites.getList().size() + " searchs inside");
-
-            for (Tag tag : userTagList.getList()) {
-                Log.i("MICHTOS", tag.getName() + " : " + tag.getGames().size() + " jeux");
-            }
+            this.userFavorites = new FavoriteSearchList(this, loadedUserData.userFavorites.getList());
 
         } catch (Exception e) {
-            Log.e("MICHTOS", String.valueOf(e));
             this.userGameList = new UserGameList(this);
             this.userTagList = new UserTagList(this);
-            this.userFavorites = new FavoriteSearchsList(this);
+            this.userFavorites = new FavoriteSearchList(this);
         }
         return;
     }

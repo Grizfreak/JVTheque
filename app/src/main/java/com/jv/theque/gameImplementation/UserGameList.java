@@ -1,6 +1,5 @@
 package com.jv.theque.gameImplementation;
 
-import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 import com.jv.theque.tagsImplementation.CustomObservable;
@@ -54,7 +53,6 @@ public class UserGameList implements Serializable, CustomObservable, CustomObser
     public Game find(String slug) {
         for (Game game : gameList) {
             if (game.getSlug().equals(slug)) {
-                Log.i("MICHTOS", "j'ai trouvé le jeu " + game);
                 return game;
             }
         }

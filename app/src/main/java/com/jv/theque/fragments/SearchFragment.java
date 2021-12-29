@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,9 +102,6 @@ public class SearchFragment extends Fragment implements FetchGames {
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Log.e("TAG", "Position : "+position);
-                        Toast.makeText(MainActivity.getContext(),datalist.get(position).getName(), Toast.LENGTH_SHORT).show();
-                        //TODO faire la vue mais en version belle maintenant que ça fonctionne
                         Game game = datalist.get(position);
                         Intent intent = new Intent(MainActivity.getContext(), DisplayGameActivity.class);
                         intent.putExtra("Game",game);
@@ -147,13 +143,12 @@ public class SearchFragment extends Fragment implements FetchGames {
         validatebtn.setOnClickListener(v -> {
 
                     if (!internetIsConnected()){
-                        Toast.makeText(getContext(), "INTERNET !!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Veuillez vous connecter à internet afin de chercher un nouveau jeu", Toast.LENGTH_SHORT).show();
                     }
 
                     //Création d'une opération asynchrone pour permettre l'usage des connexions internet
 
                     // Le get() permet ici d'attendre que l'opération soit terminée pour passer à la suite
-                    // TODO : Faire ça plus proprement parce que actuellement ça freeze toute la page
                     new RAWGSearchOperation(apiKey,searchedtext.getText().toString().replaceAll(" ", "+"),datalist, this).execute("");
 
                     hideSoftKeyboard(recyclerView);
@@ -165,7 +160,6 @@ public class SearchFragment extends Fragment implements FetchGames {
 
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                Log.i("nique","pressed"+i);
                 if(i == EditorInfo.IME_ACTION_DONE){
                     validatebtn.callOnClick();
                 }
@@ -179,7 +173,6 @@ public class SearchFragment extends Fragment implements FetchGames {
     public boolean internetIsConnected() {
         try {
             String command = "ping -c 1 google.com";
-            Log.e("ping"," "+Runtime.getRuntime().exec(command));
             return (Runtime.getRuntime().exec(command).waitFor() == 0);
         } catch (Exception e) {
             return false;

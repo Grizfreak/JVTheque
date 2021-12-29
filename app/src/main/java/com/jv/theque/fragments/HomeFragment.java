@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,9 +103,6 @@ public class HomeFragment extends Fragment {
         }
         //TODO affichage dans le menu
         datalist = MainActivity.userData.getUserGameList().getGameList();
-        for (Game g : datalist) {
-            Log.e("game", g.getName());
-        }
     }
 
     // Permet de mettre à jour la recyclerView avec les données des jeux récupérées via l'API
@@ -123,7 +119,6 @@ public class HomeFragment extends Fragment {
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Log.e("TAG", "Position : " + position);
                         Toast.makeText(MainActivity.getContext(), actuallyDisplayed.get(position).getName(), Toast.LENGTH_SHORT).show();
                         Game game = actuallyDisplayed.get(position);
                         Intent intent = new Intent(MainActivity.getContext(), DisplayGameActivity.class);
@@ -177,7 +172,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                Log.i("nique", "pressed" + i);
                 if (i == EditorInfo.IME_ACTION_DONE) {
                     hideSoftKeyboard(recyclerView);
                 }
@@ -188,7 +182,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (searchedtext.getText().toString().trim().equals("") && searchedTags.isEmpty()) {
-                    Toast.makeText(view.getContext(), "Mets au moins un truc dans ta recherche stp", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Veuillez entrer un critère de recherche au minimum", Toast.LENGTH_LONG).show();
                 } else {
                     FavoriteSearch a = new FavoriteSearch((ArrayList<Tag>) searchedTags, searchedtext.getText().toString());
                     Toast.makeText(view.getContext(),"Le favori a été ajouté",Toast.LENGTH_SHORT).show();
@@ -313,18 +307,13 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("attachment", "resumed");
         updateRecycler(datalist);
         setTagsButtons();
         if (LastSearch != null) {
             searchedtext.setText(LastSearch.getText_searched());
             searchedTags = (List<Tag>) LastSearch.getTag_searched().clone();
-            Log.e("Michtos", searchedtext.getText().toString());
             setTagsButtons();
             searchForTags();
-            for (Tag tag : LastSearch.getTag_searched()) {
-                Log.e("NIQUELESSALOPES", tag.getName());
-            }
             LastSearch = null;
         }
     }

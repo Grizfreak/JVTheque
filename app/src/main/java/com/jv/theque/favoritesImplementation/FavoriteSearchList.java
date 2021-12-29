@@ -1,7 +1,5 @@
 package com.jv.theque.favoritesImplementation;
 
-import android.util.Log;
-
 import com.jv.theque.UserData;
 import com.jv.theque.tagsImplementation.CustomObservable;
 import com.jv.theque.tagsImplementation.CustomObserver;
@@ -10,16 +8,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteSearchsList implements CustomObservable, Serializable {
+public class FavoriteSearchList implements CustomObservable, Serializable {
     private List<FavoriteSearch> searchList;
 
     private List<CustomObserver> observerList = new ArrayList<CustomObserver>();
 
-    public FavoriteSearchsList(UserData userData) {
+    public FavoriteSearchList(UserData userData) {
         this(userData, new ArrayList<>());
     }
 
-    public FavoriteSearchsList(UserData userData, List<FavoriteSearch> searchList) {
+    public FavoriteSearchList(UserData userData, List<FavoriteSearch> searchList) {
         addObserver(userData);
         this.searchList = searchList;
     }
@@ -54,7 +52,6 @@ public class FavoriteSearchsList implements CustomObservable, Serializable {
 
     @Override
     public void notifyObserver() {
-        Log.i("MICHTOS", "update la liste des recherches favorites !!");
         for (CustomObserver o : observerList) {
             o.update();
         }

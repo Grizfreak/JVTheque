@@ -1,7 +1,5 @@
 package com.jv.theque.gameImplementation;
 
-import android.util.Log;
-
 import com.jv.theque.MainActivity;
 import com.jv.theque.rawgImplementation.serializableGame.RAWGGame;
 import com.jv.theque.rawgImplementation.serializableGame.RAWGPlatformsList;
@@ -54,7 +52,6 @@ public class Game implements Serializable {
         //Récupération des plateformes
         if (game.platforms != null) {
             for (RAWGPlatformsList tag : game.platforms) {
-                Log.e("ingameRAWG", tag.RAWGPlatform.name + " " + game.name);
                 Tag tag1 = new RAWGTag(tag.RAWGPlatform.name, this);
                 tags.get("platform").add(tag1);
             }
@@ -91,18 +88,10 @@ public class Game implements Serializable {
 
     //TODO Return tag of each Category
     public ArrayList<Tag> getPlatforms() {
-        Log.e("envoi", "envoi de " + this.tags.get("platform").size() + " tags de plateforme pour le jeu : " + this.name);
-        for (Tag t : this.tags.get("platform")) {
-            Log.e("ingame", t.getName());
-        }
         return (ArrayList<Tag>) this.tags.get("platform");
     }
 
     public ArrayList<Tag> getUserTags() {
-        Log.e("envoi", "envoi de " + this.tags.get("Usertag").size() + " tags custom pour le jeu : " + this.name);
-        for (Tag t : this.tags.get("Usertag")) {
-            Log.e("ingame", t.getName());
-        }
         return (ArrayList<Tag>) this.tags.get("Usertag");
     }
 
@@ -221,11 +210,8 @@ public class Game implements Serializable {
             }
             tags.put(listName, tagList);
             MainActivity.userData.saveToFile();
-            Log.i("MICHTOS", "le tag " + tag + " a été ajouté à la liste " + listName + " dans le jeu " + getName());
-            Log.i("MICHTOS", String.valueOf(tags));
 
         } else {
-            Log.e("MICHTOS", "le tag " + tag + " est déjà présent dans le jeu");
         }
     }
 

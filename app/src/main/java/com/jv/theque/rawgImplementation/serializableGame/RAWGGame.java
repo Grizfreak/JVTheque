@@ -1,7 +1,5 @@
 package com.jv.theque.rawgImplementation.serializableGame;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
@@ -66,7 +64,6 @@ public class RAWGGame {
         if(genres != null) {
             for (RAWGGenres genre : genres) {
                 genres_string.append(genre.toString());
-                Log.v("DEBUG_JSON", genre.toString());;
             }
         }
         if(platforms != null) {
