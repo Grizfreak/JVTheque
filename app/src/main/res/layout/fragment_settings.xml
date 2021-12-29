@@ -38,7 +38,7 @@
                     android:layout_gravity="center"
                     android:text="Paramètres"
                     android:textAlignment="center"
-                    android:textColor="@color/teal_700"
+                    android:textColor="?colorSecondaryVariant"
                     android:textSize="24sp" />
 
                 <Space
@@ -94,13 +94,15 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/clearList" />
+                        app:layout_constraintTop_toBottomOf="@+id/clearList"
+                        tools:visibility="gone" />
 
                     <Button
                         android:id="@+id/exportList"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Exporter Liste"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
@@ -112,6 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="Clear Liste"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
@@ -154,7 +157,7 @@
                                 android:layout_height="0dp"
                                 android:paddingRight="10dp"
                                 android:text=">"
-                                android:textColor="@color/menu_bar_colors"
+                                android:textColor="?android:textColorPrimary"
                                 android:textSize="30sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/button_info"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -167,9 +170,10 @@
                                 android:background="@drawable/button_param"
                                 android:text="Information"
                                 android:textAlignment="textStart"
-                                android:textColor="@color/menu_bar_colors"
+                                android:textColor="?android:textColorPrimary"
                                 app:backgroundTint="@color/black"
                                 app:layout_constraintEnd_toEndOf="@+id/information_sign"
+                                app:layout_constraintHorizontal_bias="1.0"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 tools:ignore="TouchTargetSizeCheck" />
@@ -183,7 +187,7 @@
                             android:paddingLeft="15dp"
                             android:paddingRight="15dp"
                             android:paddingBottom="20dp"
-                            android:text="Cette application est un projet effectuer dans le cadre du projet tutoré du semestre 3 au sein de l'IUT de Laval.\n\nIl a été déveloper par une équipe de 5 développeur : AUBERT Antonin, GUINOISEAU Maxime, AKYUZ Erhan, BRAULT Simon, BOULET Jérémy"
+                            android:text="@string/information"
                             android:textAlignment="center" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -196,7 +200,7 @@
                                 android:layout_height="0dp"
                                 android:paddingRight="10dp"
                                 android:text=">"
-                                android:textColor="@color/menu_bar_colors"
+                                android:textColor="?android:textColorPrimary"
                                 android:textSize="30sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/button_ml"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -210,7 +214,7 @@
                                 android:backgroundTint="@color/black"
                                 android:text="Mention légales"
                                 android:textAlignment="textStart"
-                                android:textColor="@color/black"
+                                android:textColor="?android:textColorPrimary"
                                 app:backgroundTint="@color/black"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -226,12 +230,7 @@
                             android:paddingLeft="15dp"
                             android:paddingRight="15dp"
                             android:paddingBottom="20dp"
-                            android:text="Le nom et le type de société : IUT de Laval\n\n
-L'adresse de l'entreprise que l'utilisateur peut contacter directement : 52 Rue des Docteurs Calmette et Guérin, 53000 Laval, France\n\n
-L'email et le numéro de téléphone : iut-info@univ-lemans.fr / 02 43 59 49 01\n\n
-Le montant du capital : 0€ (on est des étudiants)\n\n
-Responsable de publication : LAFORCADE Pierre\n\n
-Nom, adresse et numéro de téléphone du fournisseur d'hébergement : GitHub ; San Francisco, Californie, États-Unis"
+                            android:text="@string/mention_legale"
                             android:textAlignment="center" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -244,7 +243,7 @@ Nom, adresse et numéro de téléphone du fournisseur d'hébergement : GitHub ; 
                                 android:layout_height="0dp"
                                 android:paddingRight="10dp"
                                 android:text=">"
-                                android:textColor="@color/menu_bar_colors"
+                                android:textColor="?android:textColorPrimary"
                                 android:textSize="30sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/button_cgu"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -257,7 +256,7 @@ Nom, adresse et numéro de téléphone du fournisseur d'hébergement : GitHub ; 
                                 android:background="@drawable/button_param"
                                 android:text="conditions générales d'utilisation"
                                 android:textAlignment="textStart"
-                                android:textColor="@color/black"
+                                android:textColor="?android:textColorPrimary"
                                 app:backgroundTint="@color/black"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -272,8 +271,7 @@ Nom, adresse et numéro de téléphone du fournisseur d'hébergement : GitHub ; 
                             android:layout_height="wrap_content"
                             android:paddingLeft="15dp"
                             android:paddingRight="15dp"
-                            android:text="Pour toute question consernant les mention légale veuillez nous contacter via ce mail : iut-info@univ-lemans.fr \n\n\n\n
-"
+                            android:text="@string/cgu"
                             android:textAlignment="center" />
                     </LinearLayout>
 

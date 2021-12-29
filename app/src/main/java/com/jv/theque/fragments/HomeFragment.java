@@ -2,6 +2,8 @@ package com.jv.theque.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.color.MaterialColors;
 import com.jv.theque.DisplayGameActivity;
 import com.jv.theque.favoritesImplementation.FavoriteSearch;
 import com.jv.theque.gameImplementation.Game;
@@ -209,6 +213,15 @@ public class HomeFragment extends Fragment {
             GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
             drawable.setStroke(5, defColor);                                // Changement de la taille et la couleur du contour du tag
             btnWord[i].setTextSize(15);
+            btnWord[i].setTransformationMethod(null);
+
+            // Vérifie si l'application est en dark mode et adapte la couleur du texte des tags
+            int nightModeFlags =  getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            switch (nightModeFlags) {
+                case Configuration.UI_MODE_NIGHT_YES:       btnWord[i].setTextColor(Color.WHITE);       break;
+                case Configuration.UI_MODE_NIGHT_NO:        btnWord[i].setTextColor(Color.BLACK);       break;
+            }
+
             btnWord[i].setPadding(20, 3, 20, 3);
             btnWord[i].setTag(i);
             drawable.setColor(Color.TRANSPARENT);

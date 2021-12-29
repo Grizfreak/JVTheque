@@ -36,7 +36,7 @@ public class CustomDialog {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         // Set Title.
-        builder.setTitle("Select");
+        builder.setTitle("Ajouter un tag");
 
         // Add a list
         String[] tags = MainActivity.userData.getUserTagList().getTagNameList().toArray(new String[0]);
@@ -78,28 +78,17 @@ public class CustomDialog {
                         UserTag us = new UserTag(txt.getText().toString());
                         int color;
                         switch (prevSelectColor.getId()){
-                            case R.id.fab1:
-                                color = activity.getResources().getColor(R.color.RED);          break;
-                            case R.id.fab2:
-                                color = activity.getResources().getColor(R.color.GREEN_DARK);   break;
-                            case R.id.fab3:
-                                color = activity.getResources().getColor(R.color.BLUE_DARK);    break;
-                            case R.id.fab4:
-                                color = activity.getResources().getColor(R.color.BEIGE);        break;
-                            case R.id.fab5:
-                                color = activity.getResources().getColor(R.color.PINK);         break;
-                            case R.id.fab6:
-                                color = activity.getResources().getColor(R.color.PURPLE);       break;
-                            case R.id.fab7:
-                                color = activity.getResources().getColor(R.color.YELLOW);       break;
-                            case R.id.fab8:
-                                color = activity.getResources().getColor(R.color.BLUE_LIGHT);   break;
-                            case R.id.fab9:
-                                color = activity.getResources().getColor(R.color.GREEN_LIGHT);  break;
-                            case R.id.fab10:
-                                color = activity.getResources().getColor(R.color.ORANGE);       break;
-                            default:
-                                color = Color.BLACK;                                            break;
+                            case R.id.fab1:     color = activity.getResources().getColor(R.color.RED);          break;
+                            case R.id.fab2:     color = activity.getResources().getColor(R.color.GREEN_DARK);   break;
+                            case R.id.fab3:     color = activity.getResources().getColor(R.color.BLUE_DARK);    break;
+                            case R.id.fab4:     color = activity.getResources().getColor(R.color.BEIGE);        break;
+                            case R.id.fab5:     color = activity.getResources().getColor(R.color.PINK);         break;
+                            case R.id.fab6:     color = activity.getResources().getColor(R.color.PURPLE);       break;
+                            case R.id.fab7:     color = activity.getResources().getColor(R.color.YELLOW);       break;
+                            case R.id.fab8:     color = activity.getResources().getColor(R.color.BLUE_LIGHT);   break;
+                            case R.id.fab9:     color = activity.getResources().getColor(R.color.GREEN_LIGHT);  break;
+                            case R.id.fab10:    color = activity.getResources().getColor(R.color.ORANGE);       break;
+                            default:            color = Color.BLACK;                                            break;
                             }
                             us.setColor(color);
                         MainActivity.userData.getUserTagList().add(us);
@@ -128,7 +117,7 @@ public class CustomDialog {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         // Set Title.
-        builder.setTitle("Select");
+        builder.setTitle("Choisissez les plateformes");
 
         // Ajout de la liste à afficher
         ArrayList<String> toDisplayInString = new ArrayList<>();
