@@ -1,6 +1,6 @@
 package com.jv.theque;
 
-import com.jv.theque.GameImplementation.Game;
+import com.jv.theque.gameImplementation.Game;
 
 import java.util.List;
 

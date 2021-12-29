@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.jv.theque.Fragments.HomeFragment"
+        android:name="com.jv.theque.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
     <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.jv.theque.Fragments.SearchFragment"
+        android:name="com.jv.theque.fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.jv.theque.Fragments.SettingsFragment"
+        android:name="com.jv.theque.fragments.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -38,7 +38,7 @@
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.jv.theque.Fragments.FavoritesFragment"
+        android:name="com.jv.theque.fragments.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action

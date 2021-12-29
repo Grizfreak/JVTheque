@@ -2,10 +2,11 @@ package com.jv.theque;
 
 import android.util.Log;
 
-import com.jv.theque.GameImplementation.UserGameList;
-import com.jv.theque.TagsImplementation.CustomObserver;
-import com.jv.theque.TagsImplementation.UserTag;
-import com.jv.theque.TagsImplementation.UserTagList;
+import com.jv.theque.favoritesImplementation.FavoriteSearchsList;
+import com.jv.theque.gameImplementation.UserGameList;
+import com.jv.theque.tagsImplementation.CustomObserver;
+import com.jv.theque.tagsImplementation.Tag;
+import com.jv.theque.tagsImplementation.UserTagList;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,15 +15,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 
 public class UserData implements Serializable, CustomObserver {
     private static String storageFileName = "UserData.bin";
-
     private UserGameList userGameList;
     private UserTagList userTagList;
     private FavoriteSearchsList userFavorites;
@@ -75,7 +71,7 @@ public class UserData implements Serializable, CustomObserver {
             Log.i("MICHTOS", "Loaded UserTagList with " + userTagList.getList().size() + " tags inside");
             Log.i("MICTHOS", "Loaded USerFavorites with" + userFavorites.getList().size() + " searchs inside");
 
-            for (com.jv.theque.TagsImplementation.Tag tag : userTagList.getList()) {
+            for (Tag tag : userTagList.getList()) {
                 Log.i("MICHTOS", tag.getName() + " : " + tag.getGames().size() + " jeux");
             }
 
