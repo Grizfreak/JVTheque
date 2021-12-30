@@ -1,7 +1,7 @@
 package com.jv.theque.gameImplementation;
 
 import com.jv.theque.MainActivity;
-import com.jv.theque.rawgImplementation.serializableGame.RAWGGame;
+import com.jv.theque.rawgImplementation.serializableGame.*;
 import com.jv.theque.rawgImplementation.serializableGame.RAWGPlatformsList;
 import com.jv.theque.rawgImplementation.serializableGame.RAWGStoresList;
 import com.jv.theque.tagsImplementation.RAWGTag;
@@ -127,6 +127,7 @@ public class Game implements Serializable {
 
     public void setDescription(String description) {
         description = description.replaceAll("<br/>", "\n");
+        description = description.replaceAll("<br>", "\n");
         description = description.replaceAll("<h1>", " ");
         description = description.replaceAll("<h2>", " ");
         description = description.replaceAll("<h3>", " ");
@@ -137,6 +138,8 @@ public class Game implements Serializable {
         description = description.replaceAll("</ul>", "\n");
         description = description.replaceAll("<li>", "- ");
         description = description.replaceAll("</li>", "\n");
+        description = description.replaceAll("<strong>", "");
+        description = description.replaceAll("</strong>", "");
         description = description.replaceAll("&#39;", "'");
         this.description = description;
     }

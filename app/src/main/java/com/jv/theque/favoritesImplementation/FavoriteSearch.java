@@ -44,13 +44,14 @@ public class FavoriteSearch implements Serializable {
         StringBuilder strBuilder = new StringBuilder();
 
         if (text_searched.length() > 0) {
+            strBuilder.append("Recherche : ");
             strBuilder.append('"');
             strBuilder.append(text_searched);
-            strBuilder.append('"');
+            strBuilder.append("\"\n");
         }
 
         if (tag_searched.size() > 0) {
-            strBuilder.append(" Tags : ");
+            strBuilder.append("Tags : ");
 
             for (int i = 0; i < tag_searched.size(); i++) {
                 Tag tag = tag_searched.get(i);
