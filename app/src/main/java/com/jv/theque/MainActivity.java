@@ -1,10 +1,12 @@
 package com.jv.theque;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -17,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private static Context context;
     public static UserData userData = new UserData();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-
 
         this.context = this;
         setContentView(R.layout.activity_main);

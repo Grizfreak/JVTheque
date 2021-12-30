@@ -1,6 +1,8 @@
 package com.jv.theque;
 
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.jv.theque.favoritesImplementation.FavoriteSearchList;
 import com.jv.theque.gameImplementation.UserGameList;
 import com.jv.theque.tagsImplementation.CustomObserver;
@@ -21,6 +23,7 @@ public class UserData implements Serializable, CustomObserver {
     private UserGameList userGameList;
     private UserTagList userTagList;
     private FavoriteSearchList userFavorites;
+    private int themeMode;
 
     @Override
     public void update() {
@@ -47,6 +50,15 @@ public class UserData implements Serializable, CustomObserver {
         return userFavorites;
     }
 
+    public int getThemeMode() {
+        return themeMode;
+    }
+
+    public void setThemeMode(int themeMode) {
+        this.themeMode = themeMode;
+        saveToFile();
+    }
+
     private void loadListFromFile() {
         try {
             File myObj = new File(App.getAppContext().getFilesDir(), storageFileName);
@@ -64,11 +76,13 @@ public class UserData implements Serializable, CustomObserver {
             this.userGameList = new UserGameList(this, loadedUserData.userGameList.getList());
             this.userTagList = new UserTagList(this, loadedUserData.userTagList.getList());
             this.userFavorites = new FavoriteSearchList(this, loadedUserData.userFavorites.getList());
+            this.themeMode = loadedUserData.themeMode;
 
         } catch (Exception e) {
             this.userGameList = new UserGameList(this);
             this.userTagList = new UserTagList(this);
             this.userFavorites = new FavoriteSearchList(this);
+            this.themeMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
         }
         return;
     }

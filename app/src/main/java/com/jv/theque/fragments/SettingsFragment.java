@@ -2,6 +2,7 @@ package com.jv.theque.fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
@@ -9,12 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jv.theque.MainActivity;
 import com.jv.theque.R;
+import com.jv.theque.UserData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +37,10 @@ public class SettingsFragment extends Fragment {
 
     // Variables
     private RadioGroup radioGroupTheme;
+    private RadioButton radioButtonLight, radioButtonDark, radioButtonSystem;
     private TextView info_text, info_sign,cgu_text,cgu_sign,ml_text,ml_sign;
     private Button exportButton;
     private Button clearButton;
-    private Button showTags;
     private Button button_ml,button_cgu,button_info;
 
     public SettingsFragment() {
@@ -80,7 +83,10 @@ public class SettingsFragment extends Fragment {
 
 
         radioGroupTheme = view.findViewById(R.id.radioGroupTheme);
-        showTags = view.findViewById(R.id.showTags);
+        radioButtonLight = view.findViewById(R.id.radioButtonLight);
+        radioButtonDark = view.findViewById(R.id.radioButtonDark);
+        radioButtonSystem = view.findViewById(R.id.radioButtonSystem);
+
         button_cgu = view.findViewById(R.id.button_cgu);
         button_info = view.findViewById(R.id.button_info);
         button_ml = view.findViewById(R.id.button_ml);
@@ -99,22 +105,38 @@ public class SettingsFragment extends Fragment {
         //  Au premier lancement : Thème 'système' par défaut
         //  Aux lancements suivants : On définit le thème au démarrage de l'appli suivant le choix enregistré de l'utilisateur (persistance)
 
+        int night_mode = MainActivity.userData.getThemeMode();
+        switch (night_mode){
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                radioButtonLight.toggle();
+                break;
+            case AppCompatDelegate.MODE_NIGHT_YES:
+                radioButtonDark.toggle();
+                break;
+            case AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM:
+                radioButtonSystem.toggle();
+                break;
+        }
+
         // Ajout d'un listener sur le RadioGroup correspondant au choix du thème de l'app
         radioGroupTheme.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
                 // Définit le thème de l'application suivant le RadioButton sélectionné
                 switch (checkedId) {
                     case R.id.radioButtonLight:
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        mode = AppCompatDelegate.MODE_NIGHT_NO;
                         break;
                     case R.id.radioButtonDark:
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        mode = AppCompatDelegate.MODE_NIGHT_YES;
                         break;
                     case R.id.radioButtonSystem:
                         Toast.makeText(getContext(), "Thème défini en fonction du système", Toast.LENGTH_SHORT).show();
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                        mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
                         break;
                 }
+                AppCompatDelegate.setDefaultNightMode(mode);
+                MainActivity.userData.setThemeMode(mode);
             }
         });
 
