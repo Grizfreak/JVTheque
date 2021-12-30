@@ -136,7 +136,6 @@ public class DisplayGameActivity extends AppCompatActivity {
         setPlatformButtons(gameDisplayed.getPlatforms().size());
         displayImage(gameDisplayed, gameImage);
         updateTags();
-        //TODO modifier pour gérer la suppression d'un jeu
 
 
         if (gameDisplayed.getDescription() == null || gameDisplayed.getNote() == -1) {
@@ -190,8 +189,6 @@ public class DisplayGameActivity extends AppCompatActivity {
     View.OnClickListener addANewTag = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            //TODO INTERFACE BETWEEN
-            //TODO DISPLAY USERTAGS IN LAYOUT
             //Displaying all usertag available
             List<Tag> result = new ArrayList<Tag>();
             CustomDialog.showAlertDialogTag(getActivity(), result);
@@ -199,7 +196,6 @@ public class DisplayGameActivity extends AppCompatActivity {
     };
 
     public void updateTags() {
-        //TODO REFACTOR
         userTagLayout.removeAllViews();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,

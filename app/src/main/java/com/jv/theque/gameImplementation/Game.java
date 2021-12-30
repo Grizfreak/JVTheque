@@ -86,7 +86,6 @@ public class Game implements Serializable {
         }
     }
 
-    //TODO Return tag of each Category
     public ArrayList<Tag> getPlatforms() {
         return (ArrayList<Tag>) this.tags.get("platform");
     }
@@ -163,7 +162,6 @@ public class Game implements Serializable {
     }
 
     public void addTagsToList() {
-        //TODO store tags in UserData and tout court enfait parce que je l'ai pas fait
         List<Tag> tmpTagList = new ArrayList<Tag>();
         for (Tag tag : this.tags.get("platform")) {
             // Si le tag est dans la liste
