@@ -10,7 +10,9 @@
         <item name="colorSecondaryVariant">@color/Erhan</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondary</item>
         <!-- Customize your theme here. -->
+        <item name="android:startColor">@color/gradientEnd</item>
+        <item name="android:endColor">@color/gradientStart</item>
     </style>
 </resources>

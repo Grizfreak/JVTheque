@@ -29,5 +29,7 @@
 
     <color name="GRAY">#909090</color>
     <color name="Erhan">#00ACC1</color>
+    <color name="gradientStart">#116ba8</color>
+    <color name="gradientEnd">#1ee2c3</color>
 
 </resources>
