@@ -14,6 +14,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="information">Cette application est un projet effectué dans le cadre du projet tuteuré du semestre 3 au sein de l\'IUT de Laval.\n\nIl a été développé par une équipe de 5 développeurs : AUBERT Antonin, GUINOISEAU Maxime, AKYUZ Erhan, BRAULT Simon, BOULET Jérémy</string>
-    <string name="mention_legale">Nom de la société : IUT de Laval\n\n Adresse de l\'entreprise que l\'utilisateur peut contacter directement : 52 Rue des Docteurs Calmette et Guérin, 53000 Laval, France\n\n Email et numéro de téléphone : iut-info@univ-lemans.fr / 02 43 59 49 01\n\n Montant du capital : 0€ (Projet étudiant)\n\n Responsable de publication : LAFORCADE Pierre\n\n Nom et adresse du fournisseur d\'hébergement : GitHub ; San Francisco, Californie, États-Unis</string>
+    <string name="mention_legale">Ayants Droits : IUT de Laval\n\n Contact :\nAdresse : 52 Rue des Docteurs Calmette et Guérin, 53000 Laval, France\n Email : iut-info@univ-lemans.fr\nNuméro de téléphone : 02 43 59 49 01\n Montant du capital : 0€ (Projet étudiant)\n Responsable de publication : LAFORCADE Pierre\n\n Nom et adresse du fournisseur d\'hébergement : GitHub ; San Francisco, Californie, États-Unis</string>
     <string name="cgu">Pour toute question concernant les mentions légales, veuillez nous contacter via ce mail : iut-info@univ-lemans.fr \n\n\n\n</string>
 </resources>
