@@ -91,11 +91,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="Montrer les tags"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/clearList"
-                        tools:visibility="gone" />
+                        app:layout_constraintTop_toBottomOf="@+id/clearList" />
 
                     <Button
                         android:id="@+id/exportList"
