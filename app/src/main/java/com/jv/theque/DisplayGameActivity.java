@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,8 @@ public class DisplayGameActivity extends AppCompatActivity {
     private FloatingActionButton addButton;
     private LinearLayout platformLayout, userTagLayout, starContainer;
     private TextView description;
+    private Space space;
+    private LinearLayout linearLayout;
     UserGameList userGameList;
     public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
     private boolean inList = false;
@@ -120,6 +123,8 @@ public class DisplayGameActivity extends AppCompatActivity {
         description = findViewById(R.id.gameDescription);
         userTagLayout = findViewById(R.id.UserTagLayout);
         starContainer = findViewById(R.id.starContainer);
+        linearLayout = findViewById(R.id.to_hide1);
+        space = findViewById(R.id.to_hide2);
         Bundle extras = getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
 
@@ -162,6 +167,8 @@ public class DisplayGameActivity extends AppCompatActivity {
         displayStars(starContainer);
 
         if (inList) {
+            space.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.VISIBLE);
             addButton.setVisibility(View.GONE);
         } else {
             removeButton.setVisibility(View.GONE);
@@ -264,7 +271,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             builder.setIcon(R.drawable.logo);
 
             // Create "Yes" button with OnClickListener.
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     AppCompatButton btn = (AppCompatButton) view;
                     Tag tag = MainActivity.userData.getUserTagList().find(btn.getText().toString());
@@ -275,7 +282,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             });
 
             // Create "No" button with OnClickListener.
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     //  Cancel
                     dialog.cancel();

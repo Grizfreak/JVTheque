@@ -75,6 +75,9 @@ public class CustomDialog {
                     @SuppressWarnings("deprecation")
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        if (txt.getText().toString().trim().length() == 0) {
+                            return;
+                        }
                         UserTag us = new UserTag(txt.getText().toString());
                         int color;
                         switch (prevSelectColor.getId()){

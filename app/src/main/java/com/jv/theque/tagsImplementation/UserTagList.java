@@ -56,7 +56,7 @@ public class UserTagList implements Serializable, CustomObservable, CustomObserv
 
     public synchronized boolean remove(Tag tag) {
         //empêche le retrait de la liste d'un tag qui n'existe pas ou d'un tag fourni par l'API
-        if (!tagList.contains(tag) || tag.getType().equals(Tag.TagType.RAWGTAG)) {
+        if (!tagList.contains(tag)) {
             return false;
         }
         tagList.remove(tag);
