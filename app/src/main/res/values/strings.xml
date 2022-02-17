@@ -12,7 +12,6 @@
     <string name="game_name">Game name</string>
     <string name="todo">TODO</string>
     <string name="platform">Platform</string>
-    <string name="information_app">Cette application est un projet effectué dans le cadre du projet tuteuré du semestre 3 au sein de l\'IUT de Laval.\n\nIl a été développé par une équipe de 5 développeurs : AUBERT Antonin, GUINOISEAU Maxime, AKYUZ Erhan, BRAULT Simon, BOULET Jérémy</string>
     <string name="mention_legale">Ayants Droits : IUT de Laval\n\n Contact :\nAdresse : 52 Rue des Docteurs Calmette et Guérin, 53000 Laval, France\n Email : iut-info@univ-lemans.fr\nNuméro de téléphone : 02 43 59 49 01\n Montant du capital : 0€ (Projet étudiant)\n Responsable de publication : LAFORCADE Pierre\n\n Nom et adresse du fournisseur d\'hébergement : GitHub ; San Francisco, Californie, États-Unis</string>
     <string name="cgu">Pour toute question concernant les mentions légales, veuillez nous contacter via ce mail : iut-info@univ-lemans.fr \n\n\n\n</string>
     <string name="game_title">Game Title</string>
@@ -25,7 +24,6 @@
     <string name="cr_ation_de_tag">Création de tag</string>
     <string name="nom_du_tag">Nom du tag</string>
     <string name="couleur_du_tag">Couleur du tag :</string>
-    <string name="rechercher_un_jeu_">Rechercher un jeu...</string>
     <string name="rechercher_un_jeu">Rechercher un jeu</string>
     <string name="param_tres">Paramètres</string>
     <string name="th_me_de_l_application">Thème de l\'application</string>
@@ -41,4 +39,18 @@
     <string name="information_title">Information</string>
     <string name="mention_l_gales">Mention légales</string>
     <string name="cgu_titre">conditions générales d\'utilisation</string>
+    <string name="bouton_plus">Bouton plus</string>
+    <string name="bouton_retour">Bouton retour</string>
+    <string name="rouge">rouge</string>
+    <string name="vert_fonce">vert_fonce</string>
+    <string name="bleu_fonce">bleu_fonce</string>
+    <string name="beige">beige</string>
+    <string name="rose">rose</string>
+    <string name="violet">violet</string>
+    <string name="jaune">jaune</string>
+    <string name="bleu_clair">bleu_clair</string>
+    <string name="vert_clair">vert_clair</string>
+    <string name="orange">orange</string>
+    <string name="ajouter_favori">Ajouter favori</string>
+    <string name="loupe_recherche">Loupe recherche</string>
 </resources>

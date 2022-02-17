@@ -48,7 +48,6 @@
         </HorizontalScrollView>
 
         <LinearLayout
-            android:id="@+id/HomelinearLayout"
 
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -79,7 +78,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
-            android:contentDescription="Ajouter favori" />
+            android:contentDescription="@string/ajouter_favori" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

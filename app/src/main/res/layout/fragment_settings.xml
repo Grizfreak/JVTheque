@@ -2,7 +2,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.SettingsFragment">
@@ -12,7 +11,6 @@
         android:layout_height="match_parent">
 
         <ScrollView
-            android:id="@+id/scrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
@@ -30,7 +28,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/parametresTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -44,12 +41,12 @@
                     android:layout_height="24dp" />
 
                 <TextView
-                    android:id="@+id/nighModeSwitch3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="#48686868"
                     android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:text="@string/th_me_de_l_application"
                     android:textSize="20sp" />
 
@@ -83,7 +80,6 @@
                     android:layout_height="match_parent">
 
                     <Button
-                        android:id="@+id/showTags"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -130,7 +126,7 @@
                         android:layout_marginTop="16dp"
                         android:background="#48686868"
                         android:paddingStart="20dp"
-                        android:paddingTop="10dp"
+                        android:paddingEnd="20dp"
                         android:text="@string/propos"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -153,6 +149,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
                                 android:text="@string/sup"
                                 android:textColor="?android:textColorPrimary"
                                 android:textSize="30sp"
@@ -196,6 +193,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
                                 android:text="@string/sup"
                                 android:textColor="?android:textColorPrimary"
                                 android:textSize="30sp"
@@ -239,6 +237,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
                                 android:text="@string/sup"
                                 android:textColor="?android:textColorPrimary"
                                 android:textSize="30sp"

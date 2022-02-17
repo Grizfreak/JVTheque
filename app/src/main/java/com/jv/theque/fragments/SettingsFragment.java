@@ -66,6 +66,7 @@ public class SettingsFragment extends Fragment {
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -106,44 +107,17 @@ public class SettingsFragment extends Fragment {
         }
 
         // Ajout d'un listener sur le RadioGroup correspondant au choix du thème de l'app
-        radioGroupTheme.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @SuppressLint("NonConstantResourceId")
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
-                // Définit le thème de l'application suivant le RadioButton sélectionné
-                switch (checkedId) {
-                    case R.id.radioButtonLight:
-                        mode = AppCompatDelegate.MODE_NIGHT_NO;
-                        break;
-                    case R.id.radioButtonDark:
-                        mode = AppCompatDelegate.MODE_NIGHT_YES;
-                        break;
-                    case R.id.radioButtonSystem:
-                        Toast.makeText(getContext(), "Thème défini en fonction du système", Toast.LENGTH_SHORT).show();
-                        mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
-                        break;
-                }
-                AppCompatDelegate.setDefaultNightMode(mode);
-                MainActivity.userData.setThemeMode(mode);
-            }
-        });
+        radioGroupTheme.setOnCheckedChangeListener(this::onCheckedChanged);
 
         exportButton = view.findViewById(R.id.exportList);
         clearButton = view.findViewById(R.id.clearList);
 
 
-        exportButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                MainActivity.userData.saveToFile();
-            }
-        });
+        exportButton.setOnClickListener(v -> MainActivity.userData.saveToFile());
 
-        clearButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                MainActivity.userData.getUserGameList().getList().clear();
-                MainActivity.userData.getUserTagList().getList().clear();
-                return;
-            }
+        clearButton.setOnClickListener(v -> {
+            MainActivity.userData.getUserGameList().getList().clear();
+            MainActivity.userData.getUserTagList().getList().clear();
         });
 
         button_info.setOnClickListener(onAproposClicked);
@@ -156,6 +130,7 @@ public class SettingsFragment extends Fragment {
     }
 
     View.OnClickListener onAproposClicked = new View.OnClickListener(){
+        @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View view) {
             Button b = (Button) view;
@@ -185,4 +160,27 @@ public class SettingsFragment extends Fragment {
             }
         }
     };
+
+    @SuppressLint("NonConstantResourceId")
+    private void onCheckedChanged(RadioGroup group, int checkedId) {
+        int mode = 0;
+        // Définit le thème de l'application suivant le RadioButton sélectionné
+        switch (checkedId) {
+            case R.id.radioButtonLight:
+                mode = AppCompatDelegate.MODE_NIGHT_NO;
+                break;
+            case R.id.radioButtonDark:
+                mode = AppCompatDelegate.MODE_NIGHT_YES;
+                break;
+            case R.id.radioButtonSystem:
+                Toast.makeText(getContext(), "Thème défini en fonction du système", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+        }
+        if (mode == 0){
+            mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+        }
+        AppCompatDelegate.setDefaultNightMode(mode);
+        MainActivity.userData.setThemeMode(mode);
+    }
 }

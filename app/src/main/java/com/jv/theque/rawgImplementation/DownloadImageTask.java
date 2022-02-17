@@ -31,15 +31,15 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             InputStream in = new java.net.URL(urldisplay).openStream();
             mIcon11 = BitmapFactory.decodeStream(in);
             File file = new File(App.getAppContext().getApplicationContext().getCacheDir(), gameSlug + ".png");
-            file.createNewFile();
-            FileOutputStream filO = new FileOutputStream(file);
-            OutputStream os = new BufferedOutputStream(filO);
-            mIcon11.compress(Bitmap.CompressFormat.PNG, 100, os);
-            os.close();
-            filO.close();
-
+            if (file.createNewFile()){
+                FileOutputStream filO = new FileOutputStream(file);
+                OutputStream os = new BufferedOutputStream(filO);
+                mIcon11.compress(Bitmap.CompressFormat.PNG, 100, os);
+                os.close();
+                filO.close();
+            }
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         return mIcon11;
     }

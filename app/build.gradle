@@ -45,6 +45,6 @@ dependencies {
     implementation "androidx.fragment:fragment:1.4.1"
 
     // Splash screen
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.24'
 
 }
