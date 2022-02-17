@@ -338,8 +338,8 @@ public class DisplayGameActivity extends AppCompatActivity {
     void displayImage(Game game, ImageView gamePicture) {
         if (game.getBackgroundImageLink() != null) {
 
-            if (new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png").exists()) {
-                File gamePicFile = new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png");
+            if (new File(App.getAppContext().getCacheDir(), game.getSlug() + ".png").exists()) {
+                File gamePicFile = new File(App.getAppContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png");
                 Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
                 gamePicture.setImageBitmap(bitmap);
             } else {

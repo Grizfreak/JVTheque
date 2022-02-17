@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jv.theque.App;
 import com.jv.theque.tagsImplementation.Tag;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,8 +69,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
 
         void display(Game game) {
             if (game.getBackgroundImageLink() != null) {
-                if (new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png").exists()) {
-                    File gamePicFile = new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png");
+                if (new File(App.getAppContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png").exists()) {
+                    File gamePicFile = new File(App.getAppContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png");
                     Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
                     gamePicture.setImageBitmap(bitmap);
                 } else {

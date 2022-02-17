@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jv.theque.App;
 import com.jv.theque.DisplayGameActivity;
 import com.jv.theque.FetchGames;
 import com.jv.theque.gameImplementation.Game;
@@ -92,9 +93,9 @@ public class SearchFragment extends Fragment implements FetchGames {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Game game = datalist.get(position);
-                        Intent intent = new Intent(MainActivity.getContext(), DisplayGameActivity.class);
+                        Intent intent = new Intent(App.getAppContext(), DisplayGameActivity.class);
                         intent.putExtra("Game",game);
-                        MainActivity.getContext().startActivity(intent);
+                        startActivity(intent);
                     }
                 });
     }

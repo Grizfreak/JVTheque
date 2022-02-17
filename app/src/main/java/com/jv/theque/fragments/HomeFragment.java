@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.color.MaterialColors;
+import com.jv.theque.App;
 import com.jv.theque.DisplayGameActivity;
 import com.jv.theque.favoritesImplementation.FavoriteSearch;
 import com.jv.theque.gameImplementation.Game;
@@ -111,11 +112,11 @@ public class HomeFragment extends Fragment {
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Toast.makeText(MainActivity.getContext(), actuallyDisplayed.get(position).getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(App.getAppContext(), actuallyDisplayed.get(position).getName(), Toast.LENGTH_SHORT).show();
                         Game game = actuallyDisplayed.get(position);
-                        Intent intent = new Intent(MainActivity.getContext(), DisplayGameActivity.class);
+                        Intent intent = new Intent(App.getAppContext(), DisplayGameActivity.class);
                         intent.putExtra("Game", game);
-                        MainActivity.getContext().startActivity(intent);
+                        startActivity(intent);
                     }
                 });
     }

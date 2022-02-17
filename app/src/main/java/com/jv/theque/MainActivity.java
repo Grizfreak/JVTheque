@@ -20,7 +20,6 @@ import java.io.Console;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
-    private static Context context;
     public static UserData userData = new UserData();
 
     @Override
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        this.context = this;
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation);
         // Initialise le NavHostFragment, qui va gérer la navigation dans les View avec les Fragment
@@ -49,9 +47,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    }
-
-    public static Context getContext() {
-        return context;
     }
 }

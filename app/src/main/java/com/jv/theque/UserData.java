@@ -91,7 +91,7 @@ public class UserData implements Serializable, CustomObserver {
 
         try {
             //modifiée récemment pour essayer d'enlever le App, peut ne pas marcher
-            File myObj = new File(MainActivity.getContext().getFilesDir(), storageFileName);
+            File myObj = new File(App.getAppContext().getFilesDir(), storageFileName);
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
