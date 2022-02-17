@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ems="10"
-            android:hint="Rechercher un jeu..."
+            android:hint="@string/rechercher_un_jeu"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:minHeight="48dp"
@@ -41,7 +41,7 @@
 
             <LinearLayout
                 android:id="@+id/TagLinearLayout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal" />
@@ -78,7 +78,8 @@
             android:src="@drawable/ajouter_aux_favoris"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
+            android:contentDescription="Ajouter favori" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

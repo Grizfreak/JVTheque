@@ -37,9 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Game Title"
+                android:text="@string/game_title"
                 android:textColor="?colorSecondaryVariant"
-                android:textSize="30dp" />
+                android:textSize="30sp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -54,10 +54,10 @@
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="30dp"
-                    android:text="Plateformes : "
+                    android:paddingStart="30dp"
+                    android:text="@string/plateformes"
                     android:textColor="?colorSecondaryVariant"
-                    android:textSize="17dp" />
+                    android:textSize="17sp" />
 
 
                 <!-- ici -->
@@ -69,7 +69,7 @@
 
                     <LinearLayout
                         android:id="@+id/PlatformLayout"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:orientation="horizontal">
                     </LinearLayout>
@@ -92,10 +92,10 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="30dp"
-                    android:text="Tags : "
+                    android:paddingStart="30dp"
+                    android:text="@string/tags"
                     android:textColor="?colorSecondaryVariant"
-                    android:textSize="17dp" />
+                    android:textSize="17sp" />
 
 
                 <!-- ici -->
@@ -107,7 +107,7 @@
 
                     <LinearLayout
                         android:id="@+id/UserTagLayout"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:orientation="horizontal" />
                 </HorizontalScrollView>
@@ -130,11 +130,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:paddingLeft="30dp"
-                    android:text="Note :"
+                    android:paddingStart="30dp"
+                    android:text="@string/note"
                     android:textAlignment="gravity"
                     android:textColor="?colorSecondaryVariant"
-                    android:textSize="17dp"
+                    android:textSize="17sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:text="Description :"
+                android:text="@string/description"
                 android:textColor="?colorSecondaryVariant"
                 android:textSize="17sp" />
 
@@ -179,10 +179,10 @@
                     android:id="@+id/releaseDate2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="30dp"
-                    android:text="Date de sortie :"
+                    android:paddingStart="30dp"
+                    android:text="@string/date_de_sortie"
                     android:textColor="?colorSecondaryVariant"
-                    android:textSize="17dp"
+                    android:textSize="17sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -190,10 +190,10 @@
                     android:id="@+id/releaseDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="30dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="30dp"
                     android:textColor="?android:textColorPrimary"
-                    android:textSize="17dp"
+                    android:textSize="17sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/releaseDate2"
                     app:layout_constraintTop_toTopOf="@+id/releaseDate2" />
@@ -211,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/supresion_button"
-                    android:text="Supprimer" />
+                    android:text="@string/supprimer" />
             </LinearLayout>
 
         </LinearLayout>
@@ -227,7 +227,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        android:contentDescription="Bouton plus"
+        android:focusable="true" />
 
     <ImageButton
         android:id="@+id/returnButton"
@@ -241,6 +243,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/actionModeCloseDrawable"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
-        tools:srcCompat="?attr/actionModeCloseDrawable" />
+        tools:srcCompat="?attr/actionModeCloseDrawable"
+        android:contentDescription="Bouton retour" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

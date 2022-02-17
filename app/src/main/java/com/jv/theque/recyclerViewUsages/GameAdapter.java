@@ -85,7 +85,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             List<Tag> tmpList = game.getPlatforms();
             if (tmpList != null){
                 if(!tmpList.isEmpty()){
-                    gamePlat.setText("(" + tmpList.get(0).getName() + ")");
+                    String text = "(" + tmpList.get(0).getName() + ")";
+                    gamePlat.setText(text);
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.jv.theque;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -72,6 +73,7 @@ public class CustomDialog {
 
                 alert.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
 
+                    @SuppressLint("NonConstantResourceId")
                     @SuppressWarnings("deprecation")
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

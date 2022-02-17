@@ -12,7 +12,7 @@
         android:fullBackupOnly="true"
         android:icon="@mipmap/ic_jvtheque"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_jvtheque_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.JVthèque">

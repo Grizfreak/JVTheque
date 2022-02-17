@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Rechercher un jeu"
+            android:text="@string/rechercher_un_jeu"
             android:textColor="?android:textColorPrimary"
             android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:layout_constraintVertical_bias="0.307" />
+            app:layout_constraintVertical_bias="0.307"
+            android:contentDescription="Loupe recherche" />
 
         <LinearLayout
             android:id="@+id/linearLayout"

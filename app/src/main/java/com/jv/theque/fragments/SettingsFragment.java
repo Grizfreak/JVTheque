@@ -1,5 +1,6 @@
 package com.jv.theque.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -106,6 +107,7 @@ public class SettingsFragment extends Fragment {
 
         // Ajout d'un listener sur le RadioGroup correspondant au choix du thème de l'app
         radioGroupTheme.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("NonConstantResourceId")
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
                 // Définit le thème de l'application suivant le RadioButton sélectionné

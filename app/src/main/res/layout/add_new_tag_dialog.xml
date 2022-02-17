@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Création de tag"
+                android:text="@string/cr_ation_de_tag"
                 android:textColor="#ff000000"
                 android:textSize="18sp" />
         </FrameLayout>
@@ -38,26 +38,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Nom du tag"
-            android:inputType="textPersonName" />
+            android:hint="@string/nom_du_tag"
+            android:inputType="textPersonName"
+            android:autofillHints="Tag" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Couleur du tag :" />
+            android:text="@string/couleur_du_tag" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="15dp">
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:padding="15dp">
 
                 <LinearLayout
                     android:id="@+id/btnLinearLayout"
@@ -72,7 +69,8 @@
                         android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/RED"
-                        app:borderWidth="0dp" />
+                        app:borderWidth="0dp"
+                        android:contentDescription="rouge" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab2"
@@ -81,7 +79,8 @@
                         android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/GREEN_DARK"
-                        app:borderWidth="0dp" />
+                        app:borderWidth="0dp"
+                        android:contentDescription="vert_fonce" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab3"
@@ -90,7 +89,8 @@
                         android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/BLUE_DARK"
-                        app:borderWidth="0dp" />
+                        app:borderWidth="0dp"
+                        android:contentDescription="bleu_fonce" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab4"
@@ -99,7 +99,8 @@
                         android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/BEIGE"
-                        app:borderWidth="0dp" />
+                        app:borderWidth="0dp"
+                        android:contentDescription="beige" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab5"
@@ -108,7 +109,8 @@
                         android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/PINK"
-                        app:borderWidth="0dp" />
+                        app:borderWidth="0dp"
+                        android:contentDescription="rose" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab6"
@@ -117,7 +119,8 @@
                         android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/PURPLE"
-                        app:borderWidth="0dp" />
+                        app:borderWidth="0dp"
+                        android:contentDescription="violet" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab7"
@@ -126,7 +129,8 @@
                         android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/YELLOW"
-                        app:borderWidth="0dp" />
+                        app:borderWidth="0dp"
+                        android:contentDescription="jaune" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab8"
@@ -135,7 +139,8 @@
                         android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/BLUE_LIGHT"
-                        app:borderWidth="0dp" />
+                        app:borderWidth="0dp"
+                        android:contentDescription="bleu_clair" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab9"
@@ -144,7 +149,8 @@
                         android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/GREEN_LIGHT"
-                        app:borderWidth="0dp" />
+                        app:borderWidth="0dp"
+                        android:contentDescription="vert_clair" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab10"
@@ -153,10 +159,10 @@
                         android:layout_gravity="end|bottom"
                         android:layout_margin="4dp"
                         android:backgroundTint="@color/ORANGE"
-                        app:borderWidth="0dp" />
+                        app:borderWidth="0dp"
+                        android:contentDescription="orange" />
                 </LinearLayout>
             </HorizontalScrollView>
-        </FrameLayout>
 
     </LinearLayout>
 

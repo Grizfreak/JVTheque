@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,6 +39,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DisplayGameActivity extends AppCompatActivity {
 
@@ -113,7 +115,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             }
         });
         intent = getIntent();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
         addButton = findViewById(R.id.addButton);
         title = findViewById(R.id.GameTitle);
         gameImage = findViewById(R.id.GameImage);
@@ -143,6 +145,8 @@ public class DisplayGameActivity extends AppCompatActivity {
         updateTags();
 
 
+        String text = description.getText() + "\n" + gameDisplayed.getDescription();
+
         if (gameDisplayed.getDescription() == null || gameDisplayed.getNote() == -1) {
             try {
                 JsonObject json = new RAWGGetGameDescriptionOperation(apiKey, gameDisplayed).execute("").get();
@@ -150,7 +154,8 @@ public class DisplayGameActivity extends AppCompatActivity {
                 int newNote = Math.round(json.get("rating").getAsFloat());
                 newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br />", "\n");
                 gameDisplayed.setDescription(newGameDescription);
-                description.setText(description.getText() + "\n" + gameDisplayed.getDescription());
+
+                description.setText(text);
 
                 //si l'utilisateur n'a pas déjà mis une note on met la note moyenne mis par les utilisateurs
                 if (gameDisplayed.getNote() == -1) {
@@ -161,7 +166,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else {
-            description.setText(description.getText() + "\n" + gameDisplayed.getDescription());
+            description.setText(text);
         }
 
         displayStars(starContainer);
@@ -246,7 +251,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             FloatingActionButton btnAddTag = new FloatingActionButton(this);
             btnAddTag.setBackgroundTintList(ColorStateList.valueOf(Color.argb(220,0,172,193)));
             //btnAddTag.setImageResource(android.R.drawable.ic_input_add);
-            btnAddTag.setForeground(getDrawable(R.drawable.plus));
+            btnAddTag.setForeground(AppCompatResources.getDrawable(this,R.drawable.plus));
             btnAddTag.setLayoutParams(params);
             params.setMargins(0, 0, 20, 0);
             btnAddTag.setOnClickListener(addANewTag);
