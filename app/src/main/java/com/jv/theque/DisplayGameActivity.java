@@ -144,9 +144,7 @@ public class DisplayGameActivity extends AppCompatActivity {
         displayImage(gameDisplayed, gameImage);
         updateTags();
 
-
-        String text = description.getText() + "\n" + gameDisplayed.getDescription();
-
+        String descriptionText = description.getText() + "\n";
         if (gameDisplayed.getDescription() == null || gameDisplayed.getNote() == -1) {
             try {
                 JsonObject json = new RAWGGetGameDescriptionOperation(apiKey, gameDisplayed).execute("").get();
@@ -155,9 +153,9 @@ public class DisplayGameActivity extends AppCompatActivity {
                 newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br />", "\n");
                 gameDisplayed.setDescription(newGameDescription);
 
-                description.setText(text);
+                description.setText(descriptionText + gameDisplayed.getDescription());
 
-                //si l'utilisateur n'a pas déjà mis une note on met la note moyenne mis par les utilisateurs
+                //si l'utilisateur n'a pas déjà mis une note on met la note moyenne mise par les utilisateurs
                 if (gameDisplayed.getNote() == -1) {
                     gameDisplayed.setNote(newNote);
                 }
@@ -166,7 +164,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else {
-            description.setText(text);
+            description.setText(descriptionText + gameDisplayed.getDescription());
         }
 
         displayStars(starContainer);
