@@ -25,25 +25,13 @@ public interface Tag extends CustomObservable {
 
     void addObserver(CustomObserver o);
 
-    void notifyObserver();
-
     TagType getType();
 
     int color = Color.BLACK;
 
-    default void setColor(int color) {
-        return;
-    }
-
-    default void setName(String name) {
-        return;
-    }
-
     String getName();
 
     int getColor();
-
-    List<Game> getGames();
 
     void addGame(Game game);
 

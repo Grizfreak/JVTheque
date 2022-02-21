@@ -1,20 +1,15 @@
 package com.jv.theque.gameImplementation;
 
 
-import com.google.gson.reflect.TypeToken;
 import com.jv.theque.tagsImplementation.CustomObservable;
 import com.jv.theque.tagsImplementation.CustomObserver;
 import com.jv.theque.tagsImplementation.Tag;
 
 import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserGameList implements Serializable, CustomObservable, CustomObserver {
-
-    private final Type GAME_TYPE = new TypeToken<List<Game>>() {
-    }.getType();
 
     private List<Game> gameList = new ArrayList<>();
     private final List<CustomObserver> observerList = new ArrayList<>();
@@ -79,8 +74,7 @@ public class UserGameList implements Serializable, CustomObservable, CustomObser
         observerList.add(o);
     }
 
-    @Override
-    public void notifyObserver() {
+    private void notifyObserver() {
         for (CustomObserver o : observerList) {
             o.update();
         }

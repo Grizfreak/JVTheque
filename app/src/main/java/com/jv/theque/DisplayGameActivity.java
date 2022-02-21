@@ -1,9 +1,5 @@
 package com.jv.theque;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -111,7 +107,7 @@ public class DisplayGameActivity extends AppCompatActivity {
         LinearLayout starContainer = findViewById(R.id.starContainer);
         LinearLayout linearLayout = findViewById(R.id.to_hide1);
         Space space = findViewById(R.id.to_hide2);
-        Bundle extras = getIntent().getExtras();
+        getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
 
         userGameList = MainActivity.userData.getUserGameList();
@@ -137,7 +133,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br />", "\n");
                 gameDisplayed.setDescription(newGameDescription);
 
-                description.setText(new StringBuilder().append(descriptionText).append(gameDisplayed.getDescription()).toString());
+                description.setText(String.format("%s%s", descriptionText, gameDisplayed.getDescription()));
 
                 //si l'utilisateur n'a pas déjà mis une note on met la note moyenne mise par les utilisateurs
                 if (gameDisplayed.getNote() == -1) {
@@ -148,7 +144,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else {
-            description.setText(new StringBuilder().append(descriptionText).append(gameDisplayed.getDescription()).toString());
+            description.setText(String.format("%s%s", descriptionText, gameDisplayed.getDescription()));
         }
 
         displayStars(starContainer);
@@ -175,8 +171,8 @@ public class DisplayGameActivity extends AppCompatActivity {
 
     final View.OnClickListener addANewTag = view -> {
         //Displaying all usertag available
-        List<Tag> result = new ArrayList<Tag>();
-        CustomDialog.showAlertDialogTag(getActivity(), result);
+        List<Tag> result = new ArrayList<>();
+        CustomDialog.showAlertDialogTag(getActivity());
     };
 
     public void updateTags() {
@@ -315,9 +311,6 @@ public class DisplayGameActivity extends AppCompatActivity {
     }
 
     private DisplayGameActivity getActivity() {
-        Context context = this;
-        while (true) {
-            return (DisplayGameActivity) context;
-        }
+        return this;
     }
 }

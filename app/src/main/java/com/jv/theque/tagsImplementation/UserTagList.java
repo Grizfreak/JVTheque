@@ -33,37 +33,21 @@ public class UserTagList implements Serializable, CustomObservable, CustomObserv
         return null;
     }
 
-    public Tag find(String name, Tag.TagType tagType) {
-        for (Tag tag : tagList) {
-            if (tag.getName().equals(name) && tag.getType().equals(tagType)) {
-                return tag;
-            }
-        }
-
-        return null;
-    }
-
-    public synchronized boolean add(Tag tag) {
+    public synchronized void add(Tag tag) {
         if (tagList.contains(tag)) {
-            return false;
+            return;
         }
         tagList.add(tag);
         notifyObserver();
-        return true;
     }
 
-    public synchronized boolean remove(Tag tag) {
+    public synchronized void remove(Tag tag) {
         //empêche le retrait de la liste d'un tag qui n'existe pas ou d'un tag fourni par l'API
         if (!tagList.contains(tag)) {
-            return false;
+            return;
         }
         tagList.remove(tag);
         notifyObserver();
-        return true;
-    }
-
-    public UserTagList(List<Tag> tagList) {
-        this.tagList = tagList;
     }
 
     @Override
@@ -71,8 +55,7 @@ public class UserTagList implements Serializable, CustomObservable, CustomObserv
         observerList.add(o);
     }
 
-    @Override
-    public void notifyObserver() {
+    private void notifyObserver() {
         for (CustomObserver o : observerList) {
             o.update();
         }

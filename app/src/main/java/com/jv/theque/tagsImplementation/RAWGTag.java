@@ -77,23 +77,8 @@ public class RAWGTag implements Tag, Serializable {
     }
 
     @Override
-    public void setName(String name) {
-        return;
-    }   // Empêche de modifier le nom d'un tag de l'API
-
-    @Override
     public int getColor() {
         return color;
-    }
-
-    @Override
-    public void setColor(int color) {
-        return;
-    }
-
-    @Override
-    public List<Game> getGames() {
-        return games;
     }
 
     @Override
@@ -136,8 +121,7 @@ public class RAWGTag implements Tag, Serializable {
         customObserverList.add(o);
     }
 
-    @Override
-    public void notifyObserver() {
+    private void notifyObserver() {
         for (CustomObserver o : customObserverList) {
             o.update();
         }

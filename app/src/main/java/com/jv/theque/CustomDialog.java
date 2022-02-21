@@ -1,7 +1,5 @@
 package com.jv.theque;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +30,7 @@ public class CustomDialog {
         prevSelectColor = b;
     };
 
-    public static void showAlertDialogTag(final DisplayGameActivity activity, List<Tag> result) {
+    public static void showAlertDialogTag(final DisplayGameActivity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         // Set Title.
@@ -72,16 +70,16 @@ public class CustomDialog {
                 UserTag us = new UserTag(txt.getText().toString());
                 int color;
                 int id = prevSelectColor.getId();
-                if      (id == R.id.fab1) color = activity.getResources().getColor(R.color.RED);
-                else if (id == R.id.fab2) color = activity.getResources().getColor(R.color.GREEN_DARK);
-                else if (id == R.id.fab3) color = activity.getResources().getColor(R.color.BLUE_DARK);
-                else if (id == R.id.fab4) color = activity.getResources().getColor(R.color.BEIGE);
-                else if (id == R.id.fab5) color = activity.getResources().getColor(R.color.PINK);
-                else if (id == R.id.fab6) color = activity.getResources().getColor(R.color.PURPLE);
-                else if (id == R.id.fab7) color = activity.getResources().getColor(R.color.YELLOW);
-                else if (id == R.id.fab8) color = activity.getResources().getColor(R.color.BLUE_LIGHT);
-                else if (id == R.id.fab9) color = activity.getResources().getColor(R.color.GREEN_LIGHT);
-                else if (id == R.id.fab10) color = activity.getResources().getColor(R.color.ORANGE);
+                if      (id == R.id.fab1) color = activity.getResources().getColor(R.color.RED, activity.getTheme());
+                else if (id == R.id.fab2) color = activity.getResources().getColor(R.color.GREEN_DARK, activity.getTheme());
+                else if (id == R.id.fab3) color = activity.getResources().getColor(R.color.BLUE_DARK, activity.getTheme());
+                else if (id == R.id.fab4) color = activity.getResources().getColor(R.color.BEIGE, activity.getTheme());
+                else if (id == R.id.fab5) color = activity.getResources().getColor(R.color.PINK, activity.getTheme());
+                else if (id == R.id.fab6) color = activity.getResources().getColor(R.color.PURPLE, activity.getTheme());
+                else if (id == R.id.fab7) color = activity.getResources().getColor(R.color.YELLOW, activity.getTheme());
+                else if (id == R.id.fab8) color = activity.getResources().getColor(R.color.BLUE_LIGHT, activity.getTheme());
+                else if (id == R.id.fab9) color = activity.getResources().getColor(R.color.GREEN_LIGHT, activity.getTheme());
+                else if (id == R.id.fab10) color = activity.getResources().getColor(R.color.ORANGE, activity.getTheme());
                 else  color = Color.BLACK;
 
                 us.setColor(color);

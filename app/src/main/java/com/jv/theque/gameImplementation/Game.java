@@ -41,10 +41,10 @@ public class Game implements Serializable {
     }
 
     private Map<String, List<Tag>> setupTags() {
-        Map tagMap = new HashMap<String, List<Tag>>();
-        tagMap.put("Usertag", new ArrayList<Tag>());
-        tagMap.put("platform", new ArrayList<Tag>());
-        tagMap.put("store", new ArrayList<Tag>());
+        Map<String, List<Tag>> tagMap = new HashMap<>();
+        tagMap.put("Usertag", new ArrayList<>());
+        tagMap.put("platform", new ArrayList<>());
+        tagMap.put("store", new ArrayList<>());
         return tagMap;
     }
 
@@ -60,7 +60,7 @@ public class Game implements Serializable {
         if (game.stores != null) {
             for (RAWGStoresList tag : game.stores) {
                 Tag tag1 = new RAWGTag(tag.RAWGStore.name, this);
-                ((ArrayList) Objects.requireNonNull(tags.get("store"))).add(tag1);
+                (Objects.requireNonNull(tags.get("store"))).add(tag1);
             }
 
         }
@@ -68,10 +68,6 @@ public class Game implements Serializable {
 
     public String getSlug() {
         return slug;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {
@@ -103,15 +99,11 @@ public class Game implements Serializable {
 
             List<Tag> tmpTagList = tags.get(value);
 
-            tmpList.addAll(tmpTagList);
+            tmpList.addAll(Objects.requireNonNull(tmpTagList));
 
         }
 
         return tmpList;
-    }
-
-    public ArrayList<Tag> getStores() {
-        return (ArrayList<Tag>) tags.get("store");
     }
 
     public String getBackgroundImageLink() {

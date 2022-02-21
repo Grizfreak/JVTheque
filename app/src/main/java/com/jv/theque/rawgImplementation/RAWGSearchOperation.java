@@ -25,7 +25,7 @@ public class RAWGSearchOperation extends AsyncTask<String, Void, List<Game>> {
     private final String apiKey;
     private final String searchedText;
     private List<Game> datalist;
-    public RAWGSearchOperation(String apiKey, String search, List datalist, FetchGames fetchGames){
+    public RAWGSearchOperation(String apiKey, String search, FetchGames fetchGames){
         this.apiKey = apiKey;
         this.searchedText = search;
         this.fetchGames = fetchGames;

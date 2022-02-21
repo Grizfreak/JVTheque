@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jv.theque.App;
@@ -30,13 +28,7 @@ import com.jv.theque.rawgImplementation.RAWGSearchOperation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SearchFragment extends Fragment implements FetchGames {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,29 +41,18 @@ public class SearchFragment extends Fragment implements FetchGames {
     EditText searchedtext;
     List<Game> datalist;
     GameAdapter adapter;
-    private Fragment mFragment;
-    Bundle mBundle;
     Context context;
 
     public SearchFragment() {
         // Required empty public constructor
     }
 
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            String mParam1 = getArguments().getString(ARG_PARAM1);
-            String mParam2 = getArguments().getString(ARG_PARAM2);
+            getArguments().getString(ARG_PARAM1);
+            getArguments().getString(ARG_PARAM2);
         }
 
     }
@@ -133,7 +114,7 @@ public class SearchFragment extends Fragment implements FetchGames {
                     //Création d'une opération asynchrone pour permettre l'usage des connexions internet
 
                     // Le get() permet ici d'attendre que l'opération soit terminée pour passer à la suite
-                    new RAWGSearchOperation(apiKey,searchedtext.getText().toString().replaceAll(" ", "+"),datalist, this).execute("");
+                    new RAWGSearchOperation(apiKey,searchedtext.getText().toString().replaceAll(" ", "+"), this).execute("");
 
                     hideSoftKeyboard(recyclerView);
 

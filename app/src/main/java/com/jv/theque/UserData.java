@@ -83,7 +83,6 @@ public class UserData implements Serializable, CustomObserver {
             this.userFavorites = new FavoriteSearchList(this);
             this.themeMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
         }
-        return;
     }
 
     public void saveToFile() {

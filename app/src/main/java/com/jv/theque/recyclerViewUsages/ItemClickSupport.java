@@ -70,14 +70,8 @@ public class ItemClickSupport {
         return support;
     }
 
-    public ItemClickSupport setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         mOnItemClickListener = listener;
-        return this;
-    }
-
-    public ItemClickSupport setOnItemLongClickListener(OnItemLongClickListener listener) {
-        mOnItemLongClickListener = listener;
-        return this;
     }
 
     private void detach(RecyclerView view) {

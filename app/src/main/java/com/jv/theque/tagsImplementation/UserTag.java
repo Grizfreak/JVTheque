@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class UserTag implements Tag, Serializable {
-    private String name;
+    private final String name;
     private int color;
     private final List<Game> games;
     private final TagType type = TagType.USERTAG;
@@ -29,16 +29,10 @@ public class UserTag implements Tag, Serializable {
     }
 
     @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
     public int getColor() {
         return color;
     }
 
-    @Override
     public void setColor(int color) {
         this.color = color;
     }
@@ -48,8 +42,7 @@ public class UserTag implements Tag, Serializable {
         customObserverList.add(o);
     }
 
-    @Override
-    public void notifyObserver() {
+    private void notifyObserver() {
         for (CustomObserver o : customObserverList) {
             o.update();
         }
@@ -58,11 +51,6 @@ public class UserTag implements Tag, Serializable {
     @Override
     public TagType getType() {
         return type;
-    }
-
-    @Override
-    public List<Game> getGames() {
-        return games;
     }
 
     @Override
