@@ -14,12 +14,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-    ImageView bmImage;
+    WeakReference<ImageView> bmImage;
     String gameSlug;
 
-    public DownloadImageTask(ImageView bmImage, String gameSlug) {
+    public DownloadImageTask(WeakReference<ImageView> bmImage, String gameSlug) {
         this.bmImage = bmImage;
         this.gameSlug = gameSlug;
     }
@@ -45,7 +46,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected void onPostExecute(Bitmap result) {
-        bmImage.setImageBitmap(result);
+        bmImage.get().setImageBitmap(result);
     }
 
 

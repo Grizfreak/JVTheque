@@ -19,6 +19,7 @@ import com.jv.theque.R;
 import com.jv.theque.rawgImplementation.DownloadImageTask;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder>  {
@@ -74,7 +75,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
                     Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
                     gamePicture.setImageBitmap(bitmap);
                 } else {
-                    new DownloadImageTask(gamePicture, game.getSlug())
+                    new DownloadImageTask(new WeakReference<>(gamePicture), game.getSlug())
                             .execute(game.getBackgroundImageLink().replace("https://media.rawg.io/media/games/", "https://api.rawg.io/media/resize/420/-/games/"));
                 }
             }

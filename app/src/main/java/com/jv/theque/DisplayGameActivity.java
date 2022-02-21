@@ -36,6 +36,7 @@ import com.jv.theque.rawgImplementation.RAWGGetGameDescriptionOperation;
 import com.jv.theque.tagsImplementation.Tag;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +142,7 @@ public class DisplayGameActivity extends AppCompatActivity {
         releaseDate.setText((gameDisplayed.getRelease_date().equals(Game.DEFAULT_DATE)) ?
                 (releaseDate.getText() + " inconnue") : (releaseDate.getText() + " " + formatter.format(gameDisplayed.getRelease_date())));
         setPlatformButtons(gameDisplayed.getPlatforms().size());
-        displayImage(gameDisplayed, gameImage);
+        displayImage(gameDisplayed, new WeakReference<>(gameImage));
         updateTags();
 
         String descriptionText = description.getText() + "\n";
@@ -153,7 +154,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br />", "\n");
                 gameDisplayed.setDescription(newGameDescription);
 
-                description.setText(descriptionText + gameDisplayed.getDescription());
+                description.setText(new StringBuilder().append(descriptionText).append(gameDisplayed.getDescription()).toString());
 
                 //si l'utilisateur n'a pas déjà mis une note on met la note moyenne mise par les utilisateurs
                 if (gameDisplayed.getNote() == -1) {
@@ -164,7 +165,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else {
-            description.setText(descriptionText + gameDisplayed.getDescription());
+            description.setText(new StringBuilder().append(descriptionText).append(gameDisplayed.getDescription()).toString());
         }
 
         displayStars(starContainer);
@@ -338,13 +339,13 @@ public class DisplayGameActivity extends AppCompatActivity {
         }
     }
 
-    void displayImage(Game game, ImageView gamePicture) {
+    void displayImage(Game game, WeakReference<ImageView> gamePicture) {
         if (game.getBackgroundImageLink() != null) {
 
             if (new File(App.getAppContext().getCacheDir(), game.getSlug() + ".png").exists()) {
                 File gamePicFile = new File(App.getAppContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png");
                 Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
-                gamePicture.setImageBitmap(bitmap);
+                gamePicture.get().setImageBitmap(bitmap);
             } else {
 
                 new DownloadImageTask(gamePicture, game.getSlug())
