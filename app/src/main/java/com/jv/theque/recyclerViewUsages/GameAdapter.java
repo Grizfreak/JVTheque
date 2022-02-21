@@ -2,7 +2,6 @@ package com.jv.theque.recyclerViewUsages;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,11 @@ import android.widget.TextView;
 
 import com.jv.theque.App;
 import com.jv.theque.tagsImplementation.Tag;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jv.theque.gameImplementation.Game;
-import com.jv.theque.MainActivity;
 import com.jv.theque.R;
 import com.jv.theque.rawgImplementation.DownloadImageTask;
 
@@ -23,11 +23,12 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder>  {
-    List<Game> gameList;
+    final List<Game> gameList;
     public GameAdapter(List<Game> gameList) {
         this.gameList = gameList;
     }
 
+    @NonNull
     @Override
     public GameViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
@@ -49,10 +50,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     }
 
 
-    class GameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView gameName;
-        private TextView gamePlat;
-        private ImageView gamePicture;
+    static class GameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final TextView gameName;
+        private final TextView gamePlat;
+        private final ImageView gamePicture;
 
         GameViewHolder(View itemView) {
             super(itemView);

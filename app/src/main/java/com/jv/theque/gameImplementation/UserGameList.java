@@ -16,8 +16,8 @@ public class UserGameList implements Serializable, CustomObservable, CustomObser
     private final Type GAME_TYPE = new TypeToken<List<Game>>() {
     }.getType();
 
-    private List<Game> gameList = new ArrayList<Game>();
-    private List<CustomObserver> observerList = new ArrayList<CustomObserver>();
+    private List<Game> gameList = new ArrayList<>();
+    private final List<CustomObserver> observerList = new ArrayList<>();
 
     public UserGameList(CustomObserver userData) {
         this.addObserver(userData);
@@ -37,6 +37,7 @@ public class UserGameList implements Serializable, CustomObservable, CustomObser
         for (Game tmpGame : gameList) {
             if (newGame.equals(tmpGame)) {
                 cancelInsertion = true;
+                break;
             }
         }
 

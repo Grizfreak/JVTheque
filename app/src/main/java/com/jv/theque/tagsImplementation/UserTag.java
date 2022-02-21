@@ -1,5 +1,7 @@
 package com.jv.theque.tagsImplementation;
 
+import androidx.annotation.NonNull;
+
 import com.jv.theque.gameImplementation.Game;
 import com.jv.theque.MainActivity;
 
@@ -11,12 +13,12 @@ import java.util.Objects;
 public class UserTag implements Tag, Serializable {
     private String name;
     private int color;
-    private List<Game> games;
-    private TagType type = TagType.USERTAG;
+    private final List<Game> games;
+    private final TagType type = TagType.USERTAG;
 
     public UserTag(String name) {
         this.name = name;
-        this.games = new ArrayList<Game>();
+        this.games = new ArrayList<>();
         this.color = Tag.color;
         addObserver(MainActivity.userData.getUserTagList());
     }
@@ -91,6 +93,7 @@ public class UserTag implements Tag, Serializable {
         return Objects.hash(name);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "UserTag{name='" + name + "'}";

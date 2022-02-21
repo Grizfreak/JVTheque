@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface FetchGames {
 
-    public void query(List<Game> gameList);
+    void query(List<Game> gameList);
 
 }

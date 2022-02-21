@@ -25,12 +25,12 @@ import com.jv.theque.FetchGames;
 import com.jv.theque.gameImplementation.Game;
 import com.jv.theque.recyclerViewUsages.GameAdapter;
 import com.jv.theque.recyclerViewUsages.ItemClickSupport;
-import com.jv.theque.MainActivity;
 import com.jv.theque.R;
 import com.jv.theque.rawgImplementation.RAWGSearchOperation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,9 +42,6 @@ public class SearchFragment extends Fragment implements FetchGames {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
 
     public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
     RecyclerView recyclerView;
@@ -73,8 +70,8 @@ public class SearchFragment extends Fragment implements FetchGames {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
     }
@@ -89,21 +86,18 @@ public class SearchFragment extends Fragment implements FetchGames {
 
     private void configureOnClickRecyclerView(){
         ItemClickSupport.addTo(recyclerView, R.layout.fragment_search)
-                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-                    @Override
-                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Game game = datalist.get(position);
-                        Intent intent = new Intent(App.getAppContext(), DisplayGameActivity.class);
-                        intent.putExtra("Game",game);
-                        startActivity(intent);
-                    }
+                .setOnItemClickListener((recyclerView, position, v) -> {
+                    Game game = datalist.get(position);
+                    Intent intent = new Intent(App.getAppContext(), DisplayGameActivity.class);
+                    intent.putExtra("Game",game);
+                    startActivity(intent);
                 });
     }
 
 
     // Permet de "Ranger" le clavier virtuel et de le cacher lorsqu'il est visible à l'écran
     public void hideSoftKeyboard(View view){
-        InputMethodManager imm =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm =(InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -146,15 +140,11 @@ public class SearchFragment extends Fragment implements FetchGames {
                 }
         );
 
-        searchedtext.setOnEditorActionListener(new TextView.OnEditorActionListener(){
-
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if(i == EditorInfo.IME_ACTION_DONE){
-                    validatebtn.callOnClick();
-                }
-                return false;
+        searchedtext.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if(i == EditorInfo.IME_ACTION_DONE){
+                validatebtn.callOnClick();
             }
+            return false;
         });
 
         return view;

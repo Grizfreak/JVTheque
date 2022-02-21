@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.jv.theque.favoritesImplementation.FavoriteSearchList;
 import com.jv.theque.gameImplementation.UserGameList;
 import com.jv.theque.tagsImplementation.CustomObserver;
-import com.jv.theque.tagsImplementation.Tag;
 import com.jv.theque.tagsImplementation.UserTagList;
 
 import java.io.File;
@@ -19,7 +18,7 @@ import java.io.Serializable;
 
 
 public class UserData implements Serializable, CustomObserver {
-    private static String storageFileName = "UserData.bin";
+    private static final String storageFileName = "UserData.bin";
     private UserGameList userGameList;
     private UserTagList userTagList;
     private FavoriteSearchList userFavorites;
@@ -28,9 +27,9 @@ public class UserData implements Serializable, CustomObserver {
     @Override
     public void update() {
         StringBuilder builder = new StringBuilder();
-        builder.append("GameList size is now " + userGameList.getGameList().size());
-        builder.append("\nTagList size is now " + userTagList.getList().size());
-        builder.append("\nFavoriteList size is now " + userFavorites.getList().size());
+        builder.append("GameList size is now ").append(userGameList.getGameList().size());
+        builder.append("\nTagList size is now ").append(userTagList.getList().size());
+        builder.append("\nFavoriteList size is now ").append(userFavorites.getList().size());
         this.saveToFile();
     }
 

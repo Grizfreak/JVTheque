@@ -3,11 +3,9 @@ package com.jv.theque.rawgImplementation;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.jv.theque.App;
-import com.jv.theque.MainActivity;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -17,8 +15,8 @@ import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-    WeakReference<ImageView> bmImage;
-    String gameSlug;
+    final WeakReference<ImageView> bmImage;
+    final String gameSlug;
 
     public DownloadImageTask(WeakReference<ImageView> bmImage, String gameSlug) {
         this.bmImage = bmImage;

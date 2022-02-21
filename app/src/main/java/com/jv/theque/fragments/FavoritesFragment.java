@@ -28,8 +28,6 @@ public class FavoritesFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
     ListView displayList;
 
     public FavoritesFragment() {
@@ -49,8 +47,8 @@ public class FavoritesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -60,24 +58,18 @@ public class FavoritesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
         displayList = view.findViewById(R.id.displayList);
-        displayList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                FavoriteSearch a = MainActivity.userData.getUserFavorites().getList().get(i);
-                a.changeFragment((AppCompatActivity) view.getContext());
-            }
+        displayList.setOnItemClickListener((adapterView, view12, i, l) -> {
+            FavoriteSearch a = MainActivity.userData.getUserFavorites().getList().get(i);
+            a.changeFragment((AppCompatActivity) view12.getContext());
         });
-        displayList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                MainActivity.userData.getUserFavorites().getList().remove(position);
-                ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<FavoriteSearch>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
-                displayList.setAdapter(arrayAdapter);
-                Toast.makeText(view.getContext(),"Le favori a été supprimé",Toast.LENGTH_SHORT).show();
-                return false;
-            }
+        displayList.setOnItemLongClickListener((parent, view1, position, id) -> {
+            MainActivity.userData.getUserFavorites().getList().remove(position);
+            ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<FavoriteSearch>(view1.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
+            displayList.setAdapter(arrayAdapter);
+            Toast.makeText(view1.getContext(),"Le favori a été supprimé",Toast.LENGTH_SHORT).show();
+            return false;
         });
-        ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<FavoriteSearch>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
+        ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
         displayList.setAdapter(arrayAdapter);
         return view;
     }

@@ -1,7 +1,5 @@
 package com.jv.theque.tagsImplementation;
 
-import android.util.Log;
-
 import com.jv.theque.UserData;
 
 import java.io.Serializable;
@@ -9,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserTagList implements Serializable, CustomObservable, CustomObserver {
-    private List<Tag> tagList = new ArrayList<Tag>();
-    private List<CustomObserver> observerList = new ArrayList<CustomObserver>();
+    private List<Tag> tagList = new ArrayList<>();
+    private final List<CustomObserver> observerList = new ArrayList<>();
 
     public UserTagList(CustomObserver userData) {
         this.addObserver(userData);

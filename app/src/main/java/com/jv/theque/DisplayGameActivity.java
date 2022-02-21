@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -44,17 +43,9 @@ import java.util.Locale;
 
 public class DisplayGameActivity extends AppCompatActivity {
 
-    private ImageButton returnButton;
-    private TextView title, releaseDate;
-    private ImageView gameImage;
     protected Game gameDisplayed;
-    private Intent intent;
-    private Button removeButton;
-    private FloatingActionButton addButton;
-    private LinearLayout platformLayout, userTagLayout, starContainer;
-    private TextView description;
-    private Space space;
-    private LinearLayout linearLayout;
+    private LinearLayout platformLayout;
+    private LinearLayout userTagLayout;
     UserGameList userGameList;
     public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
     private boolean inList = false;
@@ -90,17 +81,14 @@ public class DisplayGameActivity extends AppCompatActivity {
             }
             tmpImgBtn.setLayoutParams(layoutParams);
             int finalI = i;
-            tmpImgBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (inList) {
-                        gameDisplayed.setNote(finalI);
-                        MainActivity.userData.saveToFile();
-                        displayStars(starContainer);
-                    }
+            tmpImgBtn.setOnClickListener(view -> {
+                if (inList) {
+                    gameDisplayed.setNote(finalI);
+                    MainActivity.userData.saveToFile();
+                    displayStars(starContainer);
                 }
             });
-            if((greyTint && inList) || !greyTint) starContainer.addView(tmpImgBtn);
+            if(!greyTint || inList) starContainer.addView(tmpImgBtn);
         }
     }
 
@@ -108,26 +96,21 @@ public class DisplayGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_game);
-        returnButton = findViewById(R.id.returnButton);
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        intent = getIntent();
+        ImageButton returnButton = findViewById(R.id.returnButton);
+        returnButton.setOnClickListener(view -> onBackPressed());
+        Intent intent = getIntent();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
-        addButton = findViewById(R.id.addButton);
-        title = findViewById(R.id.GameTitle);
-        gameImage = findViewById(R.id.GameImage);
-        removeButton = findViewById(R.id.removeButton);
-        releaseDate = findViewById(R.id.releaseDate);
+        FloatingActionButton addButton = findViewById(R.id.addButton);
+        TextView title = findViewById(R.id.GameTitle);
+        ImageView gameImage = findViewById(R.id.GameImage);
+        Button removeButton = findViewById(R.id.removeButton);
+        TextView releaseDate = findViewById(R.id.releaseDate);
         platformLayout = findViewById(R.id.PlatformLayout);
-        description = findViewById(R.id.gameDescription);
+        TextView description = findViewById(R.id.gameDescription);
         userTagLayout = findViewById(R.id.UserTagLayout);
-        starContainer = findViewById(R.id.starContainer);
-        linearLayout = findViewById(R.id.to_hide1);
-        space = findViewById(R.id.to_hide2);
+        LinearLayout starContainer = findViewById(R.id.starContainer);
+        LinearLayout linearLayout = findViewById(R.id.to_hide1);
+        Space space = findViewById(R.id.to_hide2);
         Bundle extras = getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
 
@@ -177,33 +160,23 @@ public class DisplayGameActivity extends AppCompatActivity {
         } else {
             removeButton.setVisibility(View.GONE);
         }
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Instanciation d'une liste de résultats du dialogue
-                List<Tag> result = new ArrayList<>();
-                //Affichage du dialogue d'ajout des premiers tags d'un jeu
-                CustomDialog.showDialogNewGameAdd(getActivity(), result, gameDisplayed);
-            }
+        addButton.setOnClickListener(view -> {
+            //Instanciation d'une liste de résultats du dialogue
+            List<Tag> result = new ArrayList<>();
+            //Affichage du dialogue d'ajout des premiers tags d'un jeu
+            CustomDialog.showDialogNewGameAdd(getActivity(), result, gameDisplayed);
         });
-        removeButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                userGameList.removeGame(gameDisplayed);
-                onBackPressed();
-            }
+        removeButton.setOnClickListener(view -> {
+            userGameList.removeGame(gameDisplayed);
+            onBackPressed();
         });
 
     }
 
-    View.OnClickListener addANewTag = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            //Displaying all usertag available
-            List<Tag> result = new ArrayList<Tag>();
-            CustomDialog.showAlertDialogTag(getActivity(), result);
-        }
+    final View.OnClickListener addANewTag = view -> {
+        //Displaying all usertag available
+        List<Tag> result = new ArrayList<Tag>();
+        CustomDialog.showAlertDialogTag(getActivity(), result);
     };
 
     public void updateTags() {
@@ -225,7 +198,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                     int color = (int)Long.parseLong(String.format("%06X", (0xFFFFFF & tagColor)), 16);
                     r = (color >> 16) & 0xFF;
                     g = (color >> 8) & 0xFF;
-                    b = (color >> 0) & 0xFF;
+                    b = (color) & 0xFF;
                 }
                 drawable.setColor(Color.argb(25,r,g,b));
                 btnWord[i].setTag(i);
@@ -241,12 +214,6 @@ public class DisplayGameActivity extends AppCompatActivity {
             }
         }
         if (inList) {
-            /*AppCompatButton btnAddTag = new AppCompatButton(this);
-            btnAddTag.setText("+");
-            btnAddTag.setTextSize(25);
-            btnAddTag.setBackgroundResource(R.drawable.custom_button);
-            btnAddTag.setOnClickListener(addANewTag);
-            */
             FloatingActionButton btnAddTag = new FloatingActionButton(this);
             btnAddTag.setBackgroundTintList(ColorStateList.valueOf(Color.argb(220,0,172,193)));
             //btnAddTag.setImageResource(android.R.drawable.ic_input_add);
@@ -261,7 +228,7 @@ public class DisplayGameActivity extends AppCompatActivity {
         }
     }
 
-    View.OnLongClickListener btnLongClicked = new View.OnLongClickListener() {
+    final View.OnLongClickListener btnLongClicked = new View.OnLongClickListener() {
 
         @Override
         public boolean onLongClick(View view) {
@@ -275,22 +242,18 @@ public class DisplayGameActivity extends AppCompatActivity {
             builder.setIcon(R.drawable.logo);
 
             // Create "Yes" button with OnClickListener.
-            builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    AppCompatButton btn = (AppCompatButton) view;
-                    Tag tag = MainActivity.userData.getUserTagList().find(btn.getText().toString());
-                    gameDisplayed.getUserTags().remove(tag);
-                    tag.removeGame(gameDisplayed);
-                    updateTags();
-                }
+            builder.setPositiveButton("Oui", (dialog, id) -> {
+                AppCompatButton btn = (AppCompatButton) view;
+                Tag tag = MainActivity.userData.getUserTagList().find(btn.getText().toString());
+                gameDisplayed.getUserTags().remove(tag);
+                tag.removeGame(gameDisplayed);
+                updateTags();
             });
 
             // Create "No" button with OnClickListener.
-            builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    //  Cancel
-                    dialog.cancel();
-                }
+            builder.setNegativeButton("Non", (dialog, id) -> {
+                //  Cancel
+                dialog.cancel();
             });
 
             // Create AlertDialog:
@@ -299,11 +262,8 @@ public class DisplayGameActivity extends AppCompatActivity {
             return false;
         }
     };
-    View.OnClickListener btnClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Object tag = v.getTag();
-        }
+    final View.OnClickListener btnClicked = v -> {
+        Object tag = v.getTag();
     };
 
     private void setPlatformButtons(int size) {
@@ -323,7 +283,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 int color = (int)Long.parseLong(String.format("%06X", (0xFFFFFF & tagColor)), 16);
                 r = (color >> 16) & 0xFF;
                 g = (color >> 8) & 0xFF;
-                b = (color >> 0) & 0xFF;
+                b = (color) & 0xFF;
             }
             btnWord[i].setTextSize(12);
             btnWord[i].setPadding(20, 3, 20, 3);
@@ -356,12 +316,8 @@ public class DisplayGameActivity extends AppCompatActivity {
 
     private DisplayGameActivity getActivity() {
         Context context = this;
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (DisplayGameActivity) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
+        while (true) {
+            return (DisplayGameActivity) context;
         }
-        return null;
     }
 }

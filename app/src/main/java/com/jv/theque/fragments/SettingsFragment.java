@@ -3,7 +3,6 @@ package com.jv.theque.fragments;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
@@ -18,7 +17,6 @@ import android.widget.Toast;
 
 import com.jv.theque.MainActivity;
 import com.jv.theque.R;
-import com.jv.theque.UserData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,16 +29,7 @@ public class SettingsFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
-
-    // Variables
-    private RadioGroup radioGroupTheme;
-    private RadioButton radioButtonLight, radioButtonDark, radioButtonSystem;
     private TextView info_text, info_sign,cgu_text,cgu_sign,ml_text,ml_sign;
-    private Button exportButton;
-    private Button clearButton;
-    private Button button_ml,button_cgu,button_info;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -59,8 +48,8 @@ public class SettingsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            String mParam1 = getArguments().getString(ARG_PARAM1);
+            String mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
 
@@ -73,14 +62,15 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
 
-        radioGroupTheme = view.findViewById(R.id.radioGroupTheme);
-        radioButtonLight = view.findViewById(R.id.radioButtonLight);
-        radioButtonDark = view.findViewById(R.id.radioButtonDark);
-        radioButtonSystem = view.findViewById(R.id.radioButtonSystem);
+        // Variables
+        RadioGroup radioGroupTheme = view.findViewById(R.id.radioGroupTheme);
+        RadioButton radioButtonLight = view.findViewById(R.id.radioButtonLight);
+        RadioButton radioButtonDark = view.findViewById(R.id.radioButtonDark);
+        RadioButton radioButtonSystem = view.findViewById(R.id.radioButtonSystem);
 
-        button_cgu = view.findViewById(R.id.button_cgu);
-        button_info = view.findViewById(R.id.button_info);
-        button_ml = view.findViewById(R.id.button_ml);
+        Button button_cgu = view.findViewById(R.id.button_cgu);
+        Button button_info = view.findViewById(R.id.button_info);
+        Button button_ml = view.findViewById(R.id.button_ml);
         info_sign = view.findViewById(R.id.information_sign);
         info_text = view.findViewById(R.id.info_text);
         ml_sign = view.findViewById(R.id.ml_sign);
@@ -109,8 +99,8 @@ public class SettingsFragment extends Fragment {
         // Ajout d'un listener sur le RadioGroup correspondant au choix du thème de l'app
         radioGroupTheme.setOnCheckedChangeListener(this::onCheckedChanged);
 
-        exportButton = view.findViewById(R.id.exportList);
-        clearButton = view.findViewById(R.id.clearList);
+        Button exportButton = view.findViewById(R.id.exportList);
+        Button clearButton = view.findViewById(R.id.clearList);
 
 
         exportButton.setOnClickListener(v -> MainActivity.userData.saveToFile());
@@ -129,7 +119,7 @@ public class SettingsFragment extends Fragment {
         return view;
     }
 
-    View.OnClickListener onAproposClicked = new View.OnClickListener(){
+    final View.OnClickListener onAproposClicked = new View.OnClickListener(){
         @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View view) {

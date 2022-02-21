@@ -16,41 +16,37 @@ public interface Tag extends CustomObservable {
         put(TagType.USERTAG, "\u200f");
     }};
 
-    public enum TagType {
+    enum TagType {
         RAWGTAG,
         USERTAG
     }
 
-    public List<CustomObserver> customObserverList = new ArrayList<CustomObserver>();
+    List<CustomObserver> customObserverList = new ArrayList<>();
 
-    public void addObserver(CustomObserver o);
+    void addObserver(CustomObserver o);
 
-    public void notifyObserver();
+    void notifyObserver();
 
-    public TagType getType();
+    TagType getType();
 
-    public int color = Color.BLACK;
+    int color = Color.BLACK;
 
-    public default void setColor(int color) {
+    default void setColor(int color) {
         return;
     }
 
-    ;
-
-    public default void setName(String name) {
+    default void setName(String name) {
         return;
     }
 
-    ;
+    String getName();
 
-    public String getName();
+    int getColor();
 
-    public int getColor();
+    List<Game> getGames();
 
-    public List<Game> getGames();
+    void addGame(Game game);
 
-    public void addGame(Game game);
-
-    public void removeGame(Game game);
+    void removeGame(Game game);
 
 }

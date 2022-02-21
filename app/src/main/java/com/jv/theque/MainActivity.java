@@ -1,26 +1,19 @@
 package com.jv.theque;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.Console;
-
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
-    public static UserData userData = new UserData();
+    public static final UserData userData = new UserData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

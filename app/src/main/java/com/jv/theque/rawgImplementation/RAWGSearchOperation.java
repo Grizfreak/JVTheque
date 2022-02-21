@@ -1,7 +1,6 @@
 package com.jv.theque.rawgImplementation;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,8 +22,8 @@ import java.util.List;
 
 public class RAWGSearchOperation extends AsyncTask<String, Void, List<Game>> {
     private final FetchGames fetchGames;
-    private String apiKey;
-    private String searchedText;
+    private final String apiKey;
+    private final String searchedText;
     private List<Game> datalist;
     public RAWGSearchOperation(String apiKey, String search, List datalist, FetchGames fetchGames){
         this.apiKey = apiKey;
