@@ -35,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
             // Si la liste de jeux de l'utilisateur est vide (premier lancement par exemple),
             // on affiche la page de recherche d'un jeu plutôt que la page d'accueil
-            if (MainActivity.userData.getUserGameList().getGameList().isEmpty()) {
-                bottomNavigationView.setSelectedItemId(R.id.searchFragment); // change to whichever id should be default
+            if (MainActivity.userData.getUserGameList().getGameList().isEmpty() && App.isFirstLoad()) {
+                bottomNavigationView.setSelectedItemId(R.id.searchFragment);
+                App.setFirstLoad(false);
             }
         }
 

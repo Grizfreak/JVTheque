@@ -85,16 +85,6 @@ public class SettingsFragment extends Fragment {
         // Ajout d'un listener sur le RadioGroup correspondant au choix du thème de l'app
         radioGroupTheme.setOnCheckedChangeListener(this::onCheckedChanged);
 
-        Button exportButton = view.findViewById(R.id.exportList);
-        Button clearButton = view.findViewById(R.id.clearList);
-
-
-        exportButton.setOnClickListener(v -> MainActivity.userData.saveToFile());
-
-        clearButton.setOnClickListener(v -> {
-            MainActivity.userData.getUserGameList().getList().clear();
-            MainActivity.userData.getUserTagList().getList().clear();
-        });
 
         button_info.setOnClickListener(onAproposClicked);
         button_ml.setOnClickListener(onAproposClicked);

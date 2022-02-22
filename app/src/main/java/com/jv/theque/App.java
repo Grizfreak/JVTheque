@@ -6,6 +6,7 @@ import android.content.Context;
 public class App extends Application {
 
     private static App mContext;
+    private static boolean firstLoad = true;
 
     public void onCreate() {
         super.onCreate();
@@ -14,5 +15,13 @@ public class App extends Application {
 
     public static Context getAppContext() {
         return mContext;
+    }
+
+    public static boolean isFirstLoad(){
+        return firstLoad;
+    }
+
+    public static void setFirstLoad(boolean value){
+        firstLoad = value;
     }
 }
