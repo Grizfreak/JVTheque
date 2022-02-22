@@ -2,12 +2,15 @@ package com.jv.theque.fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -15,6 +18,9 @@ import android.widget.Toast;
 import com.jv.theque.favoritesImplementation.FavoriteSearch;
 import com.jv.theque.MainActivity;
 import com.jv.theque.R;
+import com.jv.theque.tagsImplementation.Tag;
+
+import java.util.Objects;
 
 public class FavoritesFragment extends Fragment {
 
@@ -47,16 +53,40 @@ public class FavoritesFragment extends Fragment {
             FavoriteSearch a = MainActivity.userData.getUserFavorites().getList().get(i);
             a.changeFragment((AppCompatActivity) view12.getContext());
         });
-        displayList.setOnItemLongClickListener((parent, view1, position, id) -> {
+        displayList.setOnItemClickListener((parent, view1, position, id) -> createPopUp(view1, position));
+        ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
+        displayList.setAdapter(arrayAdapter);
+        return view;
+    }
+
+    private void createPopUp(View view1, int position){
+        View view = getView();
+        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(view).getContext());
+
+        // Titre de l'alerte et message
+        builder.setTitle("Confirmation").setMessage("Voulez-vous retirer ce favori ?");
+
+        // Annulation et icône
+        builder.setCancelable(true);
+        builder.setIcon(R.drawable.logo);
+
+        // Création d'un bouton "Oui" avec un OnClickListener
+        builder.setPositiveButton("Oui", (dialog, id) -> {
             MainActivity.userData.getUserFavorites().getList().remove(position);
             ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<>(view1.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
             displayList.setAdapter(arrayAdapter);
             Toast.makeText(view1.getContext(),"Le favori a été supprimé",Toast.LENGTH_SHORT).show();
-            return false;
         });
-        ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
-        displayList.setAdapter(arrayAdapter);
-        return view;
+
+        // Création d'un bouton "Non" avec un OnClickListener
+        builder.setNegativeButton("Non", (dialog, id) -> {
+            // Retour
+            dialog.cancel();
+        });
+
+        // Création d'un AlertDialog
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 }

@@ -230,29 +230,30 @@ public class DisplayGameActivity extends AppCompatActivity {
         public boolean onLongClick(View view) {
             AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
-            // Set Title and Message:
+            // Titre de l'alerte et message
             builder.setTitle("Confirmation").setMessage("Voulez-vous retirer ce tag ?");
 
-            //
+            // Annulation et icône
             builder.setCancelable(true);
             builder.setIcon(R.drawable.logo);
 
-            // Create "Yes" button with OnClickListener.
+            // Création d'un bouton "Oui" avec un OnClickListener
             builder.setPositiveButton("Oui", (dialog, id) -> {
                 AppCompatButton btn = (AppCompatButton) view;
                 Tag tag = MainActivity.userData.getUserTagList().find(btn.getText().toString());
+                // Suppression du tag
                 gameDisplayed.getUserTags().remove(tag);
                 tag.removeGame(gameDisplayed);
                 updateTags();
             });
 
-            // Create "No" button with OnClickListener.
+            // Création d'un bouton "Non" avec un OnClickListener
             builder.setNegativeButton("Non", (dialog, id) -> {
-                //  Cancel
+                // Retour
                 dialog.cancel();
             });
 
-            // Create AlertDialog:
+            // Création d'un AlertDialog
             AlertDialog alert = builder.create();
             alert.show();
             return false;
