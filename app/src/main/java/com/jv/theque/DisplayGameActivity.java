@@ -8,7 +8,9 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,6 +26,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
+import com.jv.theque.favoritesImplementation.FavoriteSearch;
 import com.jv.theque.gameImplementation.Game;
 import com.jv.theque.gameImplementation.UserGameList;
 import com.jv.theque.rawgImplementation.DownloadImageTask;
@@ -36,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class DisplayGameActivity extends AppCompatActivity {
 
@@ -162,18 +166,39 @@ public class DisplayGameActivity extends AppCompatActivity {
             //Affichage du dialogue d'ajout des premiers tags d'un jeu
             CustomDialog.showDialogNewGameAdd(getActivity(), result, gameDisplayed);
         });
-        removeButton.setOnClickListener(view -> {
-            userGameList.removeGame(gameDisplayed);
-            onBackPressed();
-        });
+        removeButton.setOnClickListener(this::createValidationPopUp);
 
     }
 
-    final View.OnClickListener addANewTag = view -> {
-        //Displaying all usertag available
-        List<Tag> result = new ArrayList<>();
-        CustomDialog.showAlertDialogTag(getActivity());
-    };
+    private void createValidationPopUp(View view1){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(view1).getContext());
+
+        // Titre de l'alerte et message
+        builder.setTitle("Confirmation").setMessage("Voulez-vous supprimer ce jeu de votre liste ?");
+
+        // Annulation et icône
+        builder.setCancelable(true);
+        builder.setIcon(R.drawable.logo);
+
+        // Création d'un bouton "Oui" avec un OnClickListener
+        builder.setPositiveButton("Oui", (dialog, id) -> {
+            userGameList.removeGame(gameDisplayed);
+            Toast.makeText(view1.getContext(),"Le jeu a été supprimé",Toast.LENGTH_SHORT).show();
+            onBackPressed();
+        });
+
+        // Création d'un bouton "Non" avec un OnClickListener
+        builder.setNegativeButton("Non", (dialog, id) -> {
+            // Retour
+            dialog.cancel();
+        });
+
+        // Création d'un AlertDialog
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    final View.OnClickListener addANewTag = view -> CustomDialog.showAlertDialogTag(getActivity());
 
     public void updateTags() {
         userTagLayout.removeAllViews();

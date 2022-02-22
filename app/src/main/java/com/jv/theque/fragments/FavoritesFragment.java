@@ -53,15 +53,14 @@ public class FavoritesFragment extends Fragment {
             FavoriteSearch a = MainActivity.userData.getUserFavorites().getList().get(i);
             a.changeFragment((AppCompatActivity) view12.getContext());
         });
-        displayList.setOnItemClickListener((parent, view1, position, id) -> createPopUp(view1, position));
+        displayList.setOnItemClickListener((parent, view1, position, id) -> createValidationPopUp(view1, position));
         ArrayAdapter<FavoriteSearch> arrayAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, MainActivity.userData.getUserFavorites().getList());
         displayList.setAdapter(arrayAdapter);
         return view;
     }
 
-    private void createPopUp(View view1, int position){
-        View view = getView();
-        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(view).getContext());
+    private void createValidationPopUp(View view1, int position){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(view1).getContext());
 
         // Titre de l'alerte et message
         builder.setTitle("Confirmation").setMessage("Voulez-vous retirer ce favori ?");
