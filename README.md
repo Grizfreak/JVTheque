@@ -19,5 +19,5 @@ Application Android de gestion de sa bibliothèque de jeux vidéos utilisant l'A
 - Cliquer sur `run 'app'` (Maj+F10)
 
 ### Depuis le fichier .apk
-- Télécharger le fichier [JVTheque.apk](todo)
+- Télécharger le fichier [JVTheque.apk](./JVTheque.apk)
 - L'installer sur son appareil Android
