@@ -237,7 +237,6 @@ public class DisplayGameActivity extends AppCompatActivity {
         if (inList) {
             FloatingActionButton btnAddTag = new FloatingActionButton(this);
             btnAddTag.setBackgroundTintList(ColorStateList.valueOf(Color.argb(220,0,172,193)));
-            //btnAddTag.setImageResource(android.R.drawable.ic_input_add);
             btnAddTag.setForeground(AppCompatResources.getDrawable(this,R.drawable.plus));
             btnAddTag.setLayoutParams(params);
             params.setMargins(0, 0, 20, 0);
@@ -307,7 +306,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 g = (color >> 8) & 0xFF;
                 b = (color) & 0xFF;
             }
-            btnWord[i].setTextSize(12);
+            btnWord[i].setTextSize(15);
             btnWord[i].setPadding(20, 3, 20, 3);
             btnWord[i].setTag(i);
             btnWord[i].setTransformationMethod(null);

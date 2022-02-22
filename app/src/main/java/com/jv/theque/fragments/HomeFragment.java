@@ -169,7 +169,7 @@ public class HomeFragment extends Fragment {
             btnWord[i].setBackgroundResource(R.drawable.custom_tag);
             GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
             drawable.setStroke(5, defColor);                                // Changement de la taille et la couleur du contour du tag
-            btnWord[i].setTextSize(15);
+            btnWord[i].setTextSize(20);
             btnWord[i].setTransformationMethod(null);
 
             // Vérifie si l'application est en dark mode et adapte la couleur du texte des tags
@@ -228,7 +228,7 @@ public class HomeFragment extends Fragment {
                 }
                 drawable.setColor(Color.argb(50, r, g, b));   // Changement de la couleur d'arrière-plan du tag
             }
-            btn.setTextSize(15);
+            btn.setTextSize(20);
             searchForTags();
         }
     };
