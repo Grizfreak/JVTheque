@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="GifUsage">
+        <ignore path="src/main/res/drawable/logo_anim.gif" />
+        <ignore path="src/main/res/drawable/logo_anim_final_light.gif" />
+    </issue>
+    <issue id="IconDuplicatesConfig">
+        <ignore path="src/main/res/mipmap-mdpi/ic_jvtheque_round.png" />
+        <ignore path="src/main/res/mipmap-xhdpi/ic_jvtheque_round.png" />
+        <ignore path="src/main/res/mipmap-xxhdpi/ic_jvtheque_round.png" />
+        <ignore path="src/main/res/mipmap-xxxhdpi/ic_jvtheque_round.png" />
+    </issue>
+    <issue id="IconLocation">
+        <ignore path="src/main/res/drawable/ajouter_aux_favoris.png" />
+        <ignore path="src/main/res/drawable/check.png" />
+        <ignore path="src/main/res/drawable/logo.png" />
+        <ignore path="src/main/res/drawable/logo_anim.gif" />
+        <ignore path="src/main/res/drawable/logo_anim_final_light.gif" />
+        <ignore path="src/main/res/drawable/plus.png" />
+        <ignore path="src/main/res/drawable/star.png" />
+        <ignore path="src/main/res/drawable/star_nope.png" />
+    </issue>
+</lint>

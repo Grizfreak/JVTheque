@@ -1,9 +1,9 @@
 package com.jv.theque.gameImplementation;
 
+import androidx.annotation.NonNull;
+
 import com.jv.theque.MainActivity;
 import com.jv.theque.rawgImplementation.serializableGame.*;
-import com.jv.theque.rawgImplementation.serializableGame.RAWGPlatformsList;
-import com.jv.theque.rawgImplementation.serializableGame.RAWGStoresList;
 import com.jv.theque.tagsImplementation.RAWGTag;
 import com.jv.theque.tagsImplementation.Tag;
 
@@ -18,12 +18,12 @@ import java.util.Objects;
 public class Game implements Serializable {
     public final static Date DEFAULT_DATE = new Date(0, 0, 1); // Date par défaut, renvoyée dans le cas où le jeu n'en comporte pas
 
-    private String slug;
-    private int id;
-    private String name;
-    private Date release_date;
+    private final String slug;
+    private final int id;
+    private final String name;
+    private final Date release_date;
     private Map<String, List<Tag>> tags;
-    private String backgroundImageLink;
+    private final String backgroundImageLink;
     private String description;
     private int note;
 
@@ -41,10 +41,10 @@ public class Game implements Serializable {
     }
 
     private Map<String, List<Tag>> setupTags() {
-        Map tagMap = new HashMap<String, List<Tag>>();
-        tagMap.put("Usertag", new ArrayList<Tag>());
-        tagMap.put("platform", new ArrayList<Tag>());
-        tagMap.put("store", new ArrayList<Tag>());
+        Map<String, List<Tag>> tagMap = new HashMap<>();
+        tagMap.put("Usertag", new ArrayList<>());
+        tagMap.put("platform", new ArrayList<>());
+        tagMap.put("store", new ArrayList<>());
         return tagMap;
     }
 
@@ -53,14 +53,14 @@ public class Game implements Serializable {
         if (game.platforms != null) {
             for (RAWGPlatformsList tag : game.platforms) {
                 Tag tag1 = new RAWGTag(tag.RAWGPlatform.name, this);
-                tags.get("platform").add(tag1);
+                Objects.requireNonNull(tags.get("platform")).add(tag1);
             }
         }
         //Récupération des magasins
         if (game.stores != null) {
             for (RAWGStoresList tag : game.stores) {
                 Tag tag1 = new RAWGTag(tag.RAWGStore.name, this);
-                ((ArrayList) tags.get("store")).add(tag1);
+                (Objects.requireNonNull(tags.get("store"))).add(tag1);
             }
 
         }
@@ -68,10 +68,6 @@ public class Game implements Serializable {
 
     public String getSlug() {
         return slug;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {
@@ -95,7 +91,7 @@ public class Game implements Serializable {
     }
 
     public List<Tag> getTags() {
-        List<Tag> tmpList = new ArrayList<Tag>();
+        List<Tag> tmpList = new ArrayList<>();
 
         List<String> keys = new ArrayList<>(tags.keySet());
 
@@ -103,17 +99,11 @@ public class Game implements Serializable {
 
             List<Tag> tmpTagList = tags.get(value);
 
-            for (Tag t : tmpTagList) {
-                tmpList.add(t);
-            }
+            tmpList.addAll(Objects.requireNonNull(tmpTagList));
 
         }
 
         return tmpList;
-    }
-
-    public ArrayList<Tag> getStores() {
-        return (ArrayList<Tag>) tags.get("store");
     }
 
     public String getBackgroundImageLink() {
@@ -143,9 +133,10 @@ public class Game implements Serializable {
         this.description = description;
     }
 
+    @NonNull
     @Override
     public String toString() {
-        return getName() + " avec " + tags.get("Usertag").size() + " tags custom";
+        return getName() + " avec " + Objects.requireNonNull(tags.get("Usertag")).size() + " tags custom";
     }
 
     @Override
@@ -162,8 +153,8 @@ public class Game implements Serializable {
     }
 
     public void addTagsToList() {
-        List<Tag> tmpTagList = new ArrayList<Tag>();
-        for (Tag tag : this.tags.get("platform")) {
+        List<Tag> tmpTagList = new ArrayList<>();
+        for (Tag tag : Objects.requireNonNull(this.tags.get("platform"))) {
             // Si le tag est dans la liste
             if (MainActivity.userData.getUserTagList().getList().contains(tag)) {
                 tmpTagList.add(MainActivity.userData.getUserTagList().find(tag.getName()));
@@ -179,7 +170,7 @@ public class Game implements Serializable {
     }
 
     public void addTag(Tag tag) {
-        List<Tag> tagList = new ArrayList<Tag>();
+        List<Tag> tagList;
         String listName;
         switch (tag.getType()) {
             case RAWGTAG: {
@@ -194,10 +185,9 @@ public class Game implements Serializable {
                 throw new IllegalStateException("tagType " + tag.getType() + " does not exist");
             }
         }
-        ;
         tagList = tags.get(listName);
 
-        if (!tagList.contains(tag)) {
+        if (!Objects.requireNonNull(tagList).contains(tag)) {
 
             if (MainActivity.userData.getUserTagList().getList().contains(tag)) {
                 tagList.add(MainActivity.userData.getUserTagList().find(tag.getName()));
@@ -212,7 +202,6 @@ public class Game implements Serializable {
             tags.put(listName, tagList);
             MainActivity.userData.saveToFile();
 
-        } else {
         }
     }
 

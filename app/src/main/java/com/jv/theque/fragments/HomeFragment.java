@@ -3,7 +3,6 @@ package com.jv.theque.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
@@ -16,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +24,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.color.MaterialColors;
+import com.jv.theque.App;
 import com.jv.theque.DisplayGameActivity;
 import com.jv.theque.favoritesImplementation.FavoriteSearch;
 import com.jv.theque.gameImplementation.Game;
@@ -44,19 +40,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
 
     View view;
 
@@ -74,15 +62,6 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public static void setSearch(FavoriteSearch favoriteSearch) {
         LastSearch = favoriteSearch;
     }
@@ -91,8 +70,8 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            getArguments().getString(ARG_PARAM1);
+            getArguments().getString(ARG_PARAM2);
         }
         datalist = MainActivity.userData.getUserGameList().getGameList();
     }
@@ -101,28 +80,25 @@ public class HomeFragment extends Fragment {
     private void updateRecycler(List<Game> datalist) {
         adapter = new GameAdapter(datalist);
         actuallyDisplayed = datalist;
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireActivity().getApplicationContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
     private void configureOnClickRecyclerView() {
         ItemClickSupport.addTo(recyclerView, R.layout.fragment_home)
-                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-                    @Override
-                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Toast.makeText(MainActivity.getContext(), actuallyDisplayed.get(position).getName(), Toast.LENGTH_SHORT).show();
-                        Game game = actuallyDisplayed.get(position);
-                        Intent intent = new Intent(MainActivity.getContext(), DisplayGameActivity.class);
-                        intent.putExtra("Game", game);
-                        MainActivity.getContext().startActivity(intent);
-                    }
+                .setOnItemClickListener((recyclerView, position, v) -> {
+                    Toast.makeText(App.getAppContext(), actuallyDisplayed.get(position).getName(), Toast.LENGTH_SHORT).show();
+                    Game game = actuallyDisplayed.get(position);
+                    Intent intent = new Intent(App.getAppContext(), DisplayGameActivity.class);
+                    intent.putExtra("Game", game);
+                    startActivity(intent);
                 });
     }
 
     // Permet de "Ranger" le clavier virtuel et de le cacher lorsqu'il est visible à l'écran
     public void hideSoftKeyboard(View view) {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -160,26 +136,19 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        searchedtext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_DONE) {
-                    hideSoftKeyboard(recyclerView);
-                }
-                return false;
+        searchedtext.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if (i == EditorInfo.IME_ACTION_DONE) {
+                hideSoftKeyboard(recyclerView);
             }
+            return false;
         });
-        favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (searchedtext.getText().toString().trim().equals("") && searchedTags.isEmpty()) {
-                    Toast.makeText(view.getContext(), "Veuillez entrer un critère de recherche au minimum", Toast.LENGTH_LONG).show();
-                } else {
-                    FavoriteSearch a = new FavoriteSearch((ArrayList<Tag>) searchedTags, searchedtext.getText().toString());
-                    Toast.makeText(view.getContext(),"Le favori a été ajouté",Toast.LENGTH_SHORT).show();
-                    MainActivity.userData.getUserFavorites().add(a);
-                }
+        favorite.setOnClickListener(view -> {
+            if (searchedtext.getText().toString().trim().equals("") && searchedTags.isEmpty()) {
+                Toast.makeText(view.getContext(), "Veuillez entrer un critère de recherche au minimum", Toast.LENGTH_LONG).show();
+            } else {
+                FavoriteSearch a = new FavoriteSearch((ArrayList<Tag>) searchedTags, searchedtext.getText().toString());
+                Toast.makeText(view.getContext(),"Le favori a été ajouté",Toast.LENGTH_SHORT).show();
+                MainActivity.userData.getUserFavorites().add(a);
             }
         });
 
@@ -196,15 +165,15 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < btnWord.length - 1; i++) {
             Tag t = MainActivity.userData.getUserTagList().getList().get(i);
             int defColor = t.getColor();
-            btnWord[i] = new AppCompatButton(getActivity().getApplicationContext());
+            btnWord[i] = new AppCompatButton(requireActivity().getApplicationContext());
             btnWord[i].setBackgroundResource(R.drawable.custom_tag);
             GradientDrawable drawable = (GradientDrawable) btnWord[i].getBackground();
             drawable.setStroke(5, defColor);                                // Changement de la taille et la couleur du contour du tag
-            btnWord[i].setTextSize(15);
+            btnWord[i].setTextSize(20);
             btnWord[i].setTransformationMethod(null);
 
             // Vérifie si l'application est en dark mode et adapte la couleur du texte des tags
-            int nightModeFlags =  getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            int nightModeFlags =  requireContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
             switch (nightModeFlags) {
                 case Configuration.UI_MODE_NIGHT_YES:       btnWord[i].setTextColor(Color.WHITE);       break;
                 case Configuration.UI_MODE_NIGHT_NO:        btnWord[i].setTextColor(Color.BLACK);       break;
@@ -223,7 +192,7 @@ public class HomeFragment extends Fragment {
                     int color = (int)Long.parseLong(String.format("%06X", (0xFFFFFF & defColor)), 16);
                     r = (color >> 16) & 0xFF;
                     g = (color >> 8) & 0xFF;
-                    b = (color >> 0) & 0xFF;
+                    b = (color) & 0xFF;
                 }
                 drawable.setColor(Color.argb(50, r, g, b));   // Changement de la couleur d'arrière-plan du tag
                 btnWord[i].setTextSize(15);
@@ -235,7 +204,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    View.OnClickListener btnClicked = new View.OnClickListener() {
+    final View.OnClickListener btnClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -247,7 +216,6 @@ public class HomeFragment extends Fragment {
                 searchedTags.remove(tag);
                 drawable.setStroke(5, defColor); // set stroke width and stroke color
                 drawable.setColor(Color.TRANSPARENT);           // set solid color
-                btn.setTextSize(15);
             } else {
                 searchedTags.add(tag);
                 drawable.setStroke(5, defColor); // set stroke width and stroke color
@@ -256,11 +224,11 @@ public class HomeFragment extends Fragment {
                     int color = (int)Long.parseLong(String.format("%06X", (0xFFFFFF & defColor)), 16);
                     r = (color >> 16) & 0xFF;
                     g = (color >> 8) & 0xFF;
-                    b = (color >> 0) & 0xFF;
+                    b = (color) & 0xFF;
                 }
                 drawable.setColor(Color.argb(50, r, g, b));   // Changement de la couleur d'arrière-plan du tag
-                btn.setTextSize(15);
             }
+            btn.setTextSize(20);
             searchForTags();
         }
     };
@@ -297,12 +265,6 @@ public class HomeFragment extends Fragment {
             }
             updateRecycler(result);
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
     }
 
     @Override

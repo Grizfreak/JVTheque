@@ -14,19 +14,28 @@
         <entry key="..\:/Users/Maxime/StudioProjects/PTS3_Android/app/src/main/res/layout/activity_main.xml" value="0.28306159420289856" />
         <entry key="..\:/Users/Maxime/StudioProjects/PTS3_Android/app/src/main/res/layout/fragment_home.xml" value="0.328804347826087" />
         <entry key="..\:/Users/Maxime/StudioProjects/PTS3_Android/app/src/main/res/layout/game_layout.xml" value="0.33" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/JVTheque/app/src/main/res/drawable/supresion_button.xml" value="0.183" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/JVTheque/app/src/main/res/layout/activity_display_game.xml" value="0.15104166666666666" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/JVTheque/app/src/main/res/layout/fragment_home.xml" value="0.3625" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/JVTheque/app/src/main/res/layout/game_layout.xml" value="0.15104166666666666" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/JVTheque/app/src/main/res/layout/popup_supress_confirm.xml" value="0.33" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/background_splash.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/button_add_tag.xml" value="0.1935" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/button_param.xml" value="0.3104166666666667" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/custom_add_btn.xml" value="0.30104166666666665" />
-        <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/custom_button.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/custom_button.xml" value="0.22" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/custom_button_green.xml" value="0.2890625" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/custom_tag.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/data.xml" value="0.34739583333333335" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/gradient_color.xml" value="0.33" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2185" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2185" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/menu_bar_colors.xml" value="0.1787037037037037" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/menu_bar_shape.xml" value="0.3111111111111111" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/selector.xml" value="0.21875" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/supresion_button.xml" value="0.1935" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/drawable/testtamere.xml" value="0.3171875" />
-        <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/activity_display_game.xml" value="0.3625" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/activity_display_game.xml" value="0.22" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/add_new_tag_dialog.xml" value="0.25" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/background_splash.xml" value="0.22" />
@@ -38,6 +47,7 @@
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/game_layout.xml" value="0.2755208333333333" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/layout/simple_list_item_multiple_choice.xml" value="0.2942708333333333" />
         <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/menu/menu_bar.xml" value="0.23385416666666667" />
+        <entry key="..\:/Users/Simon/AndroidStudioProjects/PTS3_Android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1935" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/drawable/custom_button.xml" value="0.3828125" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/drawable/supresion_button.xml" value="0.3828125" />
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/activity_display_game.xml" value="0.33" />
@@ -51,6 +61,9 @@
         <entry key="..\:/Users/erhan/Documents/GitHub/PTS3_Android/app/src/main/res/layout/simple_list_item_multiple_choice.xml" value="0.20520833333333333" />
       </map>
     </option>
+  </component>
+  <component name="EntryPointsManager">
+    <pattern value="com.jv.theque.tagsImplementation.CustomObservable" method="addObserver" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

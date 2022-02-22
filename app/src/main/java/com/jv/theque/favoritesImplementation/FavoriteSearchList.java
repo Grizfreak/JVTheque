@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FavoriteSearchList implements CustomObservable, Serializable {
-    private List<FavoriteSearch> searchList;
+    private final List<FavoriteSearch> searchList;
 
-    private List<CustomObserver> observerList = new ArrayList<CustomObserver>();
+    private final List<CustomObserver> observerList = new ArrayList<>();
 
     public FavoriteSearchList(UserData userData) {
         this(userData, new ArrayList<>());
@@ -26,23 +26,12 @@ public class FavoriteSearchList implements CustomObservable, Serializable {
         return searchList;
     }
 
-    public synchronized boolean add(FavoriteSearch search) {
+    public synchronized void add(FavoriteSearch search) {
         if (searchList.contains(search)) {
-            return false;
+            return;
         }
         searchList.add(search);
         notifyObserver();
-        return true;
-    }
-
-    public synchronized boolean remove(FavoriteSearch search) {
-        //empêche le retrait de la liste d'un tag qui n'existe pas ou d'un tag fourni par l'API
-        if (!searchList.contains(search)) {
-            return false;
-        }
-        searchList.remove(search);
-        notifyObserver();
-        return true;
     }
 
     @Override
@@ -50,8 +39,7 @@ public class FavoriteSearchList implements CustomObservable, Serializable {
         observerList.add(o);
     }
 
-    @Override
-    public void notifyObserver() {
+    private void notifyObserver() {
         for (CustomObserver o : observerList) {
             o.update();
         }

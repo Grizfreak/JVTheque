@@ -2,30 +2,33 @@ package com.jv.theque.recyclerViewUsages;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jv.theque.App;
 import com.jv.theque.tagsImplementation.Tag;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jv.theque.gameImplementation.Game;
-import com.jv.theque.MainActivity;
 import com.jv.theque.R;
 import com.jv.theque.rawgImplementation.DownloadImageTask;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder>  {
-    List<Game> gameList;
+    final List<Game> gameList;
     public GameAdapter(List<Game> gameList) {
         this.gameList = gameList;
     }
 
+    @NonNull
     @Override
     public GameViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
@@ -47,10 +50,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     }
 
 
-    class GameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView gameName;
-        private TextView gamePlat;
-        private ImageView gamePicture;
+    static class GameViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final TextView gameName;
+        private final TextView gamePlat;
+        private final ImageView gamePicture;
 
         GameViewHolder(View itemView) {
             super(itemView);
@@ -68,12 +71,12 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
 
         void display(Game game) {
             if (game.getBackgroundImageLink() != null) {
-                if (new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png").exists()) {
-                    File gamePicFile = new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png");
+                if (new File(App.getAppContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png").exists()) {
+                    File gamePicFile = new File(App.getAppContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png");
                     Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
                     gamePicture.setImageBitmap(bitmap);
                 } else {
-                    new DownloadImageTask(gamePicture, game.getSlug())
+                    new DownloadImageTask(new WeakReference<>(gamePicture), game.getSlug())
                             .execute(game.getBackgroundImageLink().replace("https://media.rawg.io/media/games/", "https://api.rawg.io/media/resize/420/-/games/"));
                 }
             }
@@ -84,7 +87,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             List<Tag> tmpList = game.getPlatforms();
             if (tmpList != null){
                 if(!tmpList.isEmpty()){
-                    gamePlat.setText("(" + tmpList.get(0).getName() + ")");
+                    String text = "(" + tmpList.get(0).getName() + ")";
+                    gamePlat.setText(text);
                 }
             }
         }

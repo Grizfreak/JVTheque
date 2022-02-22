@@ -13,8 +13,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class FavoriteSearch implements Serializable {
-    private ArrayList<Tag> tag_searched;
-    private String text_searched;
+    private final ArrayList<Tag> tag_searched;
+    private final String text_searched;
 
     public FavoriteSearch(ArrayList<Tag> tag_searched, String text_searched) {
         this.tag_searched = tag_searched;
@@ -31,6 +31,7 @@ public class FavoriteSearch implements Serializable {
 
     public void changeFragment(AppCompatActivity activity) {
         NavHostFragment n = (NavHostFragment) activity.getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
+        assert n != null;
         NavController navController = n.getNavController();
         navController.navigateUp();
         navController.navigate(R.id.action_homeFragment_to_homeFragment);

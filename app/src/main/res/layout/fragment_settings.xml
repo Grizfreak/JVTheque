@@ -2,7 +2,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.SettingsFragment">
@@ -12,7 +11,6 @@
         android:layout_height="match_parent">
 
         <ScrollView
-            android:id="@+id/scrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
@@ -26,15 +24,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/parametresTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Paramètres"
+                    android:text="@string/param_tres"
                     android:textAlignment="center"
                     android:textColor="?colorSecondaryVariant"
                     android:textSize="24sp" />
@@ -44,39 +41,38 @@
                     android:layout_height="24dp" />
 
                 <TextView
-                    android:id="@+id/nighModeSwitch3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="#48686868"
-                    android:paddingLeft="20dp"
-                    android:password="false"
-                    android:text="Thème de l'application"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/th_me_de_l_application"
                     android:textSize="20sp" />
 
                 <RadioGroup
                     android:id="@+id/radioGroupTheme"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginStart="20dp">
 
                     <RadioButton
                         android:id="@+id/radioButtonLight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Clair" />
+                        android:text="@string/clair" />
 
                     <RadioButton
                         android:id="@+id/radioButtonDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Sombre" />
+                        android:text="@string/sombre" />
 
                     <RadioButton
                         android:id="@+id/radioButtonSystem"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Système" />
+                        android:text="@string/syst_me" />
                 </RadioGroup>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -84,11 +80,10 @@
                     android:layout_height="match_parent">
 
                     <Button
-                        android:id="@+id/showTags"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Montrer les tags"
+                        android:text="@string/montrer_les_tags"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -99,7 +94,7 @@
                         android:id="@+id/exportList"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Exporter Liste"
+                        android:text="@string/exporter_liste"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -111,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="Clear Liste"
+                        android:text="@string/clear_liste"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -130,9 +125,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:background="#48686868"
-                        android:paddingLeft="20dp"
-                        android:paddingTop="10dp"
-                        android:text="À PROPOS"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="@string/propos"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -153,8 +148,9 @@
                                 android:id="@+id/information_sign"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
-                                android:paddingRight="10dp"
-                                android:text=">"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:text="@string/sup"
                                 android:textColor="?android:textColorPrimary"
                                 android:textSize="30sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/button_info"
@@ -166,7 +162,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="38dp"
                                 android:background="@drawable/button_param"
-                                android:text="Information"
+                                android:text="@string/information_title"
                                 android:textAlignment="textStart"
                                 android:textColor="?android:textColorPrimary"
                                 app:backgroundTint="@color/black"
@@ -196,8 +192,9 @@
                                 android:id="@+id/ml_sign"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
-                                android:paddingRight="10dp"
-                                android:text=">"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:text="@string/sup"
                                 android:textColor="?android:textColorPrimary"
                                 android:textSize="30sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/button_ml"
@@ -210,7 +207,7 @@
                                 android:layout_height="38dp"
                                 android:background="@drawable/button_param"
                                 android:backgroundTint="@color/black"
-                                android:text="Mention légales"
+                                android:text="@string/mention_l_gales"
                                 android:textAlignment="textStart"
                                 android:textColor="?android:textColorPrimary"
                                 app:backgroundTint="@color/black"
@@ -239,8 +236,9 @@
                                 android:id="@+id/cgu_sign"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
-                                android:paddingRight="10dp"
-                                android:text=">"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:text="@string/sup"
                                 android:textColor="?android:textColorPrimary"
                                 android:textSize="30sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/button_cgu"
@@ -252,7 +250,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="38dp"
                                 android:background="@drawable/button_param"
-                                android:text="conditions générales d'utilisation"
+                                android:text="@string/cgu_titre"
                                 android:textAlignment="textStart"
                                 android:textColor="?android:textColorPrimary"
                                 app:backgroundTint="@color/black"

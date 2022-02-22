@@ -1,9 +1,5 @@
 package com.jv.theque;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -14,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,10 +21,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
+import com.jv.theque.favoritesImplementation.FavoriteSearch;
 import com.jv.theque.gameImplementation.Game;
 import com.jv.theque.gameImplementation.UserGameList;
 import com.jv.theque.rawgImplementation.DownloadImageTask;
@@ -35,23 +34,18 @@ import com.jv.theque.rawgImplementation.RAWGGetGameDescriptionOperation;
 import com.jv.theque.tagsImplementation.Tag;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 public class DisplayGameActivity extends AppCompatActivity {
 
-    private ImageButton returnButton;
-    private TextView title, releaseDate;
-    private ImageView gameImage;
     protected Game gameDisplayed;
-    private Intent intent;
-    private Button removeButton;
-    private FloatingActionButton addButton;
-    private LinearLayout platformLayout, userTagLayout, starContainer;
-    private TextView description;
-    private Space space;
-    private LinearLayout linearLayout;
+    private LinearLayout platformLayout;
+    private LinearLayout userTagLayout;
     UserGameList userGameList;
     public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
     private boolean inList = false;
@@ -87,17 +81,14 @@ public class DisplayGameActivity extends AppCompatActivity {
             }
             tmpImgBtn.setLayoutParams(layoutParams);
             int finalI = i;
-            tmpImgBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (inList) {
-                        gameDisplayed.setNote(finalI);
-                        MainActivity.userData.saveToFile();
-                        displayStars(starContainer);
-                    }
+            tmpImgBtn.setOnClickListener(view -> {
+                if (inList) {
+                    gameDisplayed.setNote(finalI);
+                    MainActivity.userData.saveToFile();
+                    displayStars(starContainer);
                 }
             });
-            if((greyTint && inList) || !greyTint) starContainer.addView(tmpImgBtn);
+            if(!greyTint || inList) starContainer.addView(tmpImgBtn);
         }
     }
 
@@ -105,27 +96,22 @@ public class DisplayGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_game);
-        returnButton = findViewById(R.id.returnButton);
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        intent = getIntent();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        addButton = findViewById(R.id.addButton);
-        title = findViewById(R.id.GameTitle);
-        gameImage = findViewById(R.id.GameImage);
-        removeButton = findViewById(R.id.removeButton);
-        releaseDate = findViewById(R.id.releaseDate);
+        ImageButton returnButton = findViewById(R.id.returnButton);
+        returnButton.setOnClickListener(view -> onBackPressed());
+        Intent intent = getIntent();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+        FloatingActionButton addButton = findViewById(R.id.addButton);
+        TextView title = findViewById(R.id.GameTitle);
+        ImageView gameImage = findViewById(R.id.GameImage);
+        Button removeButton = findViewById(R.id.removeButton);
+        TextView releaseDate = findViewById(R.id.releaseDate);
         platformLayout = findViewById(R.id.PlatformLayout);
-        description = findViewById(R.id.gameDescription);
+        TextView description = findViewById(R.id.gameDescription);
         userTagLayout = findViewById(R.id.UserTagLayout);
-        starContainer = findViewById(R.id.starContainer);
-        linearLayout = findViewById(R.id.to_hide1);
-        space = findViewById(R.id.to_hide2);
-        Bundle extras = getIntent().getExtras();
+        LinearLayout starContainer = findViewById(R.id.starContainer);
+        LinearLayout linearLayout = findViewById(R.id.to_hide1);
+        Space space = findViewById(R.id.to_hide2);
+        getIntent().getExtras();
         gameDisplayed = (Game) intent.getSerializableExtra("Game");
 
         userGameList = MainActivity.userData.getUserGameList();
@@ -139,10 +125,10 @@ public class DisplayGameActivity extends AppCompatActivity {
         releaseDate.setText((gameDisplayed.getRelease_date().equals(Game.DEFAULT_DATE)) ?
                 (releaseDate.getText() + " inconnue") : (releaseDate.getText() + " " + formatter.format(gameDisplayed.getRelease_date())));
         setPlatformButtons(gameDisplayed.getPlatforms().size());
-        displayImage(gameDisplayed, gameImage);
+        displayImage(gameDisplayed, new WeakReference<>(gameImage));
         updateTags();
 
-
+        String descriptionText = description.getText() + "\n";
         if (gameDisplayed.getDescription() == null || gameDisplayed.getNote() == -1) {
             try {
                 JsonObject json = new RAWGGetGameDescriptionOperation(apiKey, gameDisplayed).execute("").get();
@@ -150,9 +136,10 @@ public class DisplayGameActivity extends AppCompatActivity {
                 int newNote = Math.round(json.get("rating").getAsFloat());
                 newGameDescription = newGameDescription.replaceAll("<p>", "").replaceAll("</p>", "\n").replaceAll("<br />", "\n");
                 gameDisplayed.setDescription(newGameDescription);
-                description.setText(description.getText() + "\n" + gameDisplayed.getDescription());
 
-                //si l'utilisateur n'a pas déjà mis une note on met la note moyenne mis par les utilisateurs
+                description.setText(String.format("%s%s", descriptionText, gameDisplayed.getDescription()));
+
+                //si l'utilisateur n'a pas déjà mis une note on met la note moyenne mise par les utilisateurs
                 if (gameDisplayed.getNote() == -1) {
                     gameDisplayed.setNote(newNote);
                 }
@@ -161,7 +148,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else {
-            description.setText(description.getText() + "\n" + gameDisplayed.getDescription());
+            description.setText(String.format("%s%s", descriptionText, gameDisplayed.getDescription()));
         }
 
         displayStars(starContainer);
@@ -173,34 +160,45 @@ public class DisplayGameActivity extends AppCompatActivity {
         } else {
             removeButton.setVisibility(View.GONE);
         }
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Instanciation d'une liste de résultats du dialogue
-                List<Tag> result = new ArrayList<>();
-                //Affichage du dialogue d'ajout des premiers tags d'un jeu
-                CustomDialog.showDialogNewGameAdd(getActivity(), result, gameDisplayed);
-            }
+        addButton.setOnClickListener(view -> {
+            //Instanciation d'une liste de résultats du dialogue
+            List<Tag> result = new ArrayList<>();
+            //Affichage du dialogue d'ajout des premiers tags d'un jeu
+            CustomDialog.showDialogNewGameAdd(getActivity(), result, gameDisplayed);
         });
-        removeButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                userGameList.removeGame(gameDisplayed);
-                onBackPressed();
-            }
-        });
+        removeButton.setOnClickListener(this::createValidationPopUp);
 
     }
 
-    View.OnClickListener addANewTag = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            //Displaying all usertag available
-            List<Tag> result = new ArrayList<Tag>();
-            CustomDialog.showAlertDialogTag(getActivity(), result);
-        }
-    };
+    private void createValidationPopUp(View view1){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(view1).getContext());
+
+        // Titre de l'alerte et message
+        builder.setTitle("Confirmation").setMessage("Voulez-vous supprimer ce jeu de votre liste ?");
+
+        // Annulation et icône
+        builder.setCancelable(true);
+        builder.setIcon(R.drawable.logo);
+
+        // Création d'un bouton "Oui" avec un OnClickListener
+        builder.setPositiveButton("Oui", (dialog, id) -> {
+            userGameList.removeGame(gameDisplayed);
+            Toast.makeText(view1.getContext(),"Le jeu a été supprimé",Toast.LENGTH_SHORT).show();
+            onBackPressed();
+        });
+
+        // Création d'un bouton "Non" avec un OnClickListener
+        builder.setNegativeButton("Non", (dialog, id) -> {
+            // Retour
+            dialog.cancel();
+        });
+
+        // Création d'un AlertDialog
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    final View.OnClickListener addANewTag = view -> CustomDialog.showAlertDialogTag(getActivity());
 
     public void updateTags() {
         userTagLayout.removeAllViews();
@@ -221,7 +219,7 @@ public class DisplayGameActivity extends AppCompatActivity {
                     int color = (int)Long.parseLong(String.format("%06X", (0xFFFFFF & tagColor)), 16);
                     r = (color >> 16) & 0xFF;
                     g = (color >> 8) & 0xFF;
-                    b = (color >> 0) & 0xFF;
+                    b = (color) & 0xFF;
                 }
                 drawable.setColor(Color.argb(25,r,g,b));
                 btnWord[i].setTag(i);
@@ -237,16 +235,9 @@ public class DisplayGameActivity extends AppCompatActivity {
             }
         }
         if (inList) {
-            /*AppCompatButton btnAddTag = new AppCompatButton(this);
-            btnAddTag.setText("+");
-            btnAddTag.setTextSize(25);
-            btnAddTag.setBackgroundResource(R.drawable.custom_button);
-            btnAddTag.setOnClickListener(addANewTag);
-            */
             FloatingActionButton btnAddTag = new FloatingActionButton(this);
             btnAddTag.setBackgroundTintList(ColorStateList.valueOf(Color.argb(220,0,172,193)));
-            //btnAddTag.setImageResource(android.R.drawable.ic_input_add);
-            btnAddTag.setForeground(getDrawable(R.drawable.plus));
+            btnAddTag.setForeground(AppCompatResources.getDrawable(this,R.drawable.plus));
             btnAddTag.setLayoutParams(params);
             params.setMargins(0, 0, 20, 0);
             btnAddTag.setOnClickListener(addANewTag);
@@ -257,49 +248,43 @@ public class DisplayGameActivity extends AppCompatActivity {
         }
     }
 
-    View.OnLongClickListener btnLongClicked = new View.OnLongClickListener() {
+    final View.OnLongClickListener btnLongClicked = new View.OnLongClickListener() {
 
         @Override
         public boolean onLongClick(View view) {
             AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
-            // Set Title and Message:
+            // Titre de l'alerte et message
             builder.setTitle("Confirmation").setMessage("Voulez-vous retirer ce tag ?");
 
-            //
+            // Annulation et icône
             builder.setCancelable(true);
             builder.setIcon(R.drawable.logo);
 
-            // Create "Yes" button with OnClickListener.
-            builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    AppCompatButton btn = (AppCompatButton) view;
-                    Tag tag = MainActivity.userData.getUserTagList().find(btn.getText().toString());
-                    gameDisplayed.getUserTags().remove(tag);
-                    tag.removeGame(gameDisplayed);
-                    updateTags();
-                }
+            // Création d'un bouton "Oui" avec un OnClickListener
+            builder.setPositiveButton("Oui", (dialog, id) -> {
+                AppCompatButton btn = (AppCompatButton) view;
+                Tag tag = MainActivity.userData.getUserTagList().find(btn.getText().toString());
+                // Suppression du tag
+                gameDisplayed.getUserTags().remove(tag);
+                tag.removeGame(gameDisplayed);
+                updateTags();
             });
 
-            // Create "No" button with OnClickListener.
-            builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    //  Cancel
-                    dialog.cancel();
-                }
+            // Création d'un bouton "Non" avec un OnClickListener
+            builder.setNegativeButton("Non", (dialog, id) -> {
+                // Retour
+                dialog.cancel();
             });
 
-            // Create AlertDialog:
+            // Création d'un AlertDialog
             AlertDialog alert = builder.create();
             alert.show();
             return false;
         }
     };
-    View.OnClickListener btnClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Object tag = v.getTag();
-        }
+    final View.OnClickListener btnClicked = v -> {
+        Object tag = v.getTag();
     };
 
     private void setPlatformButtons(int size) {
@@ -319,9 +304,9 @@ public class DisplayGameActivity extends AppCompatActivity {
                 int color = (int)Long.parseLong(String.format("%06X", (0xFFFFFF & tagColor)), 16);
                 r = (color >> 16) & 0xFF;
                 g = (color >> 8) & 0xFF;
-                b = (color >> 0) & 0xFF;
+                b = (color) & 0xFF;
             }
-            btnWord[i].setTextSize(12);
+            btnWord[i].setTextSize(15);
             btnWord[i].setPadding(20, 3, 20, 3);
             btnWord[i].setTag(i);
             btnWord[i].setTransformationMethod(null);
@@ -335,13 +320,13 @@ public class DisplayGameActivity extends AppCompatActivity {
         }
     }
 
-    void displayImage(Game game, ImageView gamePicture) {
+    void displayImage(Game game, WeakReference<ImageView> gamePicture) {
         if (game.getBackgroundImageLink() != null) {
 
-            if (new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png").exists()) {
-                File gamePicFile = new File(MainActivity.getContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png");
+            if (new File(App.getAppContext().getCacheDir(), game.getSlug() + ".png").exists()) {
+                File gamePicFile = new File(App.getAppContext().getApplicationContext().getCacheDir(), game.getSlug() + ".png");
                 Bitmap bitmap = BitmapFactory.decodeFile(gamePicFile.getAbsolutePath());
-                gamePicture.setImageBitmap(bitmap);
+                gamePicture.get().setImageBitmap(bitmap);
             } else {
 
                 new DownloadImageTask(gamePicture, game.getSlug())
@@ -351,13 +336,6 @@ public class DisplayGameActivity extends AppCompatActivity {
     }
 
     private DisplayGameActivity getActivity() {
-        Context context = this;
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (DisplayGameActivity) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
-        }
-        return null;
+        return this;
     }
 }

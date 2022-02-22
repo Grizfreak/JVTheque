@@ -1,7 +1,6 @@
 package com.jv.theque.rawgImplementation;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -15,8 +14,8 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class RAWGGetGameDescriptionOperation extends AsyncTask<String, Void, JsonObject> {
-    private String apiKey;
-    private Game searchedGame;
+    private final String apiKey;
+    private final Game searchedGame;
 
     public RAWGGetGameDescriptionOperation(String apiKey, Game game) {
         this.apiKey = apiKey;
@@ -36,9 +35,8 @@ public class RAWGGetGameDescriptionOperation extends AsyncTask<String, Void, Jso
             // Convert to a JSON object to print data
             JsonParser jp = new JsonParser(); //from gson
             JsonElement root = jp.parse(inputStreamReader); //Convert the input stream to a json element
-            JsonObject rootObj = root.getAsJsonObject(); //May be an array, may be an object.
 
-            return rootObj;
+            return root.getAsJsonObject();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,34 +15,25 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jv.theque.App;
 import com.jv.theque.DisplayGameActivity;
 import com.jv.theque.FetchGames;
 import com.jv.theque.gameImplementation.Game;
 import com.jv.theque.recyclerViewUsages.GameAdapter;
 import com.jv.theque.recyclerViewUsages.ItemClickSupport;
-import com.jv.theque.MainActivity;
 import com.jv.theque.R;
 import com.jv.theque.rawgImplementation.RAWGSearchOperation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SearchFragment extends Fragment implements FetchGames {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
 
     public final String apiKey = "6f8484cb4d6146fea90f7bd967dd96aa";
     RecyclerView recyclerView;
@@ -51,29 +41,18 @@ public class SearchFragment extends Fragment implements FetchGames {
     EditText searchedtext;
     List<Game> datalist;
     GameAdapter adapter;
-    private Fragment mFragment;
-    Bundle mBundle;
     Context context;
 
     public SearchFragment() {
         // Required empty public constructor
     }
 
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            getArguments().getString(ARG_PARAM1);
+            getArguments().getString(ARG_PARAM2);
         }
 
     }
@@ -88,21 +67,18 @@ public class SearchFragment extends Fragment implements FetchGames {
 
     private void configureOnClickRecyclerView(){
         ItemClickSupport.addTo(recyclerView, R.layout.fragment_search)
-                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-                    @Override
-                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Game game = datalist.get(position);
-                        Intent intent = new Intent(MainActivity.getContext(), DisplayGameActivity.class);
-                        intent.putExtra("Game",game);
-                        MainActivity.getContext().startActivity(intent);
-                    }
+                .setOnItemClickListener((recyclerView, position, v) -> {
+                    Game game = datalist.get(position);
+                    Intent intent = new Intent(App.getAppContext(), DisplayGameActivity.class);
+                    intent.putExtra("Game",game);
+                    startActivity(intent);
                 });
     }
 
 
     // Permet de "Ranger" le clavier virtuel et de le cacher lorsqu'il est visible à l'écran
     public void hideSoftKeyboard(View view){
-        InputMethodManager imm =(InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm =(InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -138,22 +114,18 @@ public class SearchFragment extends Fragment implements FetchGames {
                     //Création d'une opération asynchrone pour permettre l'usage des connexions internet
 
                     // Le get() permet ici d'attendre que l'opération soit terminée pour passer à la suite
-                    new RAWGSearchOperation(apiKey,searchedtext.getText().toString().replaceAll(" ", "+"),datalist, this).execute("");
+                    new RAWGSearchOperation(apiKey,searchedtext.getText().toString().replaceAll(" ", "+"), this).execute("");
 
                     hideSoftKeyboard(recyclerView);
 
                 }
         );
 
-        searchedtext.setOnEditorActionListener(new TextView.OnEditorActionListener(){
-
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if(i == EditorInfo.IME_ACTION_DONE){
-                    validatebtn.callOnClick();
-                }
-                return false;
+        searchedtext.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if(i == EditorInfo.IME_ACTION_DONE){
+                validatebtn.callOnClick();
             }
+            return false;
         });
 
         return view;

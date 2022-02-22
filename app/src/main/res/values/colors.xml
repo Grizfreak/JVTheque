@@ -11,10 +11,6 @@
     <color name="red">#C53E3E</color>
 
 
-    <!-- MENU BAR -->
-    <color name="colorAccentDark">#4aa87a</color>
-    <color name="background_light">#ff6666</color>
-
     <!-- COLOR PICKER -->
     <color name="RED">#DD403A</color>
     <color name="GREEN_DARK">#697A21</color>
@@ -27,7 +23,6 @@
     <color name="GREEN_LIGHT">#ACE894</color>
     <color name="ORANGE">#F3742B</color>
 
-    <color name="GRAY">#909090</color>
     <color name="Erhan">#00ACC1</color>
     <color name="gradientStart">#116ba8</color>
     <color name="gradientEnd">#1ee2c3</color>

@@ -17,16 +17,34 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ems="10"
-            android:hint="Rechercher un jeu..."
+            android:hint="@string/rechercher_un_jeu"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:minHeight="48dp"
+            android:minHeight="32dp"
             android:textAlignment="center"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
             app:layout_constraintEnd_toStartOf="@+id/favorite"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
+            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/favorite"
+            android:layout_width="54dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/ajouter_favori"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ajouter_aux_favoris"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,ImageContrastCheck" />
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
@@ -41,14 +59,13 @@
 
             <LinearLayout
                 android:id="@+id/TagLinearLayout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal" />
         </HorizontalScrollView>
 
         <LinearLayout
-            android:id="@+id/HomelinearLayout"
 
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -66,19 +83,6 @@
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
-
-        <ImageButton
-            android:id="@+id/favorite"
-            android:layout_width="54dp"
-            android:layout_height="53dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ajouter_aux_favoris"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

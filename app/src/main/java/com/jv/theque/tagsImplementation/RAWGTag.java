@@ -2,6 +2,8 @@ package com.jv.theque.tagsImplementation;
 
 import android.graphics.Color;
 
+import androidx.annotation.NonNull;
+
 import com.jv.theque.gameImplementation.Game;
 import com.jv.theque.MainActivity;
 
@@ -13,11 +15,11 @@ import java.util.Objects;
 public class RAWGTag implements Tag, Serializable {
 
 
-    private String name;
-    private int color;
-    private List<Game> games = new ArrayList<Game>();
-    private TagType type = TagType.RAWGTAG;
-    private List<CustomObserver> observerList = new ArrayList<CustomObserver>();
+    private final String name;
+    private final int color;
+    private final List<Game> games = new ArrayList<>();
+    private final TagType type = TagType.RAWGTAG;
+    private final List<CustomObserver> observerList = new ArrayList<>();
 
     public RAWGTag(String name, Game game) {
         this.name = name;
@@ -75,23 +77,8 @@ public class RAWGTag implements Tag, Serializable {
     }
 
     @Override
-    public void setName(String name) {
-        return;
-    }   // Empêche de modifier le nom d'un tag de l'API
-
-    @Override
     public int getColor() {
         return color;
-    }
-
-    @Override
-    public void setColor(int color) {
-        return;
-    }
-
-    @Override
-    public List<Game> getGames() {
-        return games;
     }
 
     @Override
@@ -123,6 +110,7 @@ public class RAWGTag implements Tag, Serializable {
         return Objects.hash(name);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return this.getName();
@@ -133,8 +121,7 @@ public class RAWGTag implements Tag, Serializable {
         customObserverList.add(o);
     }
 
-    @Override
-    public void notifyObserver() {
+    private void notifyObserver() {
         for (CustomObserver o : customObserverList) {
             o.update();
         }
